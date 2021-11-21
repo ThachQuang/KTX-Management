@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace KTXManagement
 {
+    // Lop chua cac cau truc du lieu chung
     public class CAUTRUC
     {
-        // Cac struct
+        // Fields
         public struct VT
         {
             public short Tang;
@@ -63,7 +64,6 @@ namespace KTXManagement
             temp.Tang = short.Parse(Console.ReadLine());
             return temp;
         }
-
         public static NT GetNoiThat()
         {
             NT temp = new NT();
@@ -86,7 +86,6 @@ namespace KTXManagement
             }
             return temp;
         }
-
         public static DIENNUOC GetDienNuoc()
         {
             DIENNUOC temp = new DIENNUOC();
@@ -96,7 +95,6 @@ namespace KTXManagement
             temp.SoCuoi = int.Parse(Console.ReadLine());
             return temp;
         }
-
         public static DV GetDV()
         {
             DV temp = new DV();
@@ -127,6 +125,7 @@ namespace KTXManagement
 
     class SINHVIEN
     {
+        // Fields
         private CAUTRUC.NGUOI SinhVien;
         private string CMND;
         private string BHYT;
@@ -138,9 +137,12 @@ namespace KTXManagement
         private CAUTRUC.DV PhiDichVu;
         private short LanViPham;
         private string[] LyDoVP = new string[5];
+        // Constructors
+        // Khong tham so
         public SINHVIEN()
         {
         }
+        // 10 tham so
         public SINHVIEN(CAUTRUC.NGUOI SinhVien,
                         string CMND,
                         string BHYT,
@@ -163,6 +165,8 @@ namespace KTXManagement
             this.HopDongStart = HopDongStart;
             this.HopDongEnd = HopDongEnd;
         }
+        // Methods
+
         public void GetInfoSV(CAUTRUC.NGUOI SinhVien,
                               string CMND,
                               string BHYT,

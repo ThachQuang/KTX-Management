@@ -1,0 +1,2 @@
+C:\Users\Administrator\Documents\GitHub\KTX-Management\obj\Debug\KTX Management.csproj.AssemblyReference.cache
+C:\Users\Administrator\Documents\GitHub\KTX-Management\obj\Debug\KTX Management.csproj.CoreCompileInputs.cache
