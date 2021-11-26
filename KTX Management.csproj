@@ -43,7 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Class.cs" />
+    <Compile Include="Entities\CAUTRUC.cs" />
+    <Compile Include="Entities\DICHVU.cs" />
+    <Compile Include="Entities\PHONG.cs" />
+    <Compile Include="Entities\SINHVIEN.cs" />
     <Compile Include="GUI\Console.cs" />
     <Compile Include="Main\Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
