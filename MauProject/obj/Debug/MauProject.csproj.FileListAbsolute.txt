@@ -1,0 +1,7 @@
+C:\Users\Administrator\Documents\GitHub\KTX-Management\MauProject\MauProject\bin\Debug\MauProject.exe.config
+C:\Users\Administrator\Documents\GitHub\KTX-Management\MauProject\MauProject\bin\Debug\MauProject.exe
+C:\Users\Administrator\Documents\GitHub\KTX-Management\MauProject\MauProject\bin\Debug\MauProject.pdb
+C:\Users\Administrator\Documents\GitHub\KTX-Management\MauProject\MauProject\obj\Debug\MauProject.csproj.AssemblyReference.cache
+C:\Users\Administrator\Documents\GitHub\KTX-Management\MauProject\MauProject\obj\Debug\MauProject.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Documents\GitHub\KTX-Management\MauProject\MauProject\obj\Debug\MauProject.exe
+C:\Users\Administrator\Documents\GitHub\KTX-Management\MauProject\MauProject\obj\Debug\MauProject.pdb
