@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -43,17 +46,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO\DichVuDAO.cs" />
+    <Compile Include="DAO\IDichVuDAO.cs" />
+    <Compile Include="DAO\IPhongDAO.cs" />
+    <Compile Include="DAO\ISinhVienDAO.cs" />
+    <Compile Include="DAO\PhongDAO.cs" />
+    <Compile Include="DataProvider\DataProvider.cs" />
     <Compile Include="Entities\CAUTRUC.cs" />
     <Compile Include="Entities\DICHVU.cs" />
     <Compile Include="Entities\PHONG.cs" />
     <Compile Include="Entities\SINHVIEN.cs" />
-    <Compile Include="GUI\Console.cs" />
+    <Compile Include="DAO\SinhVienDAO.cs" />
     <Compile Include="Main\Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="QuerySQL\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

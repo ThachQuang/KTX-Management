@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace KTX_Management.GUI
+namespace KTX_Management.DAO
 {
-    interface Console
+    class IDichVuDAO
     {
     }
 }
