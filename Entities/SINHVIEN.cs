@@ -9,6 +9,7 @@ namespace KTX_Management.Entities
     class SINHVIEN
     {
         // Fields
+        private int idsinhvien;
         private int idphong;
         private CAUTRUC.NGUOI sinhvien;
         private string cmnd;
@@ -17,7 +18,7 @@ namespace KTX_Management.Entities
         private string diachihk;
         private short svnam;
         private CAUTRUC.NGUOI phuhuynh1, phuhuynh2;
-        private CAUTRUC.DATE hopdongstart, hopdongend;
+        private string hopdongstart, hopdongend;
         private CAUTRUC.DV dichvurieng;
         private short lanvipham;
         private string[] lydovp = new string[5];
@@ -36,8 +37,8 @@ namespace KTX_Management.Entities
                         short SVNam,
                         CAUTRUC.NGUOI PhuHuynh1,
                         CAUTRUC.NGUOI PhuHuynh2,
-                        CAUTRUC.DATE HopDongStart,
-                        CAUTRUC.DATE HopDongEnd)
+                        string HopDongStart,
+                        string HopDongEnd)
         {
             this.idphong = IDPhong;
             this.sinhvien = SinhVien;
@@ -52,6 +53,11 @@ namespace KTX_Management.Entities
             this.hopdongend = HopDongEnd;
         }
         // Getter and setter
+        public int IDSinhVien
+        {
+            get { return idsinhvien; }
+            set { idsinhvien = value; }
+        }
         public int IDPhong
         {
             get { return idphong; }
@@ -97,12 +103,12 @@ namespace KTX_Management.Entities
             get { return phuhuynh2; }
             set { phuhuynh2 = value; }
         }
-        public CAUTRUC.DATE HopDongStart
+        public string HopDongStart
         {
             get { return hopdongstart; }
             set { hopdongstart = value; }
         }
-        public CAUTRUC.DATE HopDongEnd
+        public string HopDongEnd
         {
             get { return hopdongend; }
             set { hopdongend = value; }
@@ -165,7 +171,7 @@ namespace KTX_Management.Entities
             Console.WriteLine("Ngay het han hop dong: ");
             CAUTRUC.TakeDate(this.hopdongend);
         }
-        public void GetInfoHD(CAUTRUC.DATE HopDongStart, CAUTRUC.DATE HopDongEnd)
+        public void GetInfoHD(string HopDongStart, string HopDongEnd)
         {
             this.hopdongstart = HopDongStart;
             this.hopdongend = HopDongEnd;

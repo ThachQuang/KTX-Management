@@ -20,7 +20,7 @@ namespace KTX_Management.Dao
 
         private DataProvider() { }
 
-        private readonly string connectionSTR = @"Data Source=MACBOOK-NGTIN;Initial Catalog=SMS;Integrated Security=True";
+        private readonly string connectionSTR = @"Data Source=HARUNA\SQLEXPRESS;Initial Catalog=KTX;Integrated Security=True";
 
         public DataTable ExecuteQuery(string query, object[] parameter = null)
         {

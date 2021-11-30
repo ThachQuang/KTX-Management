@@ -9,18 +9,18 @@ namespace KTX_Management.Entities
     class PHONG
     {
         // Fields
-        private int IDPhong;
-        private string TenPhong;
-        private CAUTRUC.VT ViTri;
-        private short SucChuaNguoi;
-        private short SoNguoiHienTai;
-        private CAUTRUC.NT NoiThat;
-        private double DienTich;
-        private double GiaThue;
-        private CAUTRUC.DIENNUOC Dien;
-        private CAUTRUC.DIENNUOC Nuoc;
-        private CAUTRUC.DV DichVuPhong;
-        private double TongThuThang;
+        private int idphong;
+        private string tenphong;
+        private CAUTRUC.VT vitri;
+        private short succhuanguoi;
+        private short songuoihientai;
+        private CAUTRUC.NT noithat;
+        private double dientich;
+        private double giathue;
+        private CAUTRUC.DIENNUOC dien;
+        private CAUTRUC.DIENNUOC nuoc;
+        private CAUTRUC.DV dichvuphong;
+        private double tongthuthang;
         // Constructors
         // Khong tham so
         public PHONG()
@@ -36,28 +36,30 @@ namespace KTX_Management.Entities
                      double DienTich,
                      double GiaThue)
         {
-            this.IDPhong = IDPhong;
-            this.TenPhong = TenPhong;
-            this.ViTri = ViTri;
-            this.SucChuaNguoi = SucChuaNguoi;
-            this.SoNguoiHienTai = SoNguoiHienTai;
-            this.DienTich = DienTich;
-            this.GiaThue = GiaThue;
+            this.idphong = IDPhong;
+            this.tenphong = TenPhong;
+            this.vitri = ViTri;
+            this.succhuanguoi = SucChuaNguoi;
+            this.songuoihientai = SoNguoiHienTai;
+            this.dientich = DienTich;
+            this.giathue = GiaThue;
         }
+        // Getter & setter
+
         // Methods
         // Take: lay va xuat thong tin len console
         // Get: lay va luu thong tin vao data
         // Ham ve Info phong
         public void TakeInfoPhong()
         {
-            Console.WriteLine("ID phong: ", this.IDPhong);
-            Console.WriteLine("Ten phong: ", this.TenPhong);
-            Console.WriteLine("Khu: ", this.ViTri.Khu);
-            Console.WriteLine("Tang: ", this.ViTri.Tang);
-            Console.WriteLine("Loai phong: " + this.SucChuaNguoi + " nguoi");
-            Console.WriteLine("So nguoi tam tru: ", this.SoNguoiHienTai);
-            Console.WriteLine("Dien tich phong: " + this.DienTich + "m3");
-            Console.WriteLine("Gia thue hang thang: ", this.GiaThue);
+            Console.WriteLine("ID phong: ", this.idphong);
+            Console.WriteLine("Ten phong: ", this.tenphong);
+            Console.WriteLine("Khu: ", this.vitri.Khu);
+            Console.WriteLine("Tang: ", this.vitri.Tang);
+            Console.WriteLine("Loai phong: " + this.succhuanguoi + " nguoi");
+            Console.WriteLine("So nguoi tam tru: ", this.songuoihientai);
+            Console.WriteLine("Dien tich phong: " + this.dientich + "m3");
+            Console.WriteLine("Gia thue hang thang: ", this.giathue);
         }
         public void GetInfoPhong(int IDPhong,
                                  string TenPhong,
@@ -67,24 +69,24 @@ namespace KTX_Management.Entities
                                  double DienTich,
                                  double GiaThue)
         {
-            this.IDPhong = IDPhong;
-            this.TenPhong = TenPhong;
-            this.ViTri = ViTri;
-            this.SucChuaNguoi = SucChuaNguoi;
-            this.SoNguoiHienTai = SoNguoiHienTai;
-            this.DienTich = DienTich;
-            this.GiaThue = GiaThue;
+            this.idphong = IDPhong;
+            this.tenphong = TenPhong;
+            this.vitri = ViTri;
+            this.succhuanguoi = SucChuaNguoi;
+            this.songuoihientai = SoNguoiHienTai;
+            this.dientich = DienTich;
+            this.giathue = GiaThue;
         }
         // Ham ve Info noi that
         public void TakeInfoNT()
         {
             Console.WriteLine("Thong tin noi that co san cua phong!");
-            for (int i = 0; i < this.NoiThat.SoLuongNT; i++)
+            for (int i = 0; i < this.noithat.SoLuongNT; i++)
             {
-                Console.WriteLine("Ten loai noi that: ", this.NoiThat.PhanLoai[i].Ten);
-                Console.WriteLine("So luong: ", this.NoiThat.PhanLoai[i].SoLuong);
+                Console.WriteLine("Ten loai noi that: ", this.noithat.PhanLoai[i].Ten);
+                Console.WriteLine("So luong: ", this.noithat.PhanLoai[i].SoLuong);
                 Console.Write("Tinh trang hong hoc: ");
-                if (this.NoiThat.PhanLoai[i].TinhTrang)
+                if (this.noithat.PhanLoai[i].TinhTrang)
                     Console.WriteLine("Co hong hoc");
                 else
                     Console.WriteLine("Khong hong hoc");
@@ -92,63 +94,63 @@ namespace KTX_Management.Entities
         }
         public void GetInfoNT()
         {
-            this.NoiThat = new CAUTRUC.NT();
-            this.NoiThat = CAUTRUC.GetNoiThat();
+            this.noithat = new CAUTRUC.NT();
+            this.noithat = CAUTRUC.GetNoiThat();
         }
         // Ham ve Info dien
         public void TakeInfoDien()
         {
-            Console.WriteLine("So ki dien thang truoc: " + this.Dien.SoDau + "kWh");
-            Console.WriteLine("So ki dien thang nay: " + this.Dien.SoCuoi + "kWh");
-            Console.WriteLine("Tong so ki dien da dung: " + (this.Dien.SoCuoi - this.Dien.SoDau) + "kWh");
-            CAUTRUC.ThanhTienDien(ref this.Dien);
-            Console.WriteLine("Thanh tien dien thang nay: " + this.Dien.ThanhTien + "d");
+            Console.WriteLine("So ki dien thang truoc: " + this.dien.SoDau + "kWh");
+            Console.WriteLine("So ki dien thang nay: " + this.dien.SoCuoi + "kWh");
+            Console.WriteLine("Tong so ki dien da dung: " + (this.dien.SoCuoi - this.dien.SoDau) + "kWh");
+            CAUTRUC.ThanhTienDien(ref this.dien);
+            Console.WriteLine("Thanh tien dien thang nay: " + this.dien.ThanhTien + "d");
         }
         public void GetInfoDien()
         {
-            this.Dien = new CAUTRUC.DIENNUOC();
-            this.Dien = CAUTRUC.GetDienNuoc();
+            this.dien = new CAUTRUC.DIENNUOC();
+            this.dien = CAUTRUC.GetDienNuoc();
         }
         // Ham ve Info nuoc
         public void TakeInfoNuoc()
         {
-            Console.WriteLine("So ki nuoc thang truoc: " + this.Nuoc.SoDau + "m3");
-            Console.WriteLine("So ki nuoc thang nay: " + this.Nuoc.SoCuoi + "m3");
-            Console.WriteLine("Tong so ki nuoc da dung: " + (this.Nuoc.SoCuoi - this.Nuoc.SoDau) + "m3");
-            CAUTRUC.ThanhTienNuoc(ref this.Nuoc);
-            Console.WriteLine("Thanh tien nuoc thang nay: " + this.Nuoc.ThanhTien + "d");
+            Console.WriteLine("So ki nuoc thang truoc: " + this.nuoc.SoDau + "m3");
+            Console.WriteLine("So ki nuoc thang nay: " + this.nuoc.SoCuoi + "m3");
+            Console.WriteLine("Tong so ki nuoc da dung: " + (this.nuoc.SoCuoi - this.nuoc.SoDau) + "m3");
+            CAUTRUC.ThanhTienNuoc(ref this.nuoc);
+            Console.WriteLine("Thanh tien nuoc thang nay: " + this.nuoc.ThanhTien + "d");
         }
         public void GetInfoNuoc()
         {
-            this.Nuoc = new CAUTRUC.DIENNUOC();
-            this.Nuoc = CAUTRUC.GetDienNuoc();
+            this.nuoc = new CAUTRUC.DIENNUOC();
+            this.nuoc = CAUTRUC.GetDienNuoc();
         }
         // Ham ve Info dich vu phong hang thang
         public void TakeInfoDV()
         {
             Console.WriteLine("Cac dich vu phong cua thang nay:");
             Console.Write("+ WiFi chung: ");
-            if (this.DichVuPhong.LanSuDung[0] != 0)
+            if (this.dichvuphong.LanSuDung[0] != 0)
                 Console.WriteLine("Co su dung");
             else
                 Console.WriteLine("Khong su dung");
-            Console.WriteLine("+ Sua chua noi that: " + this.DichVuPhong.LanSuDung[1] + " lan");
-            Console.WriteLine("Thanh tien dich vu: " + this.DichVuPhong.ThanhTien + "d");
+            Console.WriteLine("+ Sua chua noi that: " + this.dichvuphong.LanSuDung[1] + " lan");
+            Console.WriteLine("Thanh tien dich vu: " + this.dichvuphong.ThanhTien + "d");
         }
         public void GetInfoDV()
         {
-            this.DichVuPhong = new CAUTRUC.DV();
-            this.DichVuPhong = CAUTRUC.GetDV(true);
+            this.dichvuphong = new CAUTRUC.DV();
+            this.dichvuphong = CAUTRUC.GetDV(true);
         }
         // Ham ve Info phi thu hang thang
         public void TakeInfoPhi()
         {
-            Console.WriteLine("Thu phi phong thang nay: " + this.TongThuThang + "d");
+            Console.WriteLine("Thu phi phong thang nay: " + this.tongthuthang + "d");
         }
         public void GetInfoPhi()
         {
-            this.TongThuThang = 0;
-            this.TongThuThang = this.GiaThue + this.Dien.ThanhTien + this.Nuoc.ThanhTien + this.DichVuPhong.ThanhTien;
+            this.tongthuthang = 0;
+            this.tongthuthang = this.giathue + this.dien.ThanhTien + this.nuoc.ThanhTien + this.dichvuphong.ThanhTien;
         }
     }
 }

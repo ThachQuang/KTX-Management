@@ -57,14 +57,20 @@
     <Compile Include="Entities\PHONG.cs" />
     <Compile Include="Entities\SINHVIEN.cs" />
     <Compile Include="DAO\SinhVienDAO.cs" />
-    <Compile Include="Main\Main.cs" />
+    <Compile Include="Main\KTX_Management.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="QuerySQL\" />
+    <Content Include="QuerySQL\CreateDatabase.sql" />
+    <Content Include="QuerySQL\InitDatabase.sql" />
+    <Content Include="QuerySQL\SP_Add_SinhVien.sql" />
+    <Content Include="QuerySQL\SP_Delete_SinhVien.sql" />
+    <Content Include="QuerySQL\SP_Update_HopDong.sql" />
+    <Content Include="QuerySQL\SP_Update_SinhVien.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

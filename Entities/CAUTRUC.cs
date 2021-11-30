@@ -37,7 +37,7 @@ namespace KTX_Management
             public int[] LanSuDung; // LanSuDung[i] = so lan su dung dich vu i
             public double ThanhTien;
         };
-        public struct DATE
+        public struct @string
         {
             public short Ngay;
             public short Thang;
@@ -46,8 +46,8 @@ namespace KTX_Management
         public struct NGUOI
         {
             public string HoTen;
-            public DATE NgaySinh;
-            public bool GioiTinh;
+            public string NgaySinh;
+            public int GioiTinh;
             public string QueQuan;
             public string NgheNghiep;
             public string SDT;
@@ -236,24 +236,16 @@ namespace KTX_Management
             return temp;
         }
         // Ham xuat Info ngay thang nam len console
-        public static void TakeDate(DATE temp)
+        public static void TakeDate(string temp)
         {
-            if (temp.Ngay <= 9)
-                Console.Write("0" + temp.Ngay + "/");
-            else
-                Console.Write(temp.Ngay + "/");
-            if (temp.Thang <= 9)
-                Console.Write("0" + temp.Thang + "/");
-            else
-                Console.Write(temp.Thang + "/");
-            Console.Write(temp.Nam);
+            Console.Write(temp);
         }
         // Ham xuat Info kieu cau truc NGUOI len console
         public static void TakeInfoNguoi(NGUOI temp)
         {
             Console.WriteLine("Ho ten: ", temp.HoTen);
             Console.WriteLine("Gioi tinh: ");
-            if (temp.GioiTinh)
+            if (temp.GioiTinh == 1)
                 Console.Write("Nam");
             else
                 Console.Write("Nu");

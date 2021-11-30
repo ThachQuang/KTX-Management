@@ -1,2 +1,7 @@
 C:\Users\Administrator\Documents\GitHub\KTX-Management\obj\Debug\KTX Management.csproj.AssemblyReference.cache
 C:\Users\Administrator\Documents\GitHub\KTX-Management\obj\Debug\KTX Management.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Documents\GitHub\KTX-Management\bin\Debug\KTX Management.exe.config
+C:\Users\Administrator\Documents\GitHub\KTX-Management\bin\Debug\KTX Management.exe
+C:\Users\Administrator\Documents\GitHub\KTX-Management\bin\Debug\KTX Management.pdb
+C:\Users\Administrator\Documents\GitHub\KTX-Management\obj\Debug\KTX Management.exe
+C:\Users\Administrator\Documents\GitHub\KTX-Management\obj\Debug\KTX Management.pdb
