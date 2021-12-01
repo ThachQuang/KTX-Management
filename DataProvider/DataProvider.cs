@@ -20,8 +20,7 @@ namespace KTX_Management.Dao
 
         private DataProvider() { }
 
-        private readonly string connectionSTR = @"Data Source=HARUNA\SQLEXPRESS;Initial Catalog=KTX;Integrated Security=True";
-
+        private readonly string connectionSTR = @"Data Source=DESKTOP-MGA8H1J\\LINHHOCTAP;Initial Catalog=SMS;User ID=sa;Password=hoctap123";
         public DataTable ExecuteQuery(string query, object[] parameter = null)
         {
             DataTable data = new DataTable();
@@ -118,6 +117,19 @@ namespace KTX_Management.Dao
             }
 
             return data;
+        }
+        //Tao doi tuong Sql Connection
+        public static SqlConnection GetSqlConnection()
+        {
+            SqlConnection conn = new SqlConnection("Data Source=DESKTOP-MGA8H1J\\LINHHOCTAP;Initial Catalog=SMS;User ID=sa;Password=hoctap123");
+            return conn;
+        }
+
+        //Tao doi tuong Sql Command
+        public static SqlCommand GetSqlCommand(string query, SqlConnection conn)
+        {
+            SqlCommand cmd = new SqlCommand(query, conn);
+            return cmd;
         }
     }
 }

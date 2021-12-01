@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connect.cs" />
     <Compile Include="DAO\DichVuDAO.cs" />
     <Compile Include="DAO\IDichVuDAO.cs" />
     <Compile Include="DAO\IPhongDAO.cs" />

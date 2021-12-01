@@ -1,5 +1,6 @@
 ﻿using KTX_Management.Entities;
 using KTX_Management.Dao;
+using System.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -25,6 +26,7 @@ namespace KTX_Management.DAO
         const string DELETE_SINHVIEN = @"SP_Delete_SinhVien @id_sinhvien";
         const string UPDATE_SINHVIEN = @"SP_Update_SinhVien @id_sinhvien , @id_phong , @ten , @ngay_sinh , @gioi_tinh , @que_quan , @nghe_nghiep , @sdt , @cmnd , @bhyt , @noi_lam_viec , @ho_khau , @sv_nam";
         const string UPDATE_HOPDONG = @"SP_Update_HopDong @id_sinhvien , @hop_dong_start , @hop_dong_end";
+        const string GET_ID = "SELECT* FROM SINHVIEN WHERE id_phong=@id_phong";
         // Hàm tương tác với database
         public bool AddSinhVien(SINHVIEN sinhvien)
         {
@@ -66,7 +68,45 @@ namespace KTX_Management.DAO
                 return false;
             }
         }
+        public bool DeleteByIdPhong(int id_phong)
+        {
+            try
+            {
+                // Khoi tao SqlConnection conn
+                SqlConnection conn = Connect.GetSqlConnection();
 
+                //Mo ket noi
+                conn.Open();
+
+                //Tao Sqlcommand 
+                SqlCommand cmd = Connect.GetSqlCommand(GET_ID, conn);
+
+                //Truyen tham so
+                cmd.Parameters.Add(new SqlParameter("@id_phong", id_phong));
+
+                //Dung phuong thuc ExecuteReader
+                // tra ve SqlDataReader
+                SqlDataReader dataReader = cmd.ExecuteReader();
+
+                while (dataReader.Read())
+                {
+                    try
+                    {
+                        DeleteSinhVien((int)dataReader["id_sinhvien"]);      
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+            return true;
+        }
         public bool UpdateSinhVien(SINHVIEN sinhvien)
         {
             try

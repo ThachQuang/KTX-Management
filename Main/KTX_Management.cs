@@ -18,9 +18,10 @@ namespace KTX_Management.Main
             Console.InputEncoding = Encoding.Unicode;
             // Các hàm test chạy ổn để dưới này
             //AddSinhVien();
-            //DeleteSinhVien();
+            DeleteSinhVien();
             //UpdateSinhVien();
             //UpdateHopDong();
+            DeleteByIdPhong();
         }
 
         // Hàm check date có đúng hay không
@@ -138,6 +139,18 @@ namespace KTX_Management.Main
             Console.Write("Nhập ID sinh viên bạn muốn xoá: ");
             id_sinhvien = int.Parse(Console.ReadLine());
             bool status = SinhVienDAO.Instance.DeleteSinhVien(id_sinhvien);
+            if (status)
+                Console.WriteLine("Delete successful!");
+            else Console.WriteLine("Delete failed!");
+        }
+
+        // Xoa sinhvien trong phong
+        static void DeleteByIdPhong()
+        {
+            int id_phong;
+            Console.Write("Nhập ID phòng bạn muốn xoá: ");
+            id_phong = int.Parse(Console.ReadLine());
+            bool status = SinhVienDAO.Instance.DeleteByIdPhong(id_phong);
             if (status)
                 Console.WriteLine("Delete successful!");
             else Console.WriteLine("Delete failed!");
