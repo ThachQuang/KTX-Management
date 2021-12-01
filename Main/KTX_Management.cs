@@ -21,7 +21,7 @@ namespace KTX_Management.Main
             DeleteSinhVien();
             //UpdateSinhVien();
             //UpdateHopDong();
-            DeleteByIdPhong();
+            //DeleteByIdPhong();
         }
 
         // Hàm check date có đúng hay không

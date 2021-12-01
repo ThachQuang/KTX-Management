@@ -63,8 +63,9 @@ namespace KTX_Management.DAO
 
                 return DataProvider.Instance.ExecuteNonQuery(DELETE_SINHVIEN, Para) > 0;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }
@@ -91,8 +92,9 @@ namespace KTX_Management.DAO
                 while (dataReader.Read())
                 {
                     try
-                    {
-                        DeleteSinhVien((int)dataReader["id_sinhvien"]);      
+                    {                       
+                        if(DeleteSinhVien((int)dataReader["id_sinhvien"])==false)
+                            return false;      
                     }
                     catch (Exception ex)
                     {
