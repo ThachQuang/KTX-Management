@@ -16,11 +16,18 @@ namespace KTX_Management.Main
             // Định dạng input, output cho phép nhập có đấu
             Console.OutputEncoding = Encoding.Unicode;
             Console.InputEncoding = Encoding.Unicode;
-            // Các hàm test chạy ổn để dưới này
+            // Các hàm cho Phòng
+            //AddPhong();
+            // Các hàm cho Sinh Viên
             //AddSinhVien();
-            //DeleteSinhVien();
+            DeleteSinhVien();
             //UpdateSinhVien();
             //UpdateHopDong();
+<<<<<<< HEAD
+            // 
+=======
+            //DeleteByIdPhong();
+>>>>>>> 1f177e3d3c0e8b70a24949ff19de8c95ce6cc639
         }
 
         // Hàm check date có đúng hay không
@@ -142,6 +149,18 @@ namespace KTX_Management.Main
                 Console.WriteLine("Delete successful!");
             else Console.WriteLine("Delete failed!");
         }
+
+        // Xoa sinhvien trong phong
+        static void DeleteByIdPhong()
+        {
+            int id_phong;
+            Console.Write("Nhập ID phòng bạn muốn xoá: ");
+            id_phong = int.Parse(Console.ReadLine());
+            bool status = SinhVienDAO.Instance.DeleteByIdPhong(id_phong);
+            if (status)
+                Console.WriteLine("Delete successful!");
+            else Console.WriteLine("Delete failed!");
+        }
         // Hàm Update sinh viên trong database
         static void UpdateSinhVien()
         {
@@ -224,6 +243,42 @@ namespace KTX_Management.Main
             if (status)
                 Console.WriteLine("Update successful!");
             else Console.WriteLine("Update failed!");
+        }
+        // Hàm Add phòng vào database
+        static void AddPhong()
+        {
+            PHONG phong = new PHONG();
+            Console.Write("Tên phòng: ");
+            phong.TenPhong = Console.ReadLine();
+            Console.Write("Khu: ");
+            phong.Khu = Console.ReadLine();
+            Console.Write("Tầng: ");
+            phong.Tang = short.Parse(Console.ReadLine());
+            Console.Write("Sức chứa: ");
+            phong.SucChua = short.Parse(Console.ReadLine());
+            Console.Write("Số người ở hiện tại: ");
+            phong.SoNguoi = short.Parse(Console.ReadLine());
+            Console.Write("Diện tích: ");
+            phong.DienTich = double.Parse(Console.ReadLine());
+            Console.Write("Giá thuê: ");
+            phong.GiaThue = double.Parse(Console.ReadLine());
+            phong.TongThu = 0;
+            bool status = PhongDAO.Instance.AddPhong(phong);
+            if (status)
+                Console.WriteLine("Add successful!");
+            else Console.WriteLine("Add failed!");
+        }
+        // Hàm xoá phòng khỏi database
+        static void DeletePhong()
+        {
+            int id_phong;
+            Console.WriteLine("Lưu ý: Nếu xoá phòng, mọi sinh viên liên quan đến ID phòng đều sẽ bị xoá");
+            Console.Write("Nhập ID phòng bạn muốn xoá: ");
+            id_phong = int.Parse(Console.ReadLine());
+            bool status = PhongDAO.Instance.DeletePhong(id_phong);
+            if (status)
+                Console.WriteLine("Delete successful!");
+            else Console.WriteLine("Delete failed!");
         }
     }
 }

@@ -45,7 +45,71 @@ namespace KTX_Management.Entities
             this.giathue = GiaThue;
         }
         // Getter & setter
-
+        public int IDPhong
+        {
+            get { return idphong; }
+            set { idphong = value; }
+        }
+        public string TenPhong
+        {
+            get { return tenphong; }
+            set { tenphong = value; }
+        }
+        public string Khu
+        {
+            get { return vitri.Khu; }
+            set { vitri.Khu = value; }
+        }
+        public short Tang
+        {
+            get { return vitri.Tang; }
+            set { vitri.Tang = value; }
+        }
+        public short SucChua
+        {
+            get { return succhuanguoi; }
+            set { succhuanguoi = value; }
+        }
+        public short SoNguoi
+        {
+            get { return songuoihientai; }
+            set { songuoihientai = value; }
+        }
+        public CAUTRUC.NT NoiThat
+        {
+            get { return noithat; }
+            set { noithat = value; }
+        }
+        public double DienTich
+        {
+            get { return dientich; }
+            set { dientich = value; }
+        }
+        public double GiaThue
+        {
+            get { return giathue; }
+            set { giathue = value; }
+        }
+        public CAUTRUC.DIENNUOC Dien
+        {
+            get { return dien; }
+            set { dien = value; }
+        }
+        public CAUTRUC.DIENNUOC Nuoc
+        {
+            get { return nuoc; }
+            set { nuoc = value; }
+        }
+        public CAUTRUC.DV DichVuPhong
+        {
+            get { return dichvuphong; }
+            set { dichvuphong = value; }
+        }
+        public double TongThu
+        {
+            get { return tongthuthang; }
+            set { tongthuthang = value; }
+        }
         // Methods
         // Take: lay va xuat thong tin len console
         // Get: lay va luu thong tin vao data
