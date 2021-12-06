@@ -141,21 +141,6 @@ namespace KTX_Management.Entities
             this.dientich = DienTich;
             this.giathue = GiaThue;
         }
-        // Ham ve Info noi that
-        public void TakeInfoNT()
-        {
-            Console.WriteLine("Thong tin noi that co san cua phong!");
-            for (int i = 0; i < this.noithat.SoLuongNT; i++)
-            {
-                Console.WriteLine("Ten loai noi that: ", this.noithat.PhanLoai[i].Ten);
-                Console.WriteLine("So luong: ", this.noithat.PhanLoai[i].SoLuong);
-                Console.Write("Tinh trang hong hoc: ");
-                if (this.noithat.PhanLoai[i].TinhTrang)
-                    Console.WriteLine("Co hong hoc");
-                else
-                    Console.WriteLine("Khong hong hoc");
-            }
-        }
         public void GetInfoNT()
         {
             this.noithat = new CAUTRUC.NT();

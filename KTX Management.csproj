@@ -46,7 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Connect.cs" />
     <Compile Include="DAO\DichVuDAO.cs" />
     <Compile Include="DAO\IDichVuDAO.cs" />
     <Compile Include="DAO\IPhongDAO.cs" />
@@ -68,8 +67,10 @@
   <ItemGroup>
     <Content Include="QuerySQL\CreateDatabase.sql" />
     <Content Include="QuerySQL\InitDatabase.sql" />
+    <Content Include="QuerySQL\SP_Add_NoiThat.sql" />
     <Content Include="QuerySQL\SP_Add_Phong.sql" />
     <Content Include="QuerySQL\SP_Add_SinhVien.sql" />
+    <Content Include="QuerySQL\SP_Delete_NoiThat.sql" />
     <Content Include="QuerySQL\SP_Delete_Phong.sql" />
     <Content Include="QuerySQL\SP_Delete_SinhVien.sql" />
     <Content Include="QuerySQL\SP_Update_HopDong.sql" />

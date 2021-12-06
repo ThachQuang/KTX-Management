@@ -4,10 +4,6 @@ create proc SP_Delete_Phong (@id_phong int)
 as
 BEGIN TRY
 BEGIN TRANSACTION
-	DELETE FROM SINHVIEN
-	WHERE SINHVIEN.id_sinhvien=(SELECT	SINHVIEN.id_sinhvien						
-							FROM SINHVIEN
-							WHERE SINHVIEN.id_phong = @id_phong)
 	DELETE FROM NOITHAT where id_phong = @id_phong
 	DELETE FROM DIEN where id_phong = @id_phong
 	DELETE FROM NUOC where id_phong = @id_phong

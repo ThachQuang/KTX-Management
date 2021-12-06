@@ -18,16 +18,19 @@ namespace KTX_Management.Main
             Console.InputEncoding = Encoding.Unicode;
             // Các hàm cho Phòng
             //AddPhong();
+            //UpdatePhong();
+            //DeletePhong();
+            //AddNoiThat();
+            //DeleteNoiThat();
+            //CheckNoiThat();
+            //FixNoiThat();
+            //CountSinhVien(id_phong);
             // Các hàm cho Sinh Viên
             //AddSinhVien();
-            DeleteSinhVien();
+            //DeleteSinhVien();
             //UpdateSinhVien();
             //UpdateHopDong();
-<<<<<<< HEAD
-            // 
-=======
             //DeleteByIdPhong();
->>>>>>> 1f177e3d3c0e8b70a24949ff19de8c95ce6cc639
         }
 
         // Hàm check date có đúng hay không
@@ -149,12 +152,11 @@ namespace KTX_Management.Main
                 Console.WriteLine("Delete successful!");
             else Console.WriteLine("Delete failed!");
         }
-
         // Xoa sinhvien trong phong
         static void DeleteByIdPhong()
         {
             int id_phong;
-            Console.Write("Nhập ID phòng bạn muốn xoá: ");
+            Console.Write("Nhập ID phòng bạn muốn xoá tất cả sinh viên: ");
             id_phong = int.Parse(Console.ReadLine());
             bool status = SinhVienDAO.Instance.DeleteByIdPhong(id_phong);
             if (status)
@@ -256,8 +258,7 @@ namespace KTX_Management.Main
             phong.Tang = short.Parse(Console.ReadLine());
             Console.Write("Sức chứa: ");
             phong.SucChua = short.Parse(Console.ReadLine());
-            Console.Write("Số người ở hiện tại: ");
-            phong.SoNguoi = short.Parse(Console.ReadLine());
+            phong.SoNguoi = 0;
             Console.Write("Diện tích: ");
             phong.DienTich = double.Parse(Console.ReadLine());
             Console.Write("Giá thuê: ");
@@ -268,17 +269,151 @@ namespace KTX_Management.Main
                 Console.WriteLine("Add successful!");
             else Console.WriteLine("Add failed!");
         }
+        // Hàm Update phòng trong database
+        static void UpdatePhong()
+        {
+            PHONG phong = new PHONG();
+            while (true)
+            {
+                Console.Write("Nhập ID phòng muốn cập nhật thông tin: ");
+                phong.IDPhong = int.Parse(Console.ReadLine());
+               
+                if (IsExistPhongID(phong.IDPhong))
+                    break;
+                Console.WriteLine("Không tồn tại ID phòng này!");
+            }
+            Console.Write("Tên phòng: ");
+            phong.TenPhong = Console.ReadLine();
+            Console.Write("Khu: ");
+            phong.Khu = Console.ReadLine();
+            Console.Write("Tầng: ");
+            phong.Tang = short.Parse(Console.ReadLine());
+            Console.Write("Sức chứa: ");
+            phong.SucChua = short.Parse(Console.ReadLine());
+            phong.SoNguoi = Convert.ToInt16(CountSinhVien(phong.IDPhong));
+            Console.Write("Số người ở hiện tại: " + phong.SoNguoi);
+            Console.Write("Diện tích: ");
+            phong.DienTich = double.Parse(Console.ReadLine());
+            Console.Write("Giá thuê: ");
+            phong.GiaThue = double.Parse(Console.ReadLine());
+            phong.TongThu = 0;
+            bool status = PhongDAO.Instance.UpdatePhong(phong);
+            if (status)
+                Console.WriteLine("Update successful!");
+            else Console.WriteLine("Update failed!");
+        }
         // Hàm xoá phòng khỏi database
         static void DeletePhong()
         {
             int id_phong;
             Console.WriteLine("Lưu ý: Nếu xoá phòng, mọi sinh viên liên quan đến ID phòng đều sẽ bị xoá");
-            Console.Write("Nhập ID phòng bạn muốn xoá: ");
-            id_phong = int.Parse(Console.ReadLine());
-            bool status = PhongDAO.Instance.DeletePhong(id_phong);
+            while (true)
+            {
+                Console.Write("Nhập ID phòng bạn muốn xoá: ");
+                id_phong = int.Parse(Console.ReadLine());
+
+                if (IsExistPhongID(id_phong))
+                    break;
+                Console.WriteLine("Không tồn tại ID phòng này!");
+            }
+            Console.WriteLine("Đang xoá tất cả sinh viên có ID phòng được nhập!");
+            bool status1 = SinhVienDAO.Instance.DeleteByIdPhong(id_phong);
+            if (status1)
+                Console.WriteLine("Delete successful!");
+            else Console.WriteLine("Delete failed!");
+            Console.WriteLine("Đang xoá thông tin của ID phòng được nhập!");
+            bool status2 = PhongDAO.Instance.DeletePhong(id_phong);
+            if (status2)
+                Console.WriteLine("Delete successful!");
+            else Console.WriteLine("Delete failed!");
+        }
+        // Hàm thêm nội thất mói vào phòng
+        static void AddNoiThat()
+        {
+            int id_phong;
+            CAUTRUC.NT temp = new CAUTRUC.NT();
+            while (true)
+            {
+                Console.Write("Nhập ID phòng muốn thêm nội thất: ");
+                id_phong = int.Parse(Console.ReadLine());
+
+                if (IsExistPhongID(id_phong))
+                    break;
+                Console.WriteLine("Không tồn tại ID phòng này!");
+            }
+            temp = CAUTRUC.GetNoiThat();
+            bool status = PhongDAO.Instance.AddNoiThat(id_phong, temp);
+            if (status)
+                Console.WriteLine("Add successful!");
+            else Console.WriteLine("Add failed!");
+        }
+        // Hàm xoá hết nội thất một phòng
+        static void DeleteNoiThat()
+        {
+            int id_phong;
+            while (true)
+            {
+                Console.Write("Nhập ID phòng muốn xoá nội thất: ");
+                id_phong = int.Parse(Console.ReadLine());
+
+                if (IsExistPhongID(id_phong))
+                    break;
+                Console.WriteLine("Không tồn tại ID phòng này!");
+            }
+            bool status = PhongDAO.Instance.DeleteNoiThat(id_phong);
             if (status)
                 Console.WriteLine("Delete successful!");
             else Console.WriteLine("Delete failed!");
+        }
+        // Hàm đếm số sinh viên có theo ID phòng
+        static int CountSinhVien(int id_phong)
+        {
+            int temp;
+            temp = SinhVienDAO.Instance.CountSinhVien(id_phong);
+            return temp;
+        }
+        // Hàm kiểm tra số lượng và tình trạng nội thất
+        static void CheckNoiThat()
+        {
+            int id_phong;
+            while(true)
+            {
+                Console.Write("Nhập ID phòng muốn kiểm tra nội thất: ");
+                id_phong = int.Parse(Console.ReadLine());
+
+                if (IsExistPhongID(id_phong))
+                    break;
+                Console.WriteLine("Không tồn tại ID phòng này!");
+            }
+            PhongDAO.Instance.CheckNoiThat(id_phong);
+        }
+        // Hàm Update tình trạng thông qua ID phòng và tên nội thất
+        static void FixNoiThat()
+        {
+            int id_phong;
+            while (true)
+            {
+                Console.Write("Nhập ID phòng muốn cập nhật tình trạng nội thất: ");
+                id_phong = int.Parse(Console.ReadLine());
+
+                if (IsExistPhongID(id_phong))
+                    break;
+                Console.WriteLine("Không tồn tại ID phòng này!");
+            }
+            int tinh_trang;
+            string name;
+            Console.Write("Nhập tên nội thất muốn thay đổi tình trạng: ");
+            name = Console.ReadLine();
+            Console.Write("Tình trạng hiện tại (H = hư hỏng/B = bình thường): ");
+            string key = Console.ReadLine();
+            if (key == "H" || key == "h")
+                tinh_trang = 1;
+            else
+                tinh_trang = 0;
+            bool status = PhongDAO.Instance.FixNoiThat(id_phong, name, tinh_trang);
+            if (status)
+                Console.WriteLine("Update successful!");
+            else Console.WriteLine("Update failed! Kiểm tra lại tên nội thất");
         }
     }
 }

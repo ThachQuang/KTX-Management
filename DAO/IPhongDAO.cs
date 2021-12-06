@@ -13,9 +13,11 @@ namespace KTX_Management.DAO
         bool AddPhong(PHONG phong);
         bool DeletePhong(int id_phong);
         bool UpdatePhong(PHONG phong);
-        /*bool AddNoiThat(int id_phong, CAUTRUC.NT noithat);
+        bool AddNoiThat(int id_phong, CAUTRUC.NT noithat);
         bool DeleteNoiThat(int id_phong);
-        bool UpdateNoiThat(int id_phong, CAUTRUC.NT noithat);
+        bool CheckNoiThat(int id_phong);
+        bool FixNoiThat(int id_phong);
+        /*bool UpdateNoiThat(int id_phong, CAUTRUC.NT noithat);
         bool AddDien(int id_phong, int thang, CAUTRUC.DIENNUOC dien);
         bool DeleteDien(int id_phong, int thang);
         bool UpdateDien(int id_phong, int thang, CAUTRUC.DIENNUOC dien);

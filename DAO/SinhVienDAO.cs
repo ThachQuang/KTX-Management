@@ -22,12 +22,22 @@ namespace KTX_Management.DAO
         }
         private SinhVienDAO() { }
         // Các chuỗi chứa câu lệnh thực thi procedure sql
+
         const string ADD_SINHVIEN = @"SP_Add_SinhVien @id_phong , @ten , @ngay_sinh , @gioi_tinh , @que_quan , @nghe_nghiep , @sdt , @cmnd , @bhyt , @noi_lam_viec , @ho_khau , @sv_nam , @hop_dong_start , @hop_dong_end";
         const string DELETE_SINHVIEN = @"SP_Delete_SinhVien @id_sinhvien";
         const string UPDATE_SINHVIEN = @"SP_Update_SinhVien @id_sinhvien , @id_phong , @ten , @ngay_sinh , @gioi_tinh , @que_quan , @nghe_nghiep , @sdt , @cmnd , @bhyt , @noi_lam_viec , @ho_khau , @sv_nam";
         const string UPDATE_HOPDONG = @"SP_Update_HopDong @id_sinhvien , @hop_dong_start , @hop_dong_end";
         const string GET_ID = "SELECT* FROM SINHVIEN WHERE id_phong=@id_phong";
+        const string COUNT_SINHVIEN = "SELECT COUNT(id_sinhvien) FROM SINHVIEN WHERE id_phong = @id_phong";
         // Hàm tương tác với database
+        public int CountSinhVien(int id_phong)
+        {
+            object[] Para = new object[] { id_phong };
+            var TotalSinhVien = DataProvider.Instance.ExecuteScalar(COUNT_SINHVIEN, Para);
+            if (TotalSinhVien is DBNull)
+                return 0;
+            return Convert.ToInt16(TotalSinhVien);
+        }
         public bool AddSinhVien(SINHVIEN sinhvien)
         {
             try
@@ -74,13 +84,13 @@ namespace KTX_Management.DAO
             try
             {
                 // Khoi tao SqlConnection conn
-                SqlConnection conn = Connect.GetSqlConnection();
+                SqlConnection conn = DataProvider.GetSqlConnection();
 
                 //Mo ket noi
                 conn.Open();
 
                 //Tao Sqlcommand 
-                SqlCommand cmd = Connect.GetSqlCommand(GET_ID, conn);
+                SqlCommand cmd = DataProvider.GetSqlCommand(GET_ID, conn);
 
                 //Truyen tham so
                 cmd.Parameters.Add(new SqlParameter("@id_phong", id_phong));

@@ -10,6 +10,7 @@ namespace KTX_Management.DAO
     internal interface ISinhVienDAO
     {
         // Khai báo sơ lược các hàm tương tác với database
+        int CountSinhVien(int id_phong);
         bool AddSinhVien(SINHVIEN sinhvien);
         bool DeleteSinhVien(int id_sinhvien);
         bool DeleteByIdPhong(int id_phong);

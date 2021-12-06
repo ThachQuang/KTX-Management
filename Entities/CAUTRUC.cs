@@ -18,14 +18,9 @@ namespace KTX_Management
         };
         public struct NT
         {
-            public short SoLuongNT;
-            public struct PHANLOAI
-            {
-                public string Ten;
-                public short SoLuong;
-                public bool TinhTrang; // true neu co hu hong, false neu khong hu hong
-            };
-            public PHANLOAI[] PhanLoai; // cau truc mang struct PHANLOAI
+            public string Ten;
+            public short SoLuong;
+            public bool TinhTrang; // true neu co hu hong, false neu khong hu hong
         };
         public struct DIENNUOC
         {
@@ -67,23 +62,17 @@ namespace KTX_Management
         public static NT GetNoiThat()
         {
             NT temp = new NT();
-            Console.WriteLine("Nhap so luong noi that co san cua phong: ");
-            temp.SoLuongNT = short.Parse(Console.ReadLine());
-            temp.PhanLoai = new NT.PHANLOAI[temp.SoLuongNT];
-            for (int i = 0; i < temp.SoLuongNT; i++)
-            {
-                Console.WriteLine("Ten noi that: ");
-                temp.PhanLoai[i].Ten = Console.ReadLine();
-                Console.WriteLine("So luong noi that do: ");
-                temp.PhanLoai[i].SoLuong = short.Parse(Console.ReadLine());
-                Console.WriteLine("Co noi that hu hong (Y/N): ");
-                char key;
-                key = char.Parse(Console.ReadLine());
-                if (key == 'Y' || key == 'y')
-                    temp.PhanLoai[i].TinhTrang = true;
-                else
-                    temp.PhanLoai[i].TinhTrang = false;
-            }
+            Console.WriteLine("Tên nội thất: ");
+            temp.Ten = Console.ReadLine();
+            Console.WriteLine("Số lượng: ");
+            temp.SoLuong = short.Parse(Console.ReadLine());
+            Console.WriteLine("Tình trạng (Y = hư hỏng/N = bình thường): ");
+            char key;
+            key = char.Parse(Console.ReadLine());
+            if (key == 'Y' || key == 'y')
+                temp.TinhTrang = true;
+            else
+                temp.TinhTrang = false;
             return temp;
         }
         // Ham lay Info nuoc tu ban phim, xuat ra kieu cau truc DIENNUOC
