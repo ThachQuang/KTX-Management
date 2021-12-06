@@ -25,7 +25,7 @@ namespace KTX_Management
         public struct DIENNUOC
         {
             public int SoDau, SoCuoi;
-            public double ThanhTien;
+            public int ThanhTien;
         };
         public struct DV
         {
@@ -48,16 +48,6 @@ namespace KTX_Management
             public string SDT;
         };
         // Methods
-        // Ham lay Info vi tri tu ban phim, xuat ra kieu cau truc VT
-        public static VT GetViTri()
-        {
-            VT temp = new VT();
-            Console.WriteLine("Nhap khu vuc cua phong: ");
-            temp.Khu = Console.ReadLine();
-            Console.WriteLine("Nhap tang cua phong: ");
-            temp.Tang = short.Parse(Console.ReadLine());
-            return temp;
-        }
         // Ham lay Info noi that tu ban phim, xuat ra kieu cau truc NT
         public static NT GetNoiThat()
         {
@@ -75,117 +65,124 @@ namespace KTX_Management
                 temp.TinhTrang = false;
             return temp;
         }
-        // Ham lay Info nuoc tu ban phim, xuat ra kieu cau truc DIENNUOC
-        public static DIENNUOC GetDienNuoc()
-        {
-            DIENNUOC temp = new DIENNUOC();
-            Console.WriteLine("Nhap so dau: ");
-            temp.SoDau = int.Parse(Console.ReadLine());
-            Console.WriteLine("Nhap so cuoi: ");
-            temp.SoCuoi = int.Parse(Console.ReadLine());
-            return temp;
-        }
         // Ham tinh tien nuoc, tham chieu vao gia tri temp kieu DIENNUOC
-        public static void ThanhTienNuoc(ref DIENNUOC temp)
+        public static int ThanhTienNuoc(DIENNUOC temp)
         {
             int SoKiNuoc = temp.SoCuoi - temp.SoDau;
-
             if (SoKiNuoc >= 10)
             {
                 SoKiNuoc -= 10;
-                temp.ThanhTien = 5.973 * 10;
+                temp.ThanhTien = 5973 * 10;
                 if (SoKiNuoc >= 10)
                 {
                     SoKiNuoc -= 10;
-                    temp.ThanhTien = 10 * 7.052;
+                    temp.ThanhTien = 10 * 7052;
                     if (SoKiNuoc >= 10)
                     {
                         SoKiNuoc -= 10;
-                        temp.ThanhTien = 10 * 8.669;
+                        temp.ThanhTien = 10 * 8669;
                         if (SoKiNuoc > 0)
                         {
-                            temp.ThanhTien = SoKiNuoc * 15.929;
+                            temp.ThanhTien = SoKiNuoc * 15929;
                             SoKiNuoc = 0;
                         }
                     }
                     else
                     {
-                        temp.ThanhTien = SoKiNuoc * 8.669;
+                        if (SoKiNuoc == 0)
+                            return temp.ThanhTien;
+                        temp.ThanhTien = SoKiNuoc * 8669;
                         SoKiNuoc = 0;
                     }
                 }
                 else
                 {
-                    temp.ThanhTien = SoKiNuoc * 7.052;
+                    if (SoKiNuoc == 0)
+                        return temp.ThanhTien;
+                    temp.ThanhTien = SoKiNuoc * 7052;
                     SoKiNuoc = 0;
                 }
             }
             else
             {
-                temp.ThanhTien = 5.973 * SoKiNuoc;
+                if (SoKiNuoc == 0)
+                    return temp.ThanhTien;
+                temp.ThanhTien = 5973 * SoKiNuoc;
                 SoKiNuoc = 0;
             }
+            return temp.ThanhTien;
         }
         // Ham tinh tien nuoc, tham chieu vao gia tri temp kieu DIENNUOC
-        public static void ThanhTienDien(ref DIENNUOC temp)
+        public static int ThanhTienDien(DIENNUOC temp)
         {
             int SoKiDien = temp.SoCuoi - temp.SoDau;
 
             if (SoKiDien >= 50)
             {
                 SoKiDien -= 50;
-                temp.ThanhTien = 1.678 * 10;
+                temp.ThanhTien = 1678 * 10;
                 if (SoKiDien >= 50)
                 {
                     SoKiDien -= 50;
-                    temp.ThanhTien = 10 * 1.734;
+                    temp.ThanhTien = 10 * 1734;
                     if (SoKiDien >= 100)
                     {
                         SoKiDien -= 100;
-                        temp.ThanhTien = 10 * 2.014;
+                        temp.ThanhTien = 10 * 2014;
                         if (SoKiDien >= 100)
                         {
                             SoKiDien -= 100;
-                            temp.ThanhTien = 100 * 2.536;
+                            temp.ThanhTien = 100 * 2536;
                             if (SoKiDien >= 100)
                             {
                                 SoKiDien -= 100;
-                                temp.ThanhTien = 100 * 2.834;
-                                if (SoKiDien >= 1)
+                                temp.ThanhTien = 100 * 2834;
+                                if (SoKiDien > 0)
                                 {
-                                    temp.ThanhTien = SoKiDien * 2.927;
+                                    temp.ThanhTien = SoKiDien * 2927;
                                     SoKiDien = 0;
                                 }
                             }
                             else
                             {
-                                temp.ThanhTien = SoKiDien * 2.834;
+                                if (SoKiDien == 0)
+                                    return temp.ThanhTien;
+                                temp.ThanhTien = SoKiDien * 2834;
                                 SoKiDien = 0;
                             }
                         }
                         else
                         {
-                            temp.ThanhTien = SoKiDien * 2.536;
+                            if (SoKiDien == 0)
+                                return temp.ThanhTien;
+                            temp.ThanhTien = SoKiDien * 2536;
                             SoKiDien = 0;
                         }
                     }
                     else
                     {
-                        temp.ThanhTien = SoKiDien * 2.014;
+                        if (SoKiDien == 0)
+                            return temp.ThanhTien;
+                        temp.ThanhTien = SoKiDien * 2014;
                         SoKiDien = 0;
                     }
                 }
                 else
                 {
-                    temp.ThanhTien = SoKiDien * 1.734;
+                    if (SoKiDien == 0)
+                        return temp.ThanhTien;
+                    temp.ThanhTien = SoKiDien * 1734;
                     SoKiDien = 0;
                 }
             }
             else
             {
-                temp.ThanhTien = 1.678 * SoKiDien;
+                if (SoKiDien == 0)
+                    return temp.ThanhTien;
+                temp.ThanhTien = 1678 * SoKiDien;
                 SoKiDien = 0;
             }
+            return temp.ThanhTien;
         }
         // Ham lay Info dich tu ban phim, xuat ra kieu cau truc DV
         public static DV GetDV(bool LoaiDV)
@@ -230,19 +227,20 @@ namespace KTX_Management
             Console.Write(temp);
         }
         // Ham xuat Info kieu cau truc NGUOI len console
-        public static void TakeInfoNguoi(NGUOI temp)
+        public static CAUTRUC.NGUOI GetNguoi(NGUOI temp)
         {
-            Console.WriteLine("Ho ten: ", temp.HoTen);
-            Console.WriteLine("Gioi tinh: ");
+            Console.WriteLine("Họ tên: ");
+            Console.WriteLine("Giới tính: ");
             if (temp.GioiTinh == 1)
                 Console.Write("Nam");
             else
-                Console.Write("Nu");
+                Console.Write("Nữ");
             Console.WriteLine("Ngay sinh: ");
             TakeDate(temp.NgaySinh);
             Console.WriteLine("Que quan: ", temp.QueQuan);
             Console.WriteLine("Nghe nghiep: ", temp.NgheNghiep);
             Console.WriteLine("SDT: ", temp.SDT);
+            return temp;
         }
     }
 }

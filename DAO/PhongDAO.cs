@@ -28,6 +28,10 @@ namespace KTX_Management.DAO
         const string COUNT_NOITHAT = "SELECT COUNT(id_phong) FROM NOITHAT WHERE id_phong = @id_phong";
         const string COUNT_HUHONG = "SELECT COUNT(id_phong) FROM NOITHAT WHERE NOITHAT.id_phong = @id_phong AND NOITHAT.tinh_trang = 1";
         const string FIX_NOITHAT = "UPDATE NOITHAT SET tinh_trang = @tinh_trang WHERE NOITHAT.id_phong = @id_phong AND NOITHAT.ten_noi_that = @ten_noi_that";
+        const string ADD_DIEN = @"SP_Add_Dien @id_phong , @thang , @so_dau , @so_cuoi , @thanh_tien";
+        const string ADD_NUOC = @"SP_Add_Nuoc @id_phong , @thang , @so_dau , @so_cuoi , @thanh_tien";
+        const string DELETE_DIEN = @"SP_Delete_Dien @id_phong , @thang";
+        const string DELETE_NUOC = @"SP_Delete_Nuoc @id_phong , @thang";
         // Hàm tương tác với database
         public bool AddPhong(PHONG phong)
         {
@@ -140,6 +144,68 @@ namespace KTX_Management.DAO
             {
                 return false;
             }*/
+        }
+        public bool AddDien(int id_phong, int thang, CAUTRUC.DIENNUOC phong)
+        {
+            try
+            {
+                object[] Para = new object[] { id_phong,
+                                               thang,
+                                               phong.SoDau,
+                                               phong.SoCuoi,
+                                               phong.ThanhTien };
+
+                return DataProvider.Instance.ExecuteNonQuery(ADD_DIEN, Para) > 0;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public bool AddNuoc(int id_phong, int thang, CAUTRUC.DIENNUOC phong)
+        {
+            try
+            {
+                object[] Para = new object[] { id_phong,
+                                               thang,
+                                               phong.SoDau,
+                                               phong.SoCuoi,
+                                               phong.ThanhTien };
+
+                return DataProvider.Instance.ExecuteNonQuery(ADD_NUOC, Para) > 0;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public bool DeleteDien(int id_phong, int thang)
+        {
+            try
+            {
+                object[] Para = new object[] { id_phong,
+                                               thang };
+
+                return DataProvider.Instance.ExecuteNonQuery(DELETE_DIEN, Para) > 0;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public bool DeleteNuoc(int id_phong, int thang)
+        {
+            try
+            {
+                object[] Para = new object[] { id_phong,
+                                               thang };
+
+                return DataProvider.Instance.ExecuteNonQuery(DELETE_NUOC, Para) > 0;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
         /*bool UpdateNoiThat(int id_phong, CAUTRUC.NT noithat);
         bool AddDien(int id_phong, int thang, CAUTRUC.DIENNUOC dien);

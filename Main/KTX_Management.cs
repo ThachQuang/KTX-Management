@@ -25,12 +25,16 @@ namespace KTX_Management.Main
             //CheckNoiThat();
             //FixNoiThat();
             //CountSinhVien(id_phong);
+            //AddThongSoDien();
+            //DeleteThongSoDien();
+            //AddThongSoNuoc();
+            //DeleteThongSoNuoc();
             // Các hàm cho Sinh Viên
             //AddSinhVien();
             //DeleteSinhVien();
             //UpdateSinhVien();
             //UpdateHopDong();
-            //DeleteByIdPhong();
+            DeleteByIdPhong();
         }
 
         // Hàm check date có đúng hay không
@@ -78,6 +82,8 @@ namespace KTX_Management.Main
             }
         }
         // Các hàm dùng trong main
+
+        // SINHVIEN
         // Hàm Add sinh viên vào database
         static void AddSinhVien()
         {
@@ -246,6 +252,8 @@ namespace KTX_Management.Main
                 Console.WriteLine("Update successful!");
             else Console.WriteLine("Update failed!");
         }
+
+        // PHONG
         // Hàm Add phòng vào database
         static void AddPhong()
         {
@@ -414,6 +422,100 @@ namespace KTX_Management.Main
             if (status)
                 Console.WriteLine("Update successful!");
             else Console.WriteLine("Update failed! Kiểm tra lại tên nội thất");
+        }
+        // Hàm thêm thông số điện
+        static void AddThongSoDien()
+        {
+            int id_phong;
+            CAUTRUC.DIENNUOC temp = new CAUTRUC.DIENNUOC();
+            while (true)
+            {
+                Console.Write("Nhập ID phòng muốn thêm ghi chú điện: ");
+                id_phong = int.Parse(Console.ReadLine());
+
+                if (IsExistPhongID(id_phong))
+                    break;
+                Console.WriteLine("Không tồn tại ID phòng này!");
+            }
+            Console.Write("Nhập tháng muốn thêm: ");
+            int thang = int.Parse(Console.ReadLine());
+            Console.Write("Nhập số điện tháng trước: ");
+            temp.SoDau = int.Parse(Console.ReadLine());
+            Console.Write("Nhập số điện tháng này: ");
+            temp.SoCuoi = int.Parse(Console.ReadLine());
+            temp.ThanhTien = CAUTRUC.ThanhTienDien(temp);
+            bool status = PhongDAO.Instance.AddDien(id_phong, thang, temp);
+            if (status)
+                Console.WriteLine("Add successful!");
+            else Console.WriteLine("Add failed!");
+
+        }
+        // Hàm thêm thông số nước
+        static void AddThongSoNuoc()
+        {
+            int id_phong;
+            CAUTRUC.DIENNUOC temp = new CAUTRUC.DIENNUOC();
+            while (true)
+            {
+                Console.Write("Nhập ID phòng muốn thêm ghi chú nước: ");
+                id_phong = int.Parse(Console.ReadLine());
+
+                if (IsExistPhongID(id_phong))
+                    break;
+                Console.WriteLine("Không tồn tại ID phòng này!");
+            }
+            Console.Write("Nhập tháng muốn thêm: ");
+            int thang = int.Parse(Console.ReadLine());
+            Console.Write("Nhập số nước tháng trước: ");
+            temp.SoDau = int.Parse(Console.ReadLine());
+            Console.Write("Nhập số nước tháng này: ");
+            temp.SoCuoi = int.Parse(Console.ReadLine());
+            temp.ThanhTien = CAUTRUC.ThanhTienNuoc(temp);
+            bool status = PhongDAO.Instance.AddNuoc(id_phong, thang, temp);
+            if (status)
+                Console.WriteLine("Add successful!");
+            else Console.WriteLine("Add failed!");
+
+        }
+        // Hàm xoá thông số điện
+        static void DeleteThongSoDien()
+        {
+            int id_phong;
+            while (true)
+            {
+                Console.Write("Nhập ID phòng muốn xoá ghi chú điện: ");
+                id_phong = int.Parse(Console.ReadLine());
+
+                if (IsExistPhongID(id_phong))
+                    break;
+                Console.WriteLine("Không tồn tại ID phòng này!");
+            }
+            Console.Write("Nhập tháng muốn xoá: ");
+            int thang = int.Parse(Console.ReadLine());
+            bool status = PhongDAO.Instance.DeleteDien(id_phong, thang);
+            if (status)
+                Console.WriteLine("Delete successful!");
+            else Console.WriteLine("Delete failed!");
+        }
+        // Hàm xoá thông số nước
+        static void DeleteThongSoNuoc()
+        {
+            int id_phong;
+            while (true)
+            {
+                Console.Write("Nhập ID phòng muốn xoá ghi chú nước: ");
+                id_phong = int.Parse(Console.ReadLine());
+
+                if (IsExistPhongID(id_phong))
+                    break;
+                Console.WriteLine("Không tồn tại ID phòng này!");
+            }
+            Console.Write("Nhập tháng muốn xoá: ");
+            int thang = int.Parse(Console.ReadLine());
+            bool status = PhongDAO.Instance.DeleteNuoc(id_phong, thang);
+            if (status)
+                Console.WriteLine("Delete successful!");
+            else Console.WriteLine("Delete failed!");
         }
     }
 }

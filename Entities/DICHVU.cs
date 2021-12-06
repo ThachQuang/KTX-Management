@@ -30,31 +30,5 @@ namespace KTX_Management.Entities
             this.GiaDV2 = GiaDV2;
             this.GiaDV3 = GiaDV3;
         }
-        // Methods
-        public DICHVU GetInfoGiaDV(bool LoaiDV)
-        {
-            double DV1, DV2, DV3;
-            DICHVU temp = new DICHVU();
-            if (LoaiDV)
-            {
-                Console.WriteLine("Nhap gia dich vu 1:");
-                DV1 = double.Parse(Console.ReadLine());
-                Console.WriteLine("Nhap gia dich vu 2:");
-                DV2 = double.Parse(Console.ReadLine());
-                temp = new DICHVU(DV1, DV2);
-            }
-            else
-            {
-                Console.WriteLine("Nhap gia dich vu 1:");
-                DV1 = double.Parse(Console.ReadLine());
-                Console.WriteLine("Nhap gia dich vu 2:");
-                DV2 = double.Parse(Console.ReadLine());
-                Console.WriteLine("Nhap gia dich vu 3:");
-                DV3 = double.Parse(Console.ReadLine());
-                temp = new DICHVU(DV1, DV2, DV3);
-            }
-            return temp;
-        }
-
     }
 }

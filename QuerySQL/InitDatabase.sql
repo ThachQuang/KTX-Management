@@ -14,7 +14,7 @@ values (1, N'Giường đôi 2 tầng', 1, 0)
 insert into NOITHAT(id_phong, ten_noi_that, so_luong, tinh_trang)
 values (2, N'Giường đôi 2 tầng', 1, 0) 
 insert into NOITHAT(id_phong, ten_noi_that, so_luong, tinh_trang)
-values (3, N'Giường đôi 2 tầng', 1, 1)
+values (3, N'Tủ sắt', 1, 1)
 go
 
 insert into DIEN(id_phong, thang, so_dau, so_cuoi, thanh_tien)
@@ -63,4 +63,16 @@ insert into SINHVIEN(id_phong, ten, ngay_sinh, gioi_tinh, que_quan, nghe_nghiep,
 values (2, N'Lương Văn D', '2003/2/27', 0, N'Đồng Nai', N'Sinh viên', '142', '142', 'ĐH XYZ', N'Đồng Nai', 1)
 insert into SINHVIEN(id_phong, ten, ngay_sinh, gioi_tinh, que_quan, nghe_nghiep, sdt, cmnd, noi_lam_viec, ho_khau, sv_nam)
 values (3, N'Phan Văn E', '2001/05/23', 1, N'Tây Nguyên', N'Sinh viên', '102', '102', 'ĐH XYZ', N'Tây Nguyên', 3)
+go
+
+insert into PHUHUYNH(id_sinhvien, ten, ngay_sinh, gioi_tinh, que_quan, nghe_nghiep, sdt)
+values (1, N'Nguyễn Văn A', '2002/01/01', 1, N'Đồng Nai', N'Tự do', '123')
+insert into PHUHUYNH(id_sinhvien, ten, ngay_sinh, gioi_tinh, que_quan, nghe_nghiep, sdt)
+values (1, N'Phạm Văn B', '2002/06/06', 0, N'Cà Mau', N'Giáo viên', '456')
+insert into PHUHUYNH(id_sinhvien, ten, ngay_sinh, gioi_tinh, que_quan, nghe_nghiep, sdt)
+values (2, N'Đỗ Thị C', '2003/12/12', 0, N'Hà Nội', N'Buôn bán', '789')
+insert into PHUHUYNH(id_sinhvien, ten, ngay_sinh, gioi_tinh, que_quan, nghe_nghiep, sdt)
+values (2, N'Lương Văn D', '2003/2/27', 1, N'Đồng Nai', N'Quản lí', '235')
+insert into PHUHUYNH(id_sinhvien, ten, ngay_sinh, gioi_tinh, que_quan, nghe_nghiep, sdt)
+values (3, N'Phan Văn E', '2001/05/23', 1, N'Tây Nguyên', N'Bộ đội', '526')
 go
