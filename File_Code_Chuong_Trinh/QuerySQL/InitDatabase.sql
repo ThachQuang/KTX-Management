@@ -35,13 +35,13 @@ go
 
 insert into GIADICHVU(ten_dichvu, gia_dichvu)
 values (N'Wifi chung', 320000)
-insert into GIADICHVU(id_dichvu, ten_dichvu, gia_dichvu)
+insert into GIADICHVU(ten_dichvu, gia_dichvu)
 values (N'Sửa chữa', 30000)
-insert into GIADICHVU(id_dichvu, ten_dichvu, gia_dichvu)
+insert into GIADICHVU(ten_dichvu, gia_dichvu)
 values (N'Giặt xả', 20000)
-insert into GIADICHVU(id_dichvu, ten_dichvu, gia_dichvu)
+insert into GIADICHVU(ten_dichvu, gia_dichvu)
 values (N'Gửi xe', 70000)
-insert into GIADICHVU(id_dichvu, ten_dichvu, gia_dichvu)
+insert into GIADICHVU(ten_dichvu, gia_dichvu)
 values (N'Wifi cá nhân', 50000)
 go
 
