@@ -24,8 +24,11 @@ namespace KTX_Management.DAO
         // Các chuỗi chứa câu lệnh thực thi procedure sql
 
         const string ADD_SINHVIEN = @"SP_Add_SinhVien @id_phong , @ten , @ngay_sinh , @gioi_tinh , @que_quan , @nghe_nghiep , @sdt , @cmnd , @bhyt , @noi_lam_viec , @ho_khau , @sv_nam , @hop_dong_start , @hop_dong_end";
+        const string ADD_PHUHUYNH = @"SP_Add_PhuHuynh @id_phong , @ten , @ngay_sinh , @gioi_tinh , @que_quan , @nghe_nghiep , @sdt";
         const string DELETE_SINHVIEN = @"SP_Delete_SinhVien @id_sinhvien";
+        const string DELETE_PHUHUYNH = @"SP_Delete_PhuHuynh @id_sinhvien";
         const string UPDATE_SINHVIEN = @"SP_Update_SinhVien @id_sinhvien , @id_phong , @ten , @ngay_sinh , @gioi_tinh , @que_quan , @nghe_nghiep , @sdt , @cmnd , @bhyt , @noi_lam_viec , @ho_khau , @sv_nam";
+        const string UPDATE_PHUHUYNH = @"SP_Update_PhuHuynh @id_sinhvien , @id_phong , @ten , @ngay_sinh , @gioi_tinh , @que_quan , @nghe_nghiep , @sdt";
         const string UPDATE_HOPDONG = @"SP_Update_HopDong @id_sinhvien , @hop_dong_start , @hop_dong_end";
         const string GET_ID = "SELECT* FROM SINHVIEN WHERE id_phong=@id_phong";
         const string COUNT_SINHVIEN = "SELECT COUNT(id_sinhvien) FROM SINHVIEN WHERE id_phong = @id_phong";
@@ -64,6 +67,25 @@ namespace KTX_Management.DAO
                 return false;
             }
         }
+        public bool AddPhuHuynh(CAUTRUC.NGUOI phuhuynh,int id)
+        {
+            try
+            {
+                object[] Para = new object[] { id,
+                                               phuhuynh.HoTen,
+                                               phuhuynh.NgaySinh,
+                                               phuhuynh.GioiTinh,
+                                               phuhuynh.QueQuan,
+                                               phuhuynh.NgheNghiep,
+                                               phuhuynh.SDT};
+
+                return DataProvider.Instance.ExecuteNonQuery(ADD_PHUHUYNH, Para) > 0;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
 
         public bool DeleteSinhVien(int id_sinhvien)
         {
@@ -72,6 +94,21 @@ namespace KTX_Management.DAO
                 object[] Para = new object[] { id_sinhvien };
 
                 return DataProvider.Instance.ExecuteNonQuery(DELETE_SINHVIEN, Para) > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
+        public bool DeletePhuHuynh(int id_sinhvien)
+        {
+            try
+            {
+                object[] Para = new object[] { id_sinhvien };
+
+                return DataProvider.Instance.ExecuteNonQuery(DELETE_PHUHUYNH, Para) > 0;
             }
             catch (Exception ex)
             {
@@ -138,6 +175,25 @@ namespace KTX_Management.DAO
                                                sinhvien.SVNam};
 
                 return DataProvider.Instance.ExecuteNonQuery(UPDATE_SINHVIEN, Para) > 0;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public bool UpdatePhuHuynh(CAUTRUC.NGUOI phuhuynh, int id)
+        {
+            try
+            {
+                object[] Para = new object[] { id,
+                                               phuhuynh.HoTen,
+                                               phuhuynh.NgaySinh,
+                                               phuhuynh.GioiTinh,
+                                               phuhuynh.QueQuan,
+                                               phuhuynh.NgheNghiep,
+                                               phuhuynh.SDT};
+
+                return DataProvider.Instance.ExecuteNonQuery(UPDATE_PHUHUYNH, Para) > 0;
             }
             catch (Exception)
             {
