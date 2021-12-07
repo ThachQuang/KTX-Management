@@ -19,4 +19,4 @@ set
 	dich_vu_3=@dich_vu_3,
 	thanh_tien=@thanh_tien
 where
-id_sinhvien = @id_sinhvien;
+DICHVURIENG.id_sinhvien = @id_sinhvien and DICHVURIENG.thang = @thang;

@@ -21,10 +21,10 @@ namespace KTX_Management.DAO
         bool AddNuoc(int id_phong, int thang, CAUTRUC.DIENNUOC nuoc);
         bool DeleteDien(int id_phong, int thang);
         bool DeleteNuoc(int id_phong, int thang);
-        /*bool DeleteDien(int id_phong, int thang);
-        bool UpdateDien(int id_phong, int thang, CAUTRUC.DIENNUOC dien);
-        bool AddNuoc(int id_phong, int thang, CAUTRUC.DIENNUOC nuoc);
-        bool DeleteNuoc(int id_phong, int thang);
-        bool UpdateNuoc(int id_phong, int thang, CAUTRUC.DIENNUOC nuoc);*/
+        List<PHONG> HienThiPhong();
+        List<PHONG> HienThiPhi();
+        int TinhTienDien(int id_phong, int thang);
+        int TinhTienNuoc(int id_phong, int thang);
+        bool UpdatePhi(int id_phong, int thang, int sum);
     }
 }

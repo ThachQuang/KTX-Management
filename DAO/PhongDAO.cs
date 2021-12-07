@@ -2,6 +2,7 @@
 using KTX_Management.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,8 @@ namespace KTX_Management.DAO
         }
         private PhongDAO() { }
         // Các chuỗi chứa câu lệnh thực thi procedure sql
+        const string GET_ALL_PHI = @"SELECT DISTINCT id_phong, ten_phong, khu, tang, phi_thu_thang FROM PHONG";
+        const string GET_ALL_PHONG = @"SELECT DISTINCT id_phong, ten_phong, khu, tang, suc_chua, so_nguoi, dien_tich, gia_thue, phi_thu_thang FROM PHONG";
         const string ADD_PHONG = @"SP_Add_Phong @ten , @khu , @tang , @suc_chua , @so_nguoi , @dien_tich , @gia_thue , @phi_thu_thang";
         const string DELETE_PHONG = @"SP_Delete_Phong @id_phong";
         const string UPDATE_PHONG = @"SP_Update_Phong @id_phong , @ten , @khu , @tang , @suc_chua , @so_nguoi , @dien_tich , @gia_thue , @phi_thu_thang";
@@ -32,6 +35,9 @@ namespace KTX_Management.DAO
         const string ADD_NUOC = @"SP_Add_Nuoc @id_phong , @thang , @so_dau , @so_cuoi , @thanh_tien";
         const string DELETE_DIEN = @"SP_Delete_Dien @id_phong , @thang";
         const string DELETE_NUOC = @"SP_Delete_Nuoc @id_phong , @thang";
+        const string TINH_TIEN_DIEN = @"select SUM(thanh_tien) FROM DIEN WHERE DIEN.thang = @thang AND DIEN.id_phong = @id_phong";
+        const string TINH_TIEN_NUOC = @"select SUM(thanh_tien) FROM NUOC WHERE NUOC.thang = @thang AND NUOC.id_phong = @id_phong";
+        const string UPDATE_PHI = @"SP_Update_Phi @id_phong , @phi_thu_thang";
         // Hàm tương tác với database
         public bool AddPhong(PHONG phong)
         {
@@ -207,13 +213,82 @@ namespace KTX_Management.DAO
                 return false;
             }
         }
-        /*bool UpdateNoiThat(int id_phong, CAUTRUC.NT noithat);
-        bool AddDien(int id_phong, int thang, CAUTRUC.DIENNUOC dien);
-        bool DeleteDien(int id_phong, int thang);
-        bool UpdateDien(int id_phong, int thang, CAUTRUC.DIENNUOC dien);
-        bool AddNuoc(int id_phong, int thang, CAUTRUC.DIENNUOC nuoc);
-        bool DeleteNuoc(int id_phong, int thang);
-        bool UpdateNuoc(int id_phong, int thang, CAUTRUC.DIENNUOC nuoc);
-        */
+        public List<PHONG> HienThiPhong()
+        {
+            List<PHONG> phong = new List<PHONG>();
+
+            DataTable Table = DataProvider.Instance.ExecuteQuery(GET_ALL_PHONG);
+
+            foreach (DataRow row in Table.Rows)
+            {
+                PHONG temp = new PHONG
+                {
+                    IDPhong = Convert.ToInt32(row["id_phong"]),
+                    TenPhong = Convert.ToString(row["ten_phong"]),
+                    Khu = Convert.ToString(row["khu"]),
+                    Tang = Convert.ToInt16(row["tang"]),
+                    SucChua = Convert.ToInt16(row["suc_chua"]),
+                    SoNguoi = Convert.ToInt16(row["so_nguoi"]),
+                    DienTich = Convert.ToInt32(row["dien_tich"]),
+                    GiaThue = Convert.ToInt32(row["gia_thue"]),
+                    TongThu = Convert.ToInt32(row["phi_thu_thang"])
+                };
+                phong.Add(temp);
+            }
+            return phong;
+        }
+        public List<PHONG> HienThiPhi()
+        {
+            List<PHONG> phong = new List<PHONG>();
+
+            DataTable Table = DataProvider.Instance.ExecuteQuery(GET_ALL_PHI);
+
+            foreach (DataRow row in Table.Rows)
+            {
+                PHONG temp = new PHONG
+                {
+                    IDPhong = Convert.ToInt32(row["id_phong"]),
+                    TenPhong = Convert.ToString(row["ten_phong"]),
+                    Khu = Convert.ToString(row["khu"]),
+                    Tang = Convert.ToInt16(row["tang"]),
+                    TongThu = Convert.ToInt32(row["phi_thu_thang"])
+                };
+                phong.Add(temp);
+            }
+            return phong;
+        }
+        public int TinhTienDien(int id_phong, int thang)
+        {
+            object[] Para = new object[] { thang, id_phong };
+
+            var thanh_tien = DataProvider.Instance.ExecuteScalar(TINH_TIEN_DIEN, Para);
+
+            if (thanh_tien is DBNull)
+                return 0;
+            return Convert.ToInt32(thanh_tien);
+        }
+        public int TinhTienNuoc(int id_phong, int thang)
+        {
+            object[] Para = new object[] { thang, id_phong };
+
+            var thanh_tien = DataProvider.Instance.ExecuteScalar(TINH_TIEN_NUOC, Para);
+
+            if (thanh_tien is DBNull)
+                return 0;
+            return Convert.ToInt32(thanh_tien);
+        }
+        public bool UpdatePhi(int id_phong, int sum)
+        {
+            try
+            {
+                object[] Para = new object[] { id_phong, sum };
+
+                return DataProvider.Instance.ExecuteNonQuery(UPDATE_PHI, Para) > 0;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }

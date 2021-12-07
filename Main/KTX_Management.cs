@@ -16,6 +16,7 @@ namespace KTX_Management.Main
             // Định dạng input, output cho phép nhập có đấu
             Console.OutputEncoding = Encoding.Unicode;
             Console.InputEncoding = Encoding.Unicode;
+
             // Các hàm cho Phòng
             //AddPhong();
             //UpdatePhong();
@@ -29,6 +30,13 @@ namespace KTX_Management.Main
             //DeleteThongSoDien();
             //AddThongSoNuoc();
             //DeleteThongSoNuoc();
+            //HienThiPhong();
+            //HienThiPhi();
+            //TinhTienDien(id_phong, thang);
+            //TinhTienNuoc(id_phong, thang);
+            //TinhTienPhi(id_phong);
+            //UpdatePhi();
+
             // Các hàm cho Sinh Viên
             //AddSinhVien();
             //DeleteSinhVien();
@@ -38,74 +46,19 @@ namespace KTX_Management.Main
             //DeletePhuHuynh();
             //AddPhuHuynh();
             //UpdatePhuHuynh();
+
+            // Các hàm cho Dịch Vụ
             //AddDichVuRieng();
             //UpdateDichVuRieng();
-            DeleteDichVuRieng();
-        }
-        static void AddDichVuRieng()
-        {
-            int id;
-            Console.Write("Nhap id sinh vien: ");
-            id = int.Parse(Console.ReadLine());
-            int thang;
-            Console.Write("Nhap thang: ");
-            thang = int.Parse(Console.ReadLine());
-            int dich_vu_1;
-            Console.Write("Nhap dich vu 1: ");
-            dich_vu_1 = int.Parse(Console.ReadLine());
-            int dich_vu_2;
-            Console.Write("Nhap dich vu 2: ");
-            dich_vu_2 = int.Parse(Console.ReadLine());
-            int dich_vu_3;
-            Console.Write("Nhap dich vu 3: ");
-            dich_vu_3 = int.Parse(Console.ReadLine());
-            int thanhtien;
-            Console.Write("Thanh tien: ");
-            thanhtien = int.Parse(Console.ReadLine());
+            //DeleteDichVuRieng();
+            //AddDichVuChung();
+            //UpdateDichVuChung();
+            //DeleteDichVuChung();
+            //TinhTienDVC(id_phong, thang);
+            //TinhTienDVR(id_sinhvien, thang);
 
-            bool status = DichVuDAO.Instance.AddDichVuRieng(id,thang,dich_vu_1,dich_vu_2,dich_vu_3,thanhtien);
-            if (status)
-                Console.WriteLine("Add successful!");
-            else Console.WriteLine("Add failed!");
         }
 
-        static void UpdateDichVuRieng()
-        {
-            int id;
-            Console.Write("Nhap id sinh vien: ");
-            id = int.Parse(Console.ReadLine());
-            int thang;
-            Console.Write("Nhap thang: ");
-            thang = int.Parse(Console.ReadLine());
-            int dich_vu_1;
-            Console.Write("Nhap dich vu 1: ");
-            dich_vu_1 = int.Parse(Console.ReadLine());
-            int dich_vu_2;
-            Console.Write("Nhap dich vu 2: ");
-            dich_vu_2 = int.Parse(Console.ReadLine());
-            int dich_vu_3;
-            Console.Write("Nhap dich vu 3: ");
-            dich_vu_3 = int.Parse(Console.ReadLine());
-            int thanhtien;
-            Console.Write("Thanh tien: ");
-            thanhtien = int.Parse(Console.ReadLine());
-
-            bool status = DichVuDAO.Instance.UpdateDichVuRieng(id, thang, dich_vu_1, dich_vu_2, dich_vu_3, thanhtien);
-            if (status)
-                Console.WriteLine("Update successful!");
-            else Console.WriteLine("Update failed!");
-        }
-
-        static void DeleteDichVuRieng()
-        {
-            int id_sinhvien;
-            Console.Write("Nhập ID sinh viên bạn muốn xoá: ");
-            id_sinhvien = int.Parse(Console.ReadLine());
-            bool status = DichVuDAO.Instance.DeleteDichVuRieng(id_sinhvien);
-            if (status)
-                Console.WriteLine("Delete successful!");
-            else Console.WriteLine("Delete failed!");
-        }
         // Hàm check date có đúng hay không
         public static bool IsDate(string tempDate) 
         {
@@ -332,8 +285,7 @@ namespace KTX_Management.Main
                 Console.WriteLine("Delete successful!");
             else Console.WriteLine("Delete failed!");
         }
-
-        // Hàm Update sinh viên trong database
+        // Hàm Update phụ huynh sinh viên trong database
         static void UpdatePhuHuynh()
         {
             int id;
@@ -397,6 +349,7 @@ namespace KTX_Management.Main
                 Console.WriteLine("Update successful!");
             else Console.WriteLine("Update failed!");
         }
+        // Hàm Add dịch vụ của sinh viên
 
         // PHONG
         // Hàm Add phòng vào database
@@ -444,12 +397,12 @@ namespace KTX_Management.Main
             Console.Write("Sức chứa: ");
             phong.SucChua = short.Parse(Console.ReadLine());
             phong.SoNguoi = Convert.ToInt16(CountSinhVien(phong.IDPhong));
-            Console.Write("Số người ở hiện tại: " + phong.SoNguoi);
+            Console.WriteLine("Số người ở hiện tại: " + phong.SoNguoi);
             Console.Write("Diện tích: ");
             phong.DienTich = double.Parse(Console.ReadLine());
             Console.Write("Giá thuê: ");
             phong.GiaThue = double.Parse(Console.ReadLine());
-            phong.TongThu = 0;
+            phong.TongThu = TinhTienPhi(phong.IDPhong);
             bool status = PhongDAO.Instance.UpdatePhong(phong);
             if (status)
                 Console.WriteLine("Update successful!");
@@ -661,6 +614,278 @@ namespace KTX_Management.Main
             if (status)
                 Console.WriteLine("Delete successful!");
             else Console.WriteLine("Delete failed!");
+        }
+        // Hàm hiển thị tất cả các phòng có trong database
+        static void HienThiPhong()
+        {
+            List<PHONG> phong = PhongDAO.Instance.HienThiPhong();
+
+            if (phong.Count == 0)
+                Console.WriteLine("Không tìm thấy bất cứ phòng nào!");
+            else
+            {
+                Console.WriteLine("Tổng số phòng có trong database là: " + phong.Count);
+                Console.WriteLine("| ID phòng |  Tên  | Khu | Tầng | Sức chứa | Số người | Diện tích | Giá thuê |");
+                foreach (PHONG temp in phong)
+                {
+                    Console.Write(Convert.ToString(temp.IDPhong).PadLeft(6));                    
+                    Console.Write(Convert.ToString(temp.TenPhong).PadLeft(11));
+                    Console.Write(Convert.ToString(temp.Khu).PadLeft(6));
+                    Console.Write(Convert.ToString(temp.Tang).PadLeft(6));
+                    Console.Write(Convert.ToString(temp.SucChua).PadLeft(8));
+                    Console.Write(Convert.ToString(temp.SoNguoi).PadLeft(12));
+                    Console.Write(Convert.ToString(temp.DienTich).PadLeft(12));
+                    Console.WriteLine(Convert.ToString(temp.GiaThue).PadLeft(14));
+                }
+            }
+        }
+        // Hàm hiển thị tất cả phí thu tháng các phòng
+        static void HienThiPhi()
+        {
+            List<PHONG> phong = PhongDAO.Instance.HienThiPhi();
+
+            if (phong.Count == 0)
+                Console.WriteLine("Không tìm thấy bất cứ phòng nào!");
+            else
+            {
+                Console.WriteLine("Tổng số phòng có trong database là: " + phong.Count);
+                Console.WriteLine("| ID phòng |  Tên  | Khu | Tầng | Phí thu tháng này |");
+                foreach (PHONG temp in phong)
+                {
+                    Console.Write(Convert.ToString(temp.IDPhong).PadLeft(6));
+                    Console.Write(Convert.ToString(temp.TenPhong).PadLeft(11));
+                    Console.Write(Convert.ToString(temp.Khu).PadLeft(6));
+                    Console.Write(Convert.ToString(temp.Tang).PadLeft(6));                   
+                    Console.WriteLine(Convert.ToString(temp.TongThu).PadLeft(14));
+                }
+            }
+        }
+        // Hàm tính tiền điện theo id phòng và tháng
+        static int TinhTienDien(int id_phong, int thang)
+        {
+            int tien_dv = PhongDAO.Instance.TinhTienDien(id_phong, thang);
+            return tien_dv;
+        }
+        // Hàm tính tiền nước theo id phòng và tháng
+        static int TinhTienNuoc(int id_phong, int thang)
+        {
+            int tien_dv = PhongDAO.Instance.TinhTienNuoc(id_phong, thang);
+            return tien_dv;
+        }
+        // Hàm tính tiền phí thu theo id phòng và tháng
+        static int TinhTienPhi(int id_phong)
+        {
+            int thang;
+            Console.Write("Nhập tháng muốn tính phí thu: ");
+            thang = int.Parse(Console.ReadLine());
+            int thanh_tien_DV = DichVuDAO.Instance.TinhTienDichVuChung(id_phong, thang);
+            int thanh_tien_dien = PhongDAO.Instance.TinhTienDien(id_phong, thang);
+            int thanh_tien_nuoc = PhongDAO.Instance.TinhTienNuoc(id_phong, thang);
+            int sum = thanh_tien_DV + thanh_tien_dien + thanh_tien_nuoc;
+            return sum;
+        }
+        // Hàm Update thông tin tiền phí
+        static void UpdatePhi()
+        {
+            int id_phong, thang;
+            while (true)
+            {
+                Console.Write("Nhập ID phòng muốn cập nhật thông tin phí thu: ");
+                id_phong = int.Parse(Console.ReadLine());
+
+                if (IsExistPhongID(id_phong))
+                    break;
+                Console.WriteLine("Không tồn tại ID phòng này!");
+            }
+            Console.Write("Nhập tháng muốn tính phí thu: ");
+            thang = int.Parse(Console.ReadLine());
+            int thanh_tien_DV = DichVuDAO.Instance.TinhTienDichVuChung(id_phong, thang);
+            int thanh_tien_dien = PhongDAO.Instance.TinhTienDien(id_phong, thang);
+            int thanh_tien_nuoc = PhongDAO.Instance.TinhTienNuoc(id_phong, thang);
+            int sum = thanh_tien_DV + thanh_tien_dien + thanh_tien_nuoc;
+            bool status = PhongDAO.Instance.UpdatePhi(id_phong, sum);
+            if (status)
+                Console.WriteLine("Update successful!");
+            else Console.WriteLine("Update failed!");
+        }
+
+        // DICHVU
+        // Hàm Add dịch vụ của sinh viên
+        static void AddDichVuRieng()
+        {
+            int id_sinhvien;
+            while (true)
+            {
+                Console.Write("Nhập ID sinh viên bạn muốn thêm dịch vụ: ");
+                id_sinhvien = int.Parse(Console.ReadLine());
+
+                if (IsExistSinhVienID(id_sinhvien))
+                    break;
+                Console.WriteLine("Không tồn tại ID sinh viên này!");
+            }
+            int thang;
+            Console.Write("Nhập tháng: ");
+            thang = int.Parse(Console.ReadLine());
+            int dich_vu_1;
+            Console.Write("Nhập số lần dùng dịch vụ 1: ");
+            dich_vu_1 = int.Parse(Console.ReadLine());
+            int dich_vu_2;
+            Console.Write("Nhập số lần dùng dịch vụ 2: ");
+            dich_vu_2 = int.Parse(Console.ReadLine());
+            int dich_vu_3;
+            Console.Write("Nhập số lần dùng dịch vụ 3: ");
+            dich_vu_3 = int.Parse(Console.ReadLine());
+            int thanhtien;
+            thanhtien = dich_vu_1 * DICHVU.DVCaNhan.GiaDV1 + dich_vu_2 * DICHVU.DVCaNhan.GiaDV2 + dich_vu_3 * DICHVU.DVCaNhan.GiaDV3;
+
+            bool status = DichVuDAO.Instance.AddDichVuRieng(id_sinhvien, thang, dich_vu_1, dich_vu_2, dich_vu_3, thanhtien);
+            if (status)
+                Console.WriteLine("Add successful!");
+            else Console.WriteLine("Add failed!");
+        }
+        // Hàm Update dịch vụ của sinh viên
+        static void UpdateDichVuRieng()
+        {
+            int id_sinhvien;
+            while (true)
+            {
+                Console.Write("Nhập ID sinh viên bạn muốn cập nhật dịch vụ: ");
+                id_sinhvien = int.Parse(Console.ReadLine());
+
+                if (IsExistSinhVienID(id_sinhvien))
+                    break;
+                Console.WriteLine("Không tồn tại ID sinh viên này!");
+            }
+            int thang;
+            Console.Write("Nhập tháng: ");
+            thang = int.Parse(Console.ReadLine());
+            int dich_vu_1;
+            Console.Write("Nhập số lần dùng dịch vụ 1: ");
+            dich_vu_1 = int.Parse(Console.ReadLine());
+            int dich_vu_2;
+            Console.Write("Nhập số lần dùng dịch vụ 2: ");
+            dich_vu_2 = int.Parse(Console.ReadLine());
+            int dich_vu_3;
+            Console.Write("Nhập số lần dùng dịch vụ 3: ");
+            dich_vu_3 = int.Parse(Console.ReadLine());
+            int thanhtien;
+            thanhtien = dich_vu_1 * DICHVU.DVCaNhan.GiaDV1 + dich_vu_2 * DICHVU.DVCaNhan.GiaDV2 + dich_vu_3 * DICHVU.DVCaNhan.GiaDV3;
+            bool status = DichVuDAO.Instance.UpdateDichVuRieng(id_sinhvien, thang, dich_vu_1, dich_vu_2, dich_vu_3, thanhtien);
+            if (status)
+                Console.WriteLine("Update successful!");
+            else Console.WriteLine("Update failed!");
+        }
+        // Hàm Delete dịch vụ sinh viên
+        static void DeleteDichVuRieng()
+        {
+            int id_sinhvien, thang;
+            while (true)
+            {
+                Console.Write("Nhập ID sinh viên bạn muốn xoá dịch vụ: ");
+                id_sinhvien = int.Parse(Console.ReadLine());
+
+                if (IsExistSinhVienID(id_sinhvien))
+                    break;
+                Console.WriteLine("Không tồn tại ID sinh viên này!");
+            }
+            Console.Write("Nhập tháng dịch vụ muốn xoá: ");
+            thang = int.Parse(Console.ReadLine());
+            bool status = DichVuDAO.Instance.DeleteDichVuRieng(id_sinhvien, thang);
+            if (status)
+                Console.WriteLine("Delete successful!");
+            else Console.WriteLine("Delete failed!");
+        }
+        // Hàm Add dịch vụ của phòng
+        static void AddDichVuChung()
+        {
+            int id_phong;
+            while (true)
+            {
+                Console.Write("Nhập ID phòng bạn muốn thêm dịch vụ: ");
+                id_phong = int.Parse(Console.ReadLine());
+
+                if (IsExistPhongID(id_phong))
+                    break;
+                Console.WriteLine("Không tồn tại ID phòng này!");
+            }
+            int thang;
+            Console.Write("Nhập tháng: ");
+            thang = int.Parse(Console.ReadLine());
+            int dich_vu_1;
+            Console.Write("Nhập số lần sử dụng dịch vụ 1: ");
+            dich_vu_1 = int.Parse(Console.ReadLine());
+            int dich_vu_2;
+            Console.Write("Nhập số lần sử dụng dịch vụ 2: ");
+            dich_vu_2 = int.Parse(Console.ReadLine());
+            int thanhtien;
+            thanhtien = dich_vu_1 * DICHVU.DVChung.GiaDV1 + dich_vu_2 * DICHVU.DVChung.GiaDV2;
+
+            bool status = DichVuDAO.Instance.AddDichVuChung(id_phong, thang, dich_vu_1, dich_vu_2, thanhtien);
+            if (status)
+                Console.WriteLine("Add successful!");
+            else Console.WriteLine("Add failed!");
+        }
+        // Hàm Update dịch vụ của phòng
+        static void UpdateDichVuChung()
+        {
+            int id_phong;
+            while (true)
+            {
+                Console.Write("Nhập ID phòng bạn muốn cập nhật dịch vụ: ");
+                id_phong = int.Parse(Console.ReadLine());
+
+                if (IsExistPhongID(id_phong))
+                    break;
+                Console.WriteLine("Không tồn tại ID phòng này!");
+            }
+            int thang;
+            Console.Write("Nhập tháng: ");
+            thang = int.Parse(Console.ReadLine());
+            int dich_vu_1;
+            Console.Write("Nhập số lần sử dụng dịch vụ 1: ");
+            dich_vu_1 = int.Parse(Console.ReadLine());
+            int dich_vu_2;
+            Console.Write("Nhập số lần sử dụng dịch vụ 2: ");
+            dich_vu_2 = int.Parse(Console.ReadLine());
+            int thanhtien;
+            thanhtien = dich_vu_1 * DICHVU.DVChung.GiaDV1 + dich_vu_2 * DICHVU.DVChung.GiaDV2;
+
+            bool status = DichVuDAO.Instance.UpdateDichVuChung(id_phong, thang, dich_vu_1, dich_vu_2, thanhtien);
+            if (status)
+                Console.WriteLine("Update successful!");
+            else Console.WriteLine("Update failed!");
+        }
+        // Hàm Delete dịch vụ phòng
+        static void DeleteDichVuChung()
+        {
+            int id_phong, thang;
+            while (true)
+            {
+                Console.Write("Nhập ID phòng bạn muốn xoá dịch vụ: ");
+                id_phong = int.Parse(Console.ReadLine());
+
+                if (IsExistPhongID(id_phong))
+                    break;
+                Console.WriteLine("Không tồn tại ID sinh viên này!");
+            }
+            Console.Write("Nhập tháng dịch vụ muốn xoá: ");
+            thang = int.Parse(Console.ReadLine());
+            bool status = DichVuDAO.Instance.DeleteDichVuChung(id_phong, thang);
+            if (status)
+                Console.WriteLine("Delete successful!");
+            else Console.WriteLine("Delete failed!");
+        }
+        // Hàm tính thành tiền dịch vụ của phòng theo id và tháng
+        static int TinhTienDVC(int id_phong, int thang)
+        {
+            int tien_dv = DichVuDAO.Instance.TinhTienDichVuChung(id_phong, thang);
+            return tien_dv;
+        }
+        // Hàm tính thành tiền dịch vụ của sinh viên theo id và tháng
+        static int TinhTienDVR(int id_sinhvien, int thang)
+        {
+            int tien_dv = DichVuDAO.Instance.TinhTienDichVuRieng(id_sinhvien, thang);
+            return tien_dv;
         }
     }
 }
