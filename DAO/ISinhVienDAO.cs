@@ -16,5 +16,7 @@ namespace KTX_Management.DAO
         bool DeleteByIdPhong(int id_phong);
         bool UpdateSinhVien(SINHVIEN sinhvien);
         bool UpdateHopDong(SINHVIEN sinhvien);
+        List<SINHVIEN> HienThiSinhVien(int id_sinhvien);
+        List<SINHVIEN> HienThiSVPhong(int id_phong);
     }
 }

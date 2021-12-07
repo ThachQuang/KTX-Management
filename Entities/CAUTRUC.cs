@@ -42,7 +42,7 @@ namespace KTX_Management
         {
             public string HoTen;
             public string NgaySinh;
-            public int GioiTinh;
+            public string GioiTinh;
             public string QueQuan;
             public string NgheNghiep;
             public string SDT;
@@ -219,27 +219,6 @@ namespace KTX_Management
                     temp.LanSuDung[0] = 0;
                 temp.ThanhTien = temp.LanSuDung[0] * DICHVU.DVCaNhan.GiaDV1 + temp.LanSuDung[1] * DICHVU.DVCaNhan.GiaDV2 + temp.LanSuDung[2] * DICHVU.DVCaNhan.GiaDV3;
             }
-            return temp;
-        }
-        // Ham xuat Info ngay thang nam len console
-        public static void TakeDate(string temp)
-        {
-            Console.Write(temp);
-        }
-        // Ham xuat Info kieu cau truc NGUOI len console
-        public static CAUTRUC.NGUOI GetNguoi(NGUOI temp)
-        {
-            Console.WriteLine("Họ tên: ");
-            Console.WriteLine("Giới tính: ");
-            if (temp.GioiTinh == 1)
-                Console.Write("Nam");
-            else
-                Console.Write("Nữ");
-            Console.WriteLine("Ngay sinh: ");
-            TakeDate(temp.NgaySinh);
-            Console.WriteLine("Que quan: ", temp.QueQuan);
-            Console.WriteLine("Nghe nghiep: ", temp.NgheNghiep);
-            Console.WriteLine("SDT: ", temp.SDT);
             return temp;
         }
     }

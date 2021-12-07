@@ -20,39 +20,17 @@ namespace KTX_Management.Entities
         private CAUTRUC.NGUOI phuhuynh1, phuhuynh2;
         private string hopdongstart, hopdongend;
         private CAUTRUC.DV dichvurieng;
-        private short lanvipham;
-        private string[] lydovp = new string[5];
         // Constructors
         // Khong tham so
         public SINHVIEN()
         {
         }
-        // 10 tham so
-        public SINHVIEN(int IDPhong,
-                        CAUTRUC.NGUOI SinhVien,
-                        string CMND,
-                        string BHYT,
-                        string NoiLamViec,
-                        string DiaChiHK,
-                        short SVNam,
-                        CAUTRUC.NGUOI PhuHuynh1,
-                        CAUTRUC.NGUOI PhuHuynh2,
-                        string HopDongStart,
-                        string HopDongEnd)
-        {
-            this.idphong = IDPhong;
-            this.sinhvien = SinhVien;
-            this.cmnd = CMND;
-            this.bhyt = BHYT;
-            this.noilamviec = NoiLamViec;
-            this.diachihk = DiaChiHK;
-            this.svnam = SVNam;
-            this.phuhuynh1 = PhuHuynh1;
-            this.phuhuynh2 = PhuHuynh2;
-            this.hopdongstart = HopDongStart;
-            this.hopdongend = HopDongEnd;
-        }
         // Getter and setter
+        public CAUTRUC.NGUOI SinhVien
+        {
+            get { return sinhvien; }
+            set { sinhvien = value; }
+        }
         public int IDSinhVien
         {
             get { return idsinhvien; }
@@ -63,10 +41,35 @@ namespace KTX_Management.Entities
             get { return idphong; }
             set { idphong = value; }
         }
-        public CAUTRUC.NGUOI SinhVien
+        public string HoTen
         {
-            get { return sinhvien; }
-            set { sinhvien = value; }
+            get { return sinhvien.HoTen; }
+            set { sinhvien.HoTen = value; }
+        }
+        public string GioiTinh
+        {
+            get { return sinhvien.GioiTinh; }
+            set { sinhvien.GioiTinh = value; }
+        }
+        public string NgaySinh
+        {
+            get { return sinhvien.NgaySinh; }
+            set { sinhvien.NgaySinh = value; }
+        }
+        public string QueQuan
+        {
+            get { return sinhvien.QueQuan; }
+            set { sinhvien.QueQuan = value; }
+        }
+        public string NgheNghiep
+        {
+            get { return sinhvien.NgheNghiep; }
+            set { sinhvien.NgheNghiep = value; }
+        }
+        public string SDT
+        {
+            get { return sinhvien.SDT; }
+            set { sinhvien.SDT = value; }
         }
         public string CMND
         {
@@ -117,16 +120,6 @@ namespace KTX_Management.Entities
         {
             get { return dichvurieng; }
             set { dichvurieng = value; }
-        }
-        public short LanViPham
-        {
-            get { return lanvipham; }
-            set { lanvipham = value; }
-        }
-        public string[] LyDDoVP
-        {
-            get { return lydovp; }
-            set { lydovp = value; }
         }
     }
 }

@@ -23,6 +23,7 @@ namespace KTX_Management.DAO
         bool DeleteNuoc(int id_phong, int thang);
         List<PHONG> HienThiPhong();
         List<PHONG> HienThiPhi();
+        List<CAUTRUC.NT> HienThiNoiThat();
         int TinhTienDien(int id_phong, int thang);
         int TinhTienNuoc(int id_phong, int thang);
         bool UpdatePhi(int id_phong, int thang, int sum);

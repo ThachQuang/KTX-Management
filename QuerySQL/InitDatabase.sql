@@ -53,6 +53,14 @@ insert into DICHVUCHUNG(id_phong, thang, dich_vu_1, dich_vu_2, thanh_tien)
 values (3, 6, 0, 1, 0)
 go
 
+insert into DICHVURIENG(id_sinhvien, thang, dich_vu_1, dich_vu_2, dich_vu_3, thanh_tien)
+values (1, 7, 1, 0, 1,0)
+insert into DICHVURIENG(id_sinhvien, thang, dich_vu_1, dich_vu_2, dich_vu_3, thanh_tien)
+values (2, 7, 0, 0, 1, 0)
+insert into DICHVURIENG(id_sinhvien, thang, dich_vu_1, dich_vu_2, dich_vu_3, thanh_tien)
+values (3, 6, 0, 1, 2, 0)
+go
+
 insert into SINHVIEN(id_phong, ten, ngay_sinh, gioi_tinh, que_quan, nghe_nghiep, sdt, cmnd, noi_lam_viec, ho_khau, sv_nam)
 values (1, N'Nguyễn Văn A', '2002/01/01', 1, N'Đồng Nai', N'Sinh viên', '123', '123', 'ĐH XYZ', N'Đồng Nai', 2)
 insert into SINHVIEN(id_phong, ten, ngay_sinh, gioi_tinh, que_quan, nghe_nghiep, sdt, cmnd, noi_lam_viec, ho_khau, sv_nam)

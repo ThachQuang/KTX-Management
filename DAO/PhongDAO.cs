@@ -23,6 +23,7 @@ namespace KTX_Management.DAO
         // Các chuỗi chứa câu lệnh thực thi procedure sql
         const string GET_ALL_PHI = @"SELECT DISTINCT id_phong, ten_phong, khu, tang, phi_thu_thang FROM PHONG";
         const string GET_ALL_PHONG = @"SELECT DISTINCT id_phong, ten_phong, khu, tang, suc_chua, so_nguoi, dien_tich, gia_thue, phi_thu_thang FROM PHONG";
+        const string GET_NOI_THAT = @"SELECT DISTINCT ten_noi_that, so_luong, tinh_trang FROM NOITHAT WHERE NOITHAT.id_phong = @id_phong";
         const string ADD_PHONG = @"SP_Add_Phong @ten , @khu , @tang , @suc_chua , @so_nguoi , @dien_tich , @gia_thue , @phi_thu_thang";
         const string DELETE_PHONG = @"SP_Delete_Phong @id_phong";
         const string UPDATE_PHONG = @"SP_Update_Phong @id_phong , @ten , @khu , @tang , @suc_chua , @so_nguoi , @dien_tich , @gia_thue , @phi_thu_thang";
@@ -236,6 +237,24 @@ namespace KTX_Management.DAO
                 phong.Add(temp);
             }
             return phong;
+        }
+        public List<CAUTRUC.NT> HienThiNoiThat(int id_phong)
+        {
+            List<CAUTRUC.NT> noithat = new List<CAUTRUC.NT>();
+            object[] Para = new object[] { id_phong };
+            DataTable Table = DataProvider.Instance.ExecuteQuery(GET_NOI_THAT, Para);
+
+            foreach (DataRow row in Table.Rows)
+            {
+                CAUTRUC.NT temp = new CAUTRUC.NT
+                {
+                    Ten = Convert.ToString(row["ten_noi_that"]),
+                    SoLuong = Convert.ToInt16(row["so_luong"]),
+                    TinhTrang = Convert.ToBoolean(row["tinh_trang"])
+                };
+                noithat.Add(temp);
+            }
+            return noithat;
         }
         public List<PHONG> HienThiPhi()
         {

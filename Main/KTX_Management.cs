@@ -16,7 +16,299 @@ namespace KTX_Management.Main
             // Định dạng input, output cho phép nhập có đấu
             Console.OutputEncoding = Encoding.Unicode;
             Console.InputEncoding = Encoding.Unicode;
-
+            char key;
+            string option;
+            bool end_signal = true;
+            while (true)
+            {
+                Console.Clear();
+                Console.WriteLine("======= Chương trình quản lý KTX nhóm 25 =======");
+                Console.WriteLine("==         [1] Quản lý phòng ở KTX            ==");
+                Console.WriteLine("==         [2] Quản lý sinh viên KTX          ==");
+                Console.WriteLine("==         [3] Quản lý dịch vụ KTX            ==");
+                Console.WriteLine("==         [0] Thoát chương trình             ==");
+                Console.WriteLine("================================================");
+                Console.Write("    Mời bạn chọn chức năng chương trình: ");                
+                option = Console.ReadLine();
+                Console.WriteLine();
+                switch (option)
+                {
+                    case "1":
+                        Console.Clear();
+                        while (end_signal)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("============ Chức năng quản lý phòng ===========");
+                            Console.WriteLine("==      [1] Thêm 1 phòng mới                  ==");
+                            Console.WriteLine("==      [2] Sửa thông tin phòng               ==");
+                            Console.WriteLine("==      [3] Xoá 1 phòng có sẵn                ==");
+                            Console.WriteLine("==      [4] Thêm nội thất vào 1 phòng         ==");
+                            Console.WriteLine("==      [5] Xoá nội thất trong 1 phòng        ==");
+                            Console.WriteLine("==      [6] Kiểm tra tình trạng nội thất      ==");
+                            Console.WriteLine("==      [7] Cập nhật tình trạng nội thất      ==");
+                            Console.WriteLine("==      [8] Thêm ghi chú điện cho phòng       ==");
+                            Console.WriteLine("==      [9] Xoá ghi chú điện cho phòng        ==");
+                            Console.WriteLine("==      [10] Thêm ghi chú nước cho phòng      ==");
+                            Console.WriteLine("==      [11] Xoá ghi chú nước cho phòng       ==");
+                            Console.WriteLine("==      [12] Cập nhật phí thu theo tháng      ==");
+                            Console.WriteLine("==      [13] Hiển thị tất cả phòng KTX        ==");
+                            Console.WriteLine("==      [14] Hiển thị nội thất của phòng      ==");
+                            Console.WriteLine("==      [15] Hiển thị phí thu tất cả phòng    ==");
+                            Console.WriteLine("==      [0] Quay lại                          ==");
+                            Console.WriteLine("================================================");
+                            Console.Write("    Mời bạn chọn chức năng chương trình: ");
+                            option = Console.ReadLine();
+                            //Console.WriteLine(option);
+                            Console.WriteLine();
+                            switch (option)
+                            {
+                                case "1":
+                                    Console.WriteLine("Bạn chọn chức năng thêm 1 phòng mới");
+                                    AddPhong();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "2":
+                                    Console.WriteLine("Bạn chọn chức năng sửa thông tin phòng");
+                                    UpdatePhong();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "3":
+                                    Console.WriteLine("Bạn chọn chức năng xoá 1 phòng có sẵn");
+                                    DeletePhong();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "4":
+                                    Console.WriteLine("Bạn chọn chức năng thêm nội thất vào 1 phòng");
+                                    AddNoiThat();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "5":
+                                    Console.WriteLine("Bạn chọn chức năng xoá nội thất trong 1 phòng");
+                                    DeleteNoiThat();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "6":
+                                    Console.WriteLine("Bạn chọn chức năng iểm tra nội thất trong 1 phòng");
+                                    CheckNoiThat();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "7":
+                                    Console.WriteLine("Bạn chọn chức năng cập nhật tình trạng nội thất trong 1 phòng");
+                                    FixNoiThat();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "8":
+                                    Console.WriteLine("Bạn chọn chức năng thêm ghi chú điện vào 1 phòng");
+                                    AddThongSoDien();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "9":
+                                    Console.WriteLine("Bạn chọn chức năng xoá ghi chú điện vào 1 phòng");
+                                    DeleteThongSoDien();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "10":
+                                    Console.WriteLine("Bạn chọn chức năng thêm ghi chú nước vào 1 phòng");
+                                    AddThongSoNuoc();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "11":
+                                    Console.WriteLine("Bạn chọn chức năng xoá ghi chú nước vào 1 phòng");
+                                    DeleteThongSoNuoc();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "12":
+                                    Console.WriteLine("Bạn chọn chức năng cập nhật phí thu theo tháng của phòng");
+                                    UpdatePhi();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "13":
+                                    Console.WriteLine("Bạn chọn chức năng hiển thị tất cả phòng của KTX");
+                                    HienThiPhong();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "14":
+                                    Console.WriteLine("Bạn chọn chức năng hiển thị nội thất của 1 phòng");
+                                    HienThiNoiThat();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "15":
+                                    Console.WriteLine("Bạn chọn chức năng hiển thị phí thu tất cả phòng");
+                                    HienThiPhi();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "0":
+                                    end_signal = false;
+                                    Console.WriteLine("Đang trở lại menu chính! Nhấn phím bất kỳ để tiếp tục!");
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                default:
+                                    Console.WriteLine("Không có chức năng này!");
+                                    Console.WriteLine("Nhấn phím bất kỳ để tiếp tục");
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                            }
+                        }
+                        end_signal = true;
+                            break;
+                    case "2":
+                        Console.Clear();
+                        while (end_signal)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("========= Chức năng quản lý sinh viên ==========");
+                            Console.WriteLine("==      [1] Thêm 1 sinh viên mới              ==");
+                            Console.WriteLine("==      [2] Sửa thông tin 1 sinh siên         ==");
+                            Console.WriteLine("==      [3] Xoá 1 sinh viên có sẵn            ==");
+                            Console.WriteLine("==      [4] Thêm thông tin phụ huynh SV       ==");
+                            Console.WriteLine("==      [5] Sửa thông tin phụ huynh SV        ==");
+                            Console.WriteLine("==      [6] Xoá thông tin phụ huynh SV        ==");
+                            Console.WriteLine("==      [7] Cập nhật hợp đồng 1 sinh viên     ==");
+                            Console.WriteLine("==      [8] Hiển thị thông tin 1 sinh viên    ==");
+                            Console.WriteLine("==      [9] Hiển thị thông tin SV theo phòng  ==");
+                            Console.WriteLine("==      [0] Quay lại                          ==");
+                            Console.WriteLine("================================================");
+                            Console.Write("    Mời bạn chọn chức năng chương trình: ");
+                            option = Console.ReadLine();
+                            //Console.WriteLine(option);
+                            Console.WriteLine();
+                            switch (option)
+                            {
+                                case "1":
+                                    Console.WriteLine("Bạn chọn chức năng thêm 1 sinh viên mới");
+                                    AddSinhVien();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "2":
+                                    Console.WriteLine("Bạn chọn chức năng sửa thông tin 1 sinh viên");
+                                    UpdateSinhVien();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "3":
+                                    Console.WriteLine("Bạn chọn chức năng xoá 1 sinh viên có sẵn");
+                                    DeleteSinhVien();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "4":
+                                    Console.WriteLine("Bạn chọn chức năng thêm thông tin phụ huynh 1 SV");
+                                    AddPhuHuynh();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "5":
+                                    Console.WriteLine("Bạn chọn chức năng cập nhật thông tin phụ huynh 1 SV");
+                                    UpdatePhuHuynh();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "6":
+                                    Console.WriteLine("Bạn chọn chức năng xoá thông tin phụ huynh 1 SV");
+                                    DeletePhuHuynh();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "7":
+                                    Console.WriteLine("Bạn chọn chức năng cập hợp đồng thuê của sinh viên");
+                                    UpdateHopDong();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "8":
+                                    Console.WriteLine("Bạn chọn chức năng hiển thị thông tin 1 SV");
+                                    HienThiSinhVien();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "9":
+                                    Console.WriteLine("Bạn chọn chức năng hiển thị thông tin sinh viên trong 1 phòng");
+                                    HienThiSVPhong();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "0":
+                                    end_signal = false;
+                                    Console.WriteLine("Đang trở lại menu chính! Nhấn phím bất kỳ để tiếp tục!");
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                default:
+                                    Console.WriteLine("Không có chức năng này!");
+                                    Console.WriteLine("Nhấn phím bất kỳ để tiếp tục");
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                            }
+                        }
+                        end_signal = true;
+                        break;
+                    case "3":
+                        Console.Clear();
+                        while (end_signal)
+                        {
+                            Console.Clear();
+                            Console.WriteLine("========== Chức năng quản lý dịch vụ  ==========");
+                            Console.WriteLine("==      [1] Thêm ghi chú dịch vụ 1 SV         ==");
+                            Console.WriteLine("==      [2] Sửa ghi chú dịch vụ 1 SV          ==");
+                            Console.WriteLine("==      [3] Xoá ghi chú dịch vụ 1 SV          ==");
+                            Console.WriteLine("==      [4] Thêm ghi chú dịch vụ 1 phòng      ==");
+                            Console.WriteLine("==      [5] Sửa ghi chú dịch vụ 1 phòng       ==");
+                            Console.WriteLine("==      [6] Xoá ghi chú dịch vụ 1 phòng       ==");
+                            Console.WriteLine("==      [0] Quay lại                          ==");
+                            Console.WriteLine("================================================");
+                            Console.Write("    Mời bạn chọn chức năng chương trình: ");
+                            option = Console.ReadLine();
+                            //Console.WriteLine(option);
+                            Console.WriteLine();
+                            switch (option)
+                            {
+                                case "1":
+                                    Console.WriteLine("Bạn chọn chức năng thêm ghi chú dịch vụ 1 SV");
+                                    AddDichVuChung();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "2":
+                                    Console.WriteLine("Bạn chọn chức năng sửa ghi chú dịch vụ 1 SV");
+                                    UpdateDichVuChung();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "3":
+                                    Console.WriteLine("Bạn chọn chức năng xoá ghi chú dịch vụ 1 SV");
+                                    DeleteDichVuChung();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "4":
+                                    Console.WriteLine("Bạn chọn chức năng thêm chú dịch vụ 1 phòng");
+                                    AddDichVuRieng();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "5":
+                                    Console.WriteLine("Bạn chọn chức năng sửa chú dịch vụ 1 phòng");
+                                    UpdateDichVuRieng();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "6":
+                                    Console.WriteLine("Bạn chọn chức năng xoá chú dịch vụ 1 phòng");
+                                    DeleteDichVuRieng();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "0":
+                                    end_signal = false;
+                                    Console.WriteLine("Đang trở lại menu chính! Nhấn phím bất kỳ để tiếp tục!");
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                default:
+                                    Console.WriteLine("Không có chức năng này!");
+                                    Console.WriteLine("Nhấn phím bất kỳ để tiếp tục");
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                            }
+                        }
+                        end_signal = true;
+                        break;
+                    case "0":
+                        Console.WriteLine("Đã thoát chương trình!");
+                        return;
+                    default:
+                        Console.WriteLine("Không có chức năng này!");
+                        Console.WriteLine("Nhấn phím bất kỳ để tiếp tục");
+                        key = Console.ReadKey().KeyChar;
+                        Console.Clear();
+                        break;
+                }
+            }
+             
             // Các hàm cho Phòng
             //AddPhong();
             //UpdatePhong();
@@ -31,6 +323,7 @@ namespace KTX_Management.Main
             //AddThongSoNuoc();
             //DeleteThongSoNuoc();
             //HienThiPhong();
+            //HienThiNoiThat();
             //HienThiPhi();
             //TinhTienDien(id_phong, thang);
             //TinhTienNuoc(id_phong, thang);
@@ -46,6 +339,8 @@ namespace KTX_Management.Main
             //DeletePhuHuynh();
             //AddPhuHuynh();
             //UpdatePhuHuynh();
+            //HienThiSinhVien();
+            //HienThiSVPhong();
 
             // Các hàm cho Dịch Vụ
             //AddDichVuRieng();
@@ -132,7 +427,7 @@ namespace KTX_Management.Main
             }
             
             Console.Write("Giới tính (1 = Nam, 0 = Nữ): ");
-            temp.GioiTinh = int.Parse(Console.ReadLine());
+            temp.GioiTinh = Console.ReadLine();
             Console.Write("Quê quán: ");
             temp.QueQuan = Console.ReadLine();
             Console.Write("Nghề nghiệp: ");
@@ -218,7 +513,7 @@ namespace KTX_Management.Main
                 Console.WriteLine("Ngày tháng không hợp lệ!");
             }
             Console.Write("Giới tính (1 = Nam, 0 = Nữ): ");
-            temp.GioiTinh = int.Parse(Console.ReadLine());
+            temp.GioiTinh = Console.ReadLine();
             Console.Write("Quê quán: ");
             temp.QueQuan = Console.ReadLine();
             Console.Write("Nghề nghiệp: ");
@@ -261,7 +556,7 @@ namespace KTX_Management.Main
             }
 
             Console.Write("Giới tính (1 = Nam, 0 = Nữ): ");
-            temp.GioiTinh = int.Parse(Console.ReadLine());
+            temp.GioiTinh = Console.ReadLine();
             Console.Write("Quê quán: ");
             temp.QueQuan = Console.ReadLine();
             Console.Write("Nghề nghiệp: ");
@@ -302,16 +597,14 @@ namespace KTX_Management.Main
                     break;
                 Console.WriteLine("Ngày tháng không hợp lệ!");
             }
-
             Console.Write("Giới tính (1 = Nam, 0 = Nữ): ");
-            temp.GioiTinh = int.Parse(Console.ReadLine());
+            temp.GioiTinh = Console.ReadLine();
             Console.Write("Quê quán: ");
             temp.QueQuan = Console.ReadLine();
             Console.Write("Nghề nghiệp: ");
             temp.NgheNghiep = Console.ReadLine();
             Console.Write("SĐT: ");
             temp.SDT = Console.ReadLine();
-
             bool status = SinhVienDAO.Instance.UpdatePhuHuynh(temp,id);
             if (status)
                 Console.WriteLine("Update successful!");
@@ -349,7 +642,73 @@ namespace KTX_Management.Main
                 Console.WriteLine("Update successful!");
             else Console.WriteLine("Update failed!");
         }
-        // Hàm Add dịch vụ của sinh viên
+        // Hàm hiển thị sinh viên theo id
+        static void HienThiSinhVien()
+        {
+            int id_sinhvien;
+            while (true)
+            {
+                Console.Write("Nhập ID sinh viên: ");
+                id_sinhvien = int.Parse(Console.ReadLine());
+
+                if (IsExistSinhVienID(id_sinhvien))
+                    break;
+                Console.WriteLine("Không tồn tại ID sinh viên này!");
+            }
+            List<SINHVIEN> sinhvien = SinhVienDAO.Instance.HienThiSinhVien(id_sinhvien);
+
+            if (sinhvien.Count == 0)
+                Console.WriteLine("Không tìm thấy bất cứ sinh viên nào!");
+            else
+            {
+                Console.WriteLine("Giới tính True là nam, False là nữ");
+                foreach (SINHVIEN temp in sinhvien)
+                {
+                    Console.WriteLine("ID phòng: " + Convert.ToString(temp.IDPhong));
+                    Console.WriteLine("Họ tên: " + Convert.ToString(temp.HoTen));
+                    Console.WriteLine("Ngày sinh : " + Convert.ToString(temp.NgaySinh));
+                    Console.WriteLine("Giới tính: " + Convert.ToString(temp.GioiTinh));
+                    Console.WriteLine("Quê quán: " + Convert.ToString(temp.QueQuan));
+                    Console.WriteLine("Nghề nghiệp: " + Convert.ToString(temp.NgheNghiep));
+                    Console.WriteLine("SĐT: " + Convert.ToString(temp.SDT));
+                    Console.WriteLine("BHYT: " + Convert.ToString(temp.BHYT));
+                    Console.WriteLine("Nơi làm việc: " + Convert.ToString(temp.NoiLamViec));
+                    Console.WriteLine("Hộ khẩu: " + Convert.ToString(temp.DiaChiHK));
+                    Console.WriteLine("Sinh viên năm thứ: " + Convert.ToString(temp.SVNam));
+                    Console.WriteLine("Ngày kí hợp đồng: " + Convert.ToString(temp.HopDongStart));
+                    Console.WriteLine("Ngày hết hạn hợp đồng: " + Convert.ToString(temp.HopDongEnd));
+                }
+            }
+        }
+        // Hàm hiển thị sinh viên theo id phòng
+        static void HienThiSVPhong()
+        {
+            int id_phong;
+            while (true)
+            {
+                Console.Write("Nhập ID phòng muốn xem danh sách sinh viên: ");
+                id_phong = int.Parse(Console.ReadLine());
+
+                if (IsExistPhongID(id_phong))
+                    break;
+                Console.WriteLine("Không tồn tại ID phòng này!");
+            }
+            List<SINHVIEN> sinhvien = SinhVienDAO.Instance.HienThiSVPhong(id_phong);
+
+            if (sinhvien.Count == 0)
+                Console.WriteLine("Không tìm thấy bất cứ sinh viên nào!");
+            else
+            {
+                Console.WriteLine("Giới tính True là nam, False là nữ");
+                Console.WriteLine("| ID sinh viên |          Họ tên          |        SĐT        |");
+                foreach (SINHVIEN temp in sinhvien)
+                {
+                    Console.Write(Convert.ToString(temp.IDSinhVien).PadLeft(8));
+                    Console.Write(Convert.ToString(temp.HoTen).PadLeft(22));
+                    Console.WriteLine(Convert.ToString(temp.SDT).PadLeft(18));
+                }
+            }
+        }
 
         // PHONG
         // Hàm Add phòng vào database
@@ -639,6 +998,37 @@ namespace KTX_Management.Main
                 }
             }
         }
+        // Hàm hiển thị nội thất của phòng theo id
+        static void HienThiNoiThat()
+        {
+            int id_phong;
+            while (true)
+            {
+                Console.Write("Nhập ID phòng muốn xem nội thất: ");
+                id_phong = int.Parse(Console.ReadLine());
+
+                if (IsExistPhongID(id_phong))
+                    break;
+                Console.WriteLine("Không tồn tại ID phòng này!");
+            }
+            List<CAUTRUC.NT> noithat = PhongDAO.Instance.HienThiNoiThat(id_phong);
+            if (noithat.Count == 0)
+                Console.WriteLine("Không tìm thấy bất cứ nội thất nào!");
+            else
+            {
+                Console.WriteLine("Tổng số nội thất có trong phòng là: " + noithat.Count);
+                Console.WriteLine("Tình trạng False là bình thường, True là có hư hỏng");
+                foreach (CAUTRUC.NT temp in noithat)
+                {
+                    Console.Write("Tên nội thất: ");
+                    Console.Write(Convert.ToString(temp.Ten) + "  ");
+                    Console.Write("Số lượng: ");
+                    Console.Write(Convert.ToString(temp.SoLuong) + "  ");
+                    Console.Write("Tình trạng: ");
+                    Console.WriteLine(Convert.ToString(temp.TinhTrang));
+                }
+            }
+        }
         // Hàm hiển thị tất cả phí thu tháng các phòng
         static void HienThiPhi()
         {
@@ -708,6 +1098,7 @@ namespace KTX_Management.Main
                 Console.WriteLine("Update successful!");
             else Console.WriteLine("Update failed!");
         }
+        
 
         // DICHVU
         // Hàm Add dịch vụ của sinh viên

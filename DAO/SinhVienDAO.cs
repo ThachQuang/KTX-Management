@@ -22,7 +22,8 @@ namespace KTX_Management.DAO
         }
         private SinhVienDAO() { }
         // Các chuỗi chứa câu lệnh thực thi procedure sql
-
+        const string GET_SV_PHONG = @"SELECT DISTINCT id_sinhvien, ten, sdt FROM SINHVIEN WHERE SINHVIEN.id_phong = @id_phong";
+        const string GET_INFO_SV = @"SELECT DISTINCT id_phong, ten, ngay_sinh, gioi_tinh, que_quan, nghe_nghiep, sdt, cmnd, bhyt, noi_lam_viec, ho_khau, sv_nam, hop_dong_start, hop_dong_end FROM SINHVIEN WHERE SINHVIEN.id_sinhvien = @id_sinhvien";
         const string ADD_SINHVIEN = @"SP_Add_SinhVien @id_phong , @ten , @ngay_sinh , @gioi_tinh , @que_quan , @nghe_nghiep , @sdt , @cmnd , @bhyt , @noi_lam_viec , @ho_khau , @sv_nam , @hop_dong_start , @hop_dong_end";
         const string ADD_PHUHUYNH = @"SP_Add_PhuHuynh @id_phong , @ten , @ngay_sinh , @gioi_tinh , @que_quan , @nghe_nghiep , @sdt";
         const string DELETE_SINHVIEN = @"SP_Delete_SinhVien @id_sinhvien";
@@ -30,8 +31,8 @@ namespace KTX_Management.DAO
         const string UPDATE_SINHVIEN = @"SP_Update_SinhVien @id_sinhvien , @id_phong , @ten , @ngay_sinh , @gioi_tinh , @que_quan , @nghe_nghiep , @sdt , @cmnd , @bhyt , @noi_lam_viec , @ho_khau , @sv_nam";
         const string UPDATE_PHUHUYNH = @"SP_Update_PhuHuynh @id_sinhvien , @id_phong , @ten , @ngay_sinh , @gioi_tinh , @que_quan , @nghe_nghiep , @sdt";
         const string UPDATE_HOPDONG = @"SP_Update_HopDong @id_sinhvien , @hop_dong_start , @hop_dong_end";
-        const string GET_ID = "SELECT* FROM SINHVIEN WHERE id_phong=@id_phong";
-        const string COUNT_SINHVIEN = "SELECT COUNT(id_sinhvien) FROM SINHVIEN WHERE id_phong = @id_phong";
+        const string GET_ID = @"SELECT* FROM SINHVIEN WHERE id_phong=@id_phong";
+        const string COUNT_SINHVIEN = @"SELECT COUNT(id_sinhvien) FROM SINHVIEN WHERE id_phong = @id_phong";
         // Hàm tương tác với database
         public int CountSinhVien(int id_phong)
         {
@@ -86,7 +87,6 @@ namespace KTX_Management.DAO
                 return false;
             }
         }
-
         public bool DeleteSinhVien(int id_sinhvien)
         {
             try
@@ -101,7 +101,6 @@ namespace KTX_Management.DAO
                 return false;
             }
         }
-
         public bool DeletePhuHuynh(int id_sinhvien)
         {
             try
@@ -201,7 +200,6 @@ namespace KTX_Management.DAO
                 return false;
             }
         }
-
         public bool UpdateHopDong(SINHVIEN sinhvien)
         {
             try
@@ -216,6 +214,53 @@ namespace KTX_Management.DAO
             {
                 return false;
             }
+        }
+        public List<SINHVIEN> HienThiSinhVien(int id_sinhvien)
+        {
+            List<SINHVIEN> sinhvien = new List<SINHVIEN>();
+            object[] Para = new object[] { id_sinhvien };
+            DataTable Table = DataProvider.Instance.ExecuteQuery(GET_INFO_SV, Para);
+
+            foreach (DataRow row in Table.Rows)
+            {
+                SINHVIEN temp = new SINHVIEN
+                {
+                    IDPhong = Convert.ToInt32(row["id_phong"]),
+                    HoTen = Convert.ToString(row["ten"]),
+                    NgaySinh = Convert.ToString(row["ngay_sinh"]),
+                    GioiTinh = Convert.ToString(row["gioi_tinh"]),
+                    QueQuan = Convert.ToString(row["que_quan"]),
+                    NgheNghiep = Convert.ToString(row["nghe_nghiep"]),
+                    SDT = Convert.ToString(row["sdt"]),
+                    CMND = Convert.ToString(row["cmnd"]),
+                    BHYT = Convert.ToString(row["bhyt"]),
+                    NoiLamViec = Convert.ToString(row["noi_lam_viec"]),
+                    DiaChiHK = Convert.ToString(row["ho_khau"]),
+                    SVNam = Convert.ToInt16(row["sv_nam"]),
+                    HopDongStart = Convert.ToString(row["hop_dong_start"]),
+                    HopDongEnd = Convert.ToString(row["hop_dong_end"])
+                };
+                sinhvien.Add(temp);
+            }
+            return sinhvien;
+        }
+        public List<SINHVIEN> HienThiSVPhong(int id_phong)
+        {
+            List<SINHVIEN> sinhvien = new List<SINHVIEN>();
+            object[] Para = new object[] { id_phong };
+            DataTable Table = DataProvider.Instance.ExecuteQuery(GET_SV_PHONG, Para);
+
+            foreach (DataRow row in Table.Rows)
+            {
+                SINHVIEN temp = new SINHVIEN
+                {
+                    IDSinhVien = Convert.ToInt32(row["id_sinhvien"]),
+                    HoTen = Convert.ToString(row["ten"]),
+                    SDT = Convert.ToString(row["sdt"])
+                };
+                sinhvien.Add(temp);
+            }
+            return sinhvien;
         }
     }
 }
