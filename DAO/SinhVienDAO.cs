@@ -195,8 +195,9 @@ namespace KTX_Management.DAO
 
                 return DataProvider.Instance.ExecuteNonQuery(UPDATE_PHUHUYNH, Para) > 0;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }

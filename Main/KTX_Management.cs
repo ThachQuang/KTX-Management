@@ -30,13 +30,82 @@ namespace KTX_Management.Main
             //AddThongSoNuoc();
             //DeleteThongSoNuoc();
             // Các hàm cho Sinh Viên
-            AddSinhVien();
+            //AddSinhVien();
             //DeleteSinhVien();
             //UpdateSinhVien();
             //UpdateHopDong();
             //DeleteByIdPhong();
+            //DeletePhuHuynh();
+            //AddPhuHuynh();
+            //UpdatePhuHuynh();
+            //AddDichVuRieng();
+            //UpdateDichVuRieng();
+            DeleteDichVuRieng();
+        }
+        static void AddDichVuRieng()
+        {
+            int id;
+            Console.Write("Nhap id sinh vien: ");
+            id = int.Parse(Console.ReadLine());
+            int thang;
+            Console.Write("Nhap thang: ");
+            thang = int.Parse(Console.ReadLine());
+            int dich_vu_1;
+            Console.Write("Nhap dich vu 1: ");
+            dich_vu_1 = int.Parse(Console.ReadLine());
+            int dich_vu_2;
+            Console.Write("Nhap dich vu 2: ");
+            dich_vu_2 = int.Parse(Console.ReadLine());
+            int dich_vu_3;
+            Console.Write("Nhap dich vu 3: ");
+            dich_vu_3 = int.Parse(Console.ReadLine());
+            int thanhtien;
+            Console.Write("Thanh tien: ");
+            thanhtien = int.Parse(Console.ReadLine());
+
+            bool status = DichVuDAO.Instance.AddDichVuRieng(id,thang,dich_vu_1,dich_vu_2,dich_vu_3,thanhtien);
+            if (status)
+                Console.WriteLine("Add successful!");
+            else Console.WriteLine("Add failed!");
         }
 
+        static void UpdateDichVuRieng()
+        {
+            int id;
+            Console.Write("Nhap id sinh vien: ");
+            id = int.Parse(Console.ReadLine());
+            int thang;
+            Console.Write("Nhap thang: ");
+            thang = int.Parse(Console.ReadLine());
+            int dich_vu_1;
+            Console.Write("Nhap dich vu 1: ");
+            dich_vu_1 = int.Parse(Console.ReadLine());
+            int dich_vu_2;
+            Console.Write("Nhap dich vu 2: ");
+            dich_vu_2 = int.Parse(Console.ReadLine());
+            int dich_vu_3;
+            Console.Write("Nhap dich vu 3: ");
+            dich_vu_3 = int.Parse(Console.ReadLine());
+            int thanhtien;
+            Console.Write("Thanh tien: ");
+            thanhtien = int.Parse(Console.ReadLine());
+
+            bool status = DichVuDAO.Instance.UpdateDichVuRieng(id, thang, dich_vu_1, dich_vu_2, dich_vu_3, thanhtien);
+            if (status)
+                Console.WriteLine("Update successful!");
+            else Console.WriteLine("Update failed!");
+        }
+
+        static void DeleteDichVuRieng()
+        {
+            int id_sinhvien;
+            Console.Write("Nhập ID sinh viên bạn muốn xoá: ");
+            id_sinhvien = int.Parse(Console.ReadLine());
+            bool status = DichVuDAO.Instance.DeleteDichVuRieng(id_sinhvien);
+            if (status)
+                Console.WriteLine("Delete successful!");
+            else Console.WriteLine("Delete failed!");
+        }
         // Hàm check date có đúng hay không
         public static bool IsDate(string tempDate) 
         {
