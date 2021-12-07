@@ -30,11 +30,11 @@ namespace KTX_Management.Main
             //AddThongSoNuoc();
             //DeleteThongSoNuoc();
             // Các hàm cho Sinh Viên
-            //AddSinhVien();
+            AddSinhVien();
             //DeleteSinhVien();
             //UpdateSinhVien();
             //UpdateHopDong();
-            DeleteByIdPhong();
+            //DeleteByIdPhong();
         }
 
         // Hàm check date có đúng hay không
@@ -216,6 +216,82 @@ namespace KTX_Management.Main
             sinhvien.SVNam = short.Parse(Console.ReadLine());
             
             bool status = SinhVienDAO.Instance.UpdateSinhVien(sinhvien);
+            if (status)
+                Console.WriteLine("Update successful!");
+            else Console.WriteLine("Update failed!");
+        }
+        // Hàm Update hợp đồng SV trong database
+        static void AddPhuHuynh()
+        {
+            int id;
+            Console.Write("Nhap id sinh vien: ");
+            id=int.Parse(Console.ReadLine());
+            CAUTRUC.NGUOI temp = new CAUTRUC.NGUOI();
+            Console.Write("Tên sinh phu huynh: ");
+            temp.HoTen = Console.ReadLine();
+            while (true)
+            {
+                Console.Write("Ngày sinh (dd/mm/yyyy): ");
+                temp.NgaySinh = Console.ReadLine();
+                if (IsDate(temp.NgaySinh))
+                    break;
+                Console.WriteLine("Ngày tháng không hợp lệ!");
+            }
+
+            Console.Write("Giới tính (1 = Nam, 0 = Nữ): ");
+            temp.GioiTinh = int.Parse(Console.ReadLine());
+            Console.Write("Quê quán: ");
+            temp.QueQuan = Console.ReadLine();
+            Console.Write("Nghề nghiệp: ");
+            temp.NgheNghiep = Console.ReadLine();
+            Console.Write("SĐT: ");
+            temp.SDT = Console.ReadLine();
+            
+            bool status = SinhVienDAO.Instance.AddPhuHuynh(temp,id);
+            if (status)
+                Console.WriteLine("Add successful!");
+            else Console.WriteLine("Add failed!");
+        }
+        // Hàm Delete sinh viên khỏi database
+        static void DeletePhuHuynh()
+        {
+            int id_sinhvien;
+            Console.Write("Nhập ID sinh viên bạn muốn xoá phu huynh: ");
+            id_sinhvien = int.Parse(Console.ReadLine());
+            bool status = SinhVienDAO.Instance.DeletePhuHuynh(id_sinhvien);
+            if (status)
+                Console.WriteLine("Delete successful!");
+            else Console.WriteLine("Delete failed!");
+        }
+
+        // Hàm Update sinh viên trong database
+        static void UpdatePhuHuynh()
+        {
+            int id;
+            Console.Write("Nhap id sinh vien: ");
+            id = int.Parse(Console.ReadLine());
+            CAUTRUC.NGUOI temp = new CAUTRUC.NGUOI();
+            Console.Write("Tên sinh phu huynh: ");
+            temp.HoTen = Console.ReadLine();
+            while (true)
+            {
+                Console.Write("Ngày sinh (dd/mm/yyyy): ");
+                temp.NgaySinh = Console.ReadLine();
+                if (IsDate(temp.NgaySinh))
+                    break;
+                Console.WriteLine("Ngày tháng không hợp lệ!");
+            }
+
+            Console.Write("Giới tính (1 = Nam, 0 = Nữ): ");
+            temp.GioiTinh = int.Parse(Console.ReadLine());
+            Console.Write("Quê quán: ");
+            temp.QueQuan = Console.ReadLine();
+            Console.Write("Nghề nghiệp: ");
+            temp.NgheNghiep = Console.ReadLine();
+            Console.Write("SĐT: ");
+            temp.SDT = Console.ReadLine();
+
+            bool status = SinhVienDAO.Instance.UpdatePhuHuynh(temp,id);
             if (status)
                 Console.WriteLine("Update successful!");
             else Console.WriteLine("Update failed!");
