@@ -19,3 +19,10 @@ C:\Users\Administrator\Documents\GitHub\KTX-Management\File_Code_Chuong_Trinh\ob
 C:\Users\Administrator\Documents\GitHub\KTX-Management\File_Code_Chuong_Trinh\obj\Debug\KTX Management.csproj.CoreCompileInputs.cache
 C:\Users\Administrator\Documents\GitHub\KTX-Management\File_Code_Chuong_Trinh\obj\Debug\KTX Management.exe
 C:\Users\Administrator\Documents\GitHub\KTX-Management\File_Code_Chuong_Trinh\obj\Debug\KTX Management.pdb
+C:\Users\Linh\Documents\GitHub\KTX-Management\File_Code_Chuong_Trinh\bin\Debug\KTX Management.exe.config
+C:\Users\Linh\Documents\GitHub\KTX-Management\File_Code_Chuong_Trinh\bin\Debug\KTX Management.exe
+C:\Users\Linh\Documents\GitHub\KTX-Management\File_Code_Chuong_Trinh\bin\Debug\KTX Management.pdb
+C:\Users\Linh\Documents\GitHub\KTX-Management\File_Code_Chuong_Trinh\obj\Debug\KTX Management.csproj.AssemblyReference.cache
+C:\Users\Linh\Documents\GitHub\KTX-Management\File_Code_Chuong_Trinh\obj\Debug\KTX Management.csproj.CoreCompileInputs.cache
+C:\Users\Linh\Documents\GitHub\KTX-Management\File_Code_Chuong_Trinh\obj\Debug\KTX Management.exe
+C:\Users\Linh\Documents\GitHub\KTX-Management\File_Code_Chuong_Trinh\obj\Debug\KTX Management.pdb
