@@ -698,6 +698,7 @@ namespace KTX_Management.Main
                 Console.WriteLine("Danh sách sinh viên hiện tại rỗng!");
             else
             {
+                Console.Clear();
                 Console.WriteLine("Danh sách sinh viên hiện tại: ");
                 Console.WriteLine("Giới tính True là nam, False là nữ");
                 foreach (SINHVIEN temp in sinhvien)
@@ -795,6 +796,7 @@ namespace KTX_Management.Main
                         break;
                 }
                 sosinhvien = 0;
+                Console.Clear();
                 foreach (SINHVIEN temp in sinhvien)
                 {
                     if (temp == null)

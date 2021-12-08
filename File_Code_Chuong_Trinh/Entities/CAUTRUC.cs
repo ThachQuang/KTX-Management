@@ -32,12 +32,6 @@ namespace KTX_Management
             public int[] LanSuDung; // LanSuDung[i] = so lan su dung dich vu i
             public double ThanhTien;
         };
-        public struct @string
-        {
-            public short Ngay;
-            public short Thang;
-            public short Nam;
-        };
         public struct NGUOI
         {
             public string HoTen;
