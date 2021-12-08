@@ -22,13 +22,13 @@ namespace KTX_Management.Main
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("======= Chương trình quản lý KTX nhóm 25 =======");
-                Console.WriteLine("==         [1] Quản lý phòng ở KTX            ==");
-                Console.WriteLine("==         [2] Quản lý sinh viên KTX          ==");
-                Console.WriteLine("==         [3] Quản lý dịch vụ KTX            ==");
-                Console.WriteLine("==         [0] Thoát chương trình             ==");
-                Console.WriteLine("================================================");
-                Console.Write("    Mời bạn chọn chức năng chương trình: ");                
+                Console.WriteLine("                     ======= Chương trình quản lý KTX nhóm 25 =======");
+                Console.WriteLine("                     ==         [1] Quản lý phòng ở KTX            ==");
+                Console.WriteLine("                     ==         [2] Quản lý sinh viên KTX          ==");
+                Console.WriteLine("                     ==         [3] Quản lý dịch vụ KTX            ==");
+                Console.WriteLine("                     ==         [0] Thoát chương trình             ==");
+                Console.WriteLine("                     ================================================");
+                Console.Write("                         Mời bạn chọn chức năng chương trình: ");                
                 option = Console.ReadLine();
                 Console.WriteLine();
                 switch (option)
@@ -38,25 +38,25 @@ namespace KTX_Management.Main
                         while (end_signal)
                         {
                             Console.Clear();
-                            Console.WriteLine("============ Chức năng quản lý phòng ===========");
-                            Console.WriteLine("==      [1] Thêm 1 phòng mới                  ==");
-                            Console.WriteLine("==      [2] Sửa thông tin phòng               ==");
-                            Console.WriteLine("==      [3] Xoá 1 phòng có sẵn                ==");
-                            Console.WriteLine("==      [4] Thêm nội thất vào 1 phòng         ==");
-                            Console.WriteLine("==      [5] Xoá nội thất trong 1 phòng        ==");
-                            Console.WriteLine("==      [6] Kiểm tra tình trạng nội thất      ==");
-                            Console.WriteLine("==      [7] Cập nhật tình trạng nội thất      ==");
-                            Console.WriteLine("==      [8] Thêm ghi chú điện cho phòng       ==");
-                            Console.WriteLine("==      [9] Xoá ghi chú điện cho phòng        ==");
-                            Console.WriteLine("==      [10] Thêm ghi chú nước cho phòng      ==");
-                            Console.WriteLine("==      [11] Xoá ghi chú nước cho phòng       ==");
-                            Console.WriteLine("==      [12] Cập nhật phí thu theo tháng      ==");
-                            Console.WriteLine("==      [13] Hiển thị tất cả phòng KTX        ==");
-                            Console.WriteLine("==      [14] Hiển thị nội thất của phòng      ==");
-                            Console.WriteLine("==      [15] Hiển thị phí thu tất cả phòng    ==");
-                            Console.WriteLine("==      [0] Quay lại                          ==");
-                            Console.WriteLine("================================================");
-                            Console.Write("    Mời bạn chọn chức năng chương trình: ");
+                            Console.WriteLine("                     ============ Chức năng quản lý phòng ===========");
+                            Console.WriteLine("                     ==      [1] Thêm 1 phòng mới                  ==");
+                            Console.WriteLine("                     ==      [2] Sửa thông tin phòng               ==");
+                            Console.WriteLine("                     ==      [3] Xoá 1 phòng có sẵn                ==");
+                            Console.WriteLine("                     ==      [4] Thêm nội thất vào 1 phòng         ==");
+                            Console.WriteLine("                     ==      [5] Xoá nội thất trong 1 phòng        ==");
+                            Console.WriteLine("                     ==      [6] Kiểm tra tình trạng nội thất      ==");
+                            Console.WriteLine("                     ==      [7] Cập nhật tình trạng nội thất      ==");
+                            Console.WriteLine("                     ==      [8] Thêm ghi chú điện cho phòng       ==");
+                            Console.WriteLine("                     ==      [9] Xoá ghi chú điện cho phòng        ==");
+                            Console.WriteLine("                     ==      [10] Thêm ghi chú nước cho phòng      ==");
+                            Console.WriteLine("                     ==      [11] Xoá ghi chú nước cho phòng       ==");
+                            Console.WriteLine("                     ==      [12] Cập nhật phí thu theo tháng      ==");
+                            Console.WriteLine("                     ==      [13] Hiển thị tất cả phòng KTX        ==");
+                            Console.WriteLine("                     ==      [14] Hiển thị nội thất của phòng      ==");
+                            Console.WriteLine("                     ==      [15] Hiển thị phí thu tất cả phòng    ==");
+                            Console.WriteLine("                     ==      [0] Quay lại                          ==");
+                            Console.WriteLine("                     ================================================");
+                            Console.Write("                         Mời bạn chọn chức năng chương trình: ");
                             option = Console.ReadLine();
                             //Console.WriteLine(option);
                             Console.WriteLine();
@@ -156,19 +156,19 @@ namespace KTX_Management.Main
                         while (end_signal)
                         {
                             Console.Clear();
-                            Console.WriteLine("========= Chức năng quản lý sinh viên ==========");
-                            Console.WriteLine("==      [1] Thêm 1 sinh viên mới              ==");
-                            Console.WriteLine("==      [2] Sửa thông tin 1 sinh siên         ==");
-                            Console.WriteLine("==      [3] Xoá 1 sinh viên có sẵn            ==");
-                            Console.WriteLine("==      [4] Thêm thông tin phụ huynh SV       ==");
-                            Console.WriteLine("==      [5] Sửa thông tin phụ huynh SV        ==");
-                            Console.WriteLine("==      [6] Xoá thông tin phụ huynh SV        ==");
-                            Console.WriteLine("==      [7] Cập nhật hợp đồng 1 sinh viên     ==");
-                            Console.WriteLine("==      [8] Hiển thị thông tin 1 sinh viên    ==");
-                            Console.WriteLine("==      [9] Hiển thị thông tin SV theo phòng  ==");
-                            Console.WriteLine("==      [0] Quay lại                          ==");
-                            Console.WriteLine("================================================");
-                            Console.Write("    Mời bạn chọn chức năng chương trình: ");
+                            Console.WriteLine("                     ========= Chức năng quản lý sinh viên ==========");
+                            Console.WriteLine("                     ==      [1] Thêm 1 sinh viên mới              ==");
+                            Console.WriteLine("                     ==      [2] Sửa thông tin 1 sinh siên         ==");
+                            Console.WriteLine("                     ==      [3] Xoá 1 sinh viên có sẵn            ==");
+                            Console.WriteLine("                     ==      [4] Thêm thông tin phụ huynh SV       ==");
+                            Console.WriteLine("                     ==      [5] Sửa thông tin phụ huynh SV        ==");
+                            Console.WriteLine("                     ==      [6] Xoá thông tin phụ huynh SV        ==");
+                            Console.WriteLine("                     ==      [7] Cập nhật hợp đồng 1 sinh viên     ==");
+                            Console.WriteLine("                     ==      [8] Hiển thị thông tin 1 sinh viên    ==");
+                            Console.WriteLine("                     ==      [9] Hiển thị thông tin SV theo phòng  ==");
+                            Console.WriteLine("                     ==      [0] Quay lại                          ==");
+                            Console.WriteLine("                     ================================================");
+                            Console.Write("                         Mời bạn chọn chức năng chương trình: ");
                             option = Console.ReadLine();
                             //Console.WriteLine(option);
                             Console.WriteLine();
@@ -238,16 +238,16 @@ namespace KTX_Management.Main
                         while (end_signal)
                         {
                             Console.Clear();
-                            Console.WriteLine("========== Chức năng quản lý dịch vụ  ==========");
-                            Console.WriteLine("==      [1] Thêm ghi chú dịch vụ 1 SV         ==");
-                            Console.WriteLine("==      [2] Sửa ghi chú dịch vụ 1 SV          ==");
-                            Console.WriteLine("==      [3] Xoá ghi chú dịch vụ 1 SV          ==");
-                            Console.WriteLine("==      [4] Thêm ghi chú dịch vụ 1 phòng      ==");
-                            Console.WriteLine("==      [5] Sửa ghi chú dịch vụ 1 phòng       ==");
-                            Console.WriteLine("==      [6] Xoá ghi chú dịch vụ 1 phòng       ==");
-                            Console.WriteLine("==      [0] Quay lại                          ==");
-                            Console.WriteLine("================================================");
-                            Console.Write("    Mời bạn chọn chức năng chương trình: ");
+                            Console.WriteLine("                     ========== Chức năng quản lý dịch vụ  ==========");
+                            Console.WriteLine("                     ==      [1] Thêm ghi chú dịch vụ 1 SV         ==");
+                            Console.WriteLine("                     ==      [2] Sửa ghi chú dịch vụ 1 SV          ==");
+                            Console.WriteLine("                     ==      [3] Xoá ghi chú dịch vụ 1 SV          ==");
+                            Console.WriteLine("                     ==      [4] Thêm ghi chú dịch vụ 1 phòng      ==");
+                            Console.WriteLine("                     ==      [5] Sửa ghi chú dịch vụ 1 phòng       ==");
+                            Console.WriteLine("                     ==      [6] Xoá ghi chú dịch vụ 1 phòng       ==");
+                            Console.WriteLine("                     ==      [0] Quay lại                          ==");
+                            Console.WriteLine("                     ================================================");
+                            Console.Write("                         Mời bạn chọn chức năng chương trình: ");
                             option = Console.ReadLine();
                             //Console.WriteLine(option);
                             Console.WriteLine();
@@ -255,32 +255,32 @@ namespace KTX_Management.Main
                             {
                                 case "1":
                                     Console.WriteLine("Bạn chọn chức năng thêm ghi chú dịch vụ 1 SV");
-                                    AddDichVuChung();
+                                    AddDichVuRieng();
                                     key = Console.ReadKey().KeyChar;
                                     break;
                                 case "2":
                                     Console.WriteLine("Bạn chọn chức năng sửa ghi chú dịch vụ 1 SV");
-                                    UpdateDichVuChung();
+                                    UpdateDichVuRieng();
                                     key = Console.ReadKey().KeyChar;
                                     break;
                                 case "3":
                                     Console.WriteLine("Bạn chọn chức năng xoá ghi chú dịch vụ 1 SV");
-                                    DeleteDichVuChung();
+                                    DeleteDichVuRieng();
                                     key = Console.ReadKey().KeyChar;
                                     break;
                                 case "4":
                                     Console.WriteLine("Bạn chọn chức năng thêm chú dịch vụ 1 phòng");
-                                    AddDichVuRieng();
+                                    AddDichVuChung();
                                     key = Console.ReadKey().KeyChar;
                                     break;
                                 case "5":
                                     Console.WriteLine("Bạn chọn chức năng sửa chú dịch vụ 1 phòng");
-                                    UpdateDichVuRieng();
+                                    UpdateDichVuChung();
                                     key = Console.ReadKey().KeyChar;
                                     break;
                                 case "6":
                                     Console.WriteLine("Bạn chọn chức năng xoá chú dịch vụ 1 phòng");
-                                    DeleteDichVuRieng();
+                                    DeleteDichVuChung();
                                     key = Console.ReadKey().KeyChar;
                                     break;
                                 case "0":
@@ -358,7 +358,7 @@ namespace KTX_Management.Main
         public static bool IsDate(string tempDate) 
         {
             DateTime fromDateValue;
-            var formats = new[] { "dd/MM/yyyy", "yyyy-MM-dd" };
+            var formats = new[] { "yyyy/MM/dd", "yyyy-MM-dd" };
             if (DateTime.TryParseExact(tempDate, formats, System.Globalization.CultureInfo.InvariantCulture, System.Globalization.DateTimeStyles.None, out fromDateValue))
             {
                 return true;
@@ -398,6 +398,7 @@ namespace KTX_Management.Main
                 return false;
             }
         }
+
         // Các hàm dùng trong main
 
         // SINHVIEN
@@ -419,7 +420,7 @@ namespace KTX_Management.Main
             temp.HoTen = Console.ReadLine();
             while (true)
             {
-                Console.Write("Ngày sinh (dd/mm/yyyy): ");
+                Console.Write("Ngày sinh (yyyy/mm/dd): ");
                 temp.NgaySinh = Console.ReadLine();
                 if (IsDate(temp.NgaySinh))
                 break;
@@ -506,7 +507,7 @@ namespace KTX_Management.Main
             temp.HoTen = Console.ReadLine();
             while (true)
             {
-                Console.Write("Ngày sinh (dd/mm/yyyy): ");
+                Console.Write("Ngày sinh (yyyy/mm/dd): ");
                 temp.NgaySinh = Console.ReadLine();
                 if (IsDate(temp.NgaySinh))
                     break;
@@ -541,14 +542,14 @@ namespace KTX_Management.Main
         static void AddPhuHuynh()
         {
             int id;
-            Console.Write("Nhap id sinh vien: ");
+            Console.Write("Nhập ID sinh viên muốn thêm thông tin phụ huynh: ");
             id=int.Parse(Console.ReadLine());
             CAUTRUC.NGUOI temp = new CAUTRUC.NGUOI();
-            Console.Write("Tên sinh phu huynh: ");
+            Console.Write("Tên phụ huynh: ");
             temp.HoTen = Console.ReadLine();
             while (true)
             {
-                Console.Write("Ngày sinh (dd/mm/yyyy): ");
+                Console.Write("Ngày sinh (yyyy/mm/dd): ");
                 temp.NgaySinh = Console.ReadLine();
                 if (IsDate(temp.NgaySinh))
                     break;
@@ -573,7 +574,7 @@ namespace KTX_Management.Main
         static void DeletePhuHuynh()
         {
             int id_sinhvien;
-            Console.Write("Nhập ID sinh viên bạn muốn xoá phu huynh: ");
+            Console.Write("Nhập ID sinh viên bạn muốn xoá phụ huynh: ");
             id_sinhvien = int.Parse(Console.ReadLine());
             bool status = SinhVienDAO.Instance.DeletePhuHuynh(id_sinhvien);
             if (status)
@@ -584,14 +585,14 @@ namespace KTX_Management.Main
         static void UpdatePhuHuynh()
         {
             int id;
-            Console.Write("Nhap id sinh vien: ");
+            Console.Write("Nhập ID sinh viên: ");
             id = int.Parse(Console.ReadLine());
             CAUTRUC.NGUOI temp = new CAUTRUC.NGUOI();
-            Console.Write("Tên sinh phu huynh: ");
+            Console.Write("Tên phụ huynh: ");
             temp.HoTen = Console.ReadLine();
             while (true)
             {
-                Console.Write("Ngày sinh (dd/mm/yyyy): ");
+                Console.Write("Ngày sinh (yyyy/mm/dd): ");
                 temp.NgaySinh = Console.ReadLine();
                 if (IsDate(temp.NgaySinh))
                     break;
@@ -623,6 +624,7 @@ namespace KTX_Management.Main
                     break;
                 Console.WriteLine("Không tồn tại ID sinh viên này!");
             }
+            Console.WriteLine("Dữ liệu đầu vào là yyyy/mm/dd!");
             while (true)
             {
                 Console.Write("Ngày kí hợp đồng thuê: ");
@@ -699,12 +701,11 @@ namespace KTX_Management.Main
                 Console.WriteLine("Không tìm thấy bất cứ sinh viên nào!");
             else
             {
-                Console.WriteLine("Giới tính True là nam, False là nữ");
                 Console.WriteLine("| ID sinh viên |          Họ tên          |        SĐT        |");
                 foreach (SINHVIEN temp in sinhvien)
                 {
                     Console.Write(Convert.ToString(temp.IDSinhVien).PadLeft(8));
-                    Console.Write(Convert.ToString(temp.HoTen).PadLeft(22));
+                    Console.Write(Convert.ToString(temp.HoTen).PadLeft(28));
                     Console.WriteLine(Convert.ToString(temp.SDT).PadLeft(18));
                 }
             }

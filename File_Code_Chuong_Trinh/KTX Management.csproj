@@ -73,6 +73,7 @@
     <Content Include="QuerySQL\SP_Add_NoiThat.sql" />
     <Content Include="QuerySQL\SP_Add_Nuoc.sql" />
     <Content Include="QuerySQL\SP_Add_Phong.sql" />
+    <Content Include="QuerySQL\SP_Add_PhuHuynh.sql" />
     <Content Include="QuerySQL\SP_Add_SinhVien.sql" />
     <Content Include="QuerySQL\SP_Delete_DichVuChung.sql" />
     <Content Include="QuerySQL\SP_Delete_DichVuRieng.sql" />
@@ -80,12 +81,14 @@
     <Content Include="QuerySQL\SP_Delete_NoiThat.sql" />
     <Content Include="QuerySQL\SP_Delete_Nuoc.sql" />
     <Content Include="QuerySQL\SP_Delete_Phong.sql" />
+    <Content Include="QuerySQL\SP_Delete_PhuHuynh.sql" />
     <Content Include="QuerySQL\SP_Delete_SinhVien.sql" />
     <Content Include="QuerySQL\SP_Update_DichVuChung.sql" />
     <Content Include="QuerySQL\SP_Update_DichVuRieng.sql" />
     <Content Include="QuerySQL\SP_Update_HopDong.sql" />
     <Content Include="QuerySQL\SP_Update_Phi.sql" />
     <Content Include="QuerySQL\SP_Update_Phong.sql" />
+    <Content Include="QuerySQL\SP_Update_PhuHuynh .sql" />
     <Content Include="QuerySQL\SP_Update_SinhVien.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
