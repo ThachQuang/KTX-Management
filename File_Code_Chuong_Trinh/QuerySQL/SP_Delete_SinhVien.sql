@@ -5,7 +5,6 @@ AS
 BEGIN TRY
 BEGIN TRANSACTION
 	DELETE FROM PHUHUYNH where id_sinhvien = @id_sinhvien
-	DELETE FROM VIPHAM where id_sinhvien = @id_sinhvien
 	DELETE FROM DICHVURIENG where id_sinhvien = @id_sinhvien
 	DELETE FROM SINHVIEN where id_sinhvien = @id_sinhvien
 COMMIT

@@ -469,6 +469,7 @@ namespace KTX_Management.Main
             if (status)
                 Console.WriteLine("Add successful!");
             else Console.WriteLine("Add failed!");
+            UpdateSVPhong(sinhvien.IDPhong, CountSinhVien(sinhvien.IDPhong));
         }
         // Hàm Delete sinh viên khỏi database
         static void DeleteSinhVien()
@@ -476,10 +477,12 @@ namespace KTX_Management.Main
             int id_sinhvien;
             Console.Write("Nhập ID sinh viên bạn muốn xoá: ");
             id_sinhvien = int.Parse(Console.ReadLine());
+            int id_phong = TakeIDPhong(id_sinhvien);
             bool status = SinhVienDAO.Instance.DeleteSinhVien(id_sinhvien);
             if (status)
                 Console.WriteLine("Delete successful!");
             else Console.WriteLine("Delete failed!");
+            UpdateSVPhong(id_phong, CountSinhVien(id_phong));
         }
         // Xoa sinhvien trong phong
         static void DeleteByIdPhong()
@@ -542,6 +545,7 @@ namespace KTX_Management.Main
             if (status)
                 Console.WriteLine("Update successful!");
             else Console.WriteLine("Update failed!");
+            UpdateSVPhong(sinhvien.IDPhong, CountSinhVien(sinhvien.IDPhong));
         }
         // Hàm Update hợp đồng SV trong database
         static void AddPhuHuynh()
@@ -688,7 +692,6 @@ namespace KTX_Management.Main
             }
         }
         // Hàm hiển thị sinh viên theo id phòng
-
         static void XuatThuTu()
         {
             int sosinhvien = 0;
@@ -848,6 +851,13 @@ namespace KTX_Management.Main
                     Console.WriteLine(Convert.ToString(temp.SDT).PadLeft(18));
                 }
             }
+        }
+        // Hàm trả về ID phòng của sinh viên
+        static int TakeIDPhong(int id_sinhvien)
+        {
+            int temp;
+            temp = SinhVienDAO.Instance.IDPhong(id_sinhvien);
+            return temp;
         }
 
         // PHONG
@@ -1238,7 +1248,15 @@ namespace KTX_Management.Main
                 Console.WriteLine("Update successful!");
             else Console.WriteLine("Update failed!");
         }
-
+        // Hàm Update sinh viên trong phòng
+        static void UpdateSVPhong(int id_phong, int so_nguoi_o)
+        {
+            Console.WriteLine("Đang cập nhật lại số người ở trong phòng!");
+            bool status = PhongDAO.Instance.UpdateSVPhong(id_phong, so_nguoi_o);
+            if (status)
+                Console.WriteLine("Update successful!");
+            else Console.WriteLine("Update failed!");
+        }
 
         // DICHVU
         // Hàm Add dịch vụ của sinh viên

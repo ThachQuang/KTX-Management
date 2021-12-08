@@ -39,6 +39,7 @@ namespace KTX_Management.DAO
         const string TINH_TIEN_DIEN = @"select SUM(thanh_tien) FROM DIEN WHERE DIEN.thang = @thang AND DIEN.id_phong = @id_phong";
         const string TINH_TIEN_NUOC = @"select SUM(thanh_tien) FROM NUOC WHERE NUOC.thang = @thang AND NUOC.id_phong = @id_phong";
         const string UPDATE_PHI = @"SP_Update_Phi @id_phong , @phi_thu_thang";
+        const string UPDATE_SV_PHONG = @"SP_Update_SV_Phong @id_phong , @so_nguoi_o";
         // Hàm tương tác với database
         public bool AddPhong(PHONG phong)
         {
@@ -303,6 +304,19 @@ namespace KTX_Management.DAO
                 object[] Para = new object[] { id_phong, sum };
 
                 return DataProvider.Instance.ExecuteNonQuery(UPDATE_PHI, Para) > 0;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public bool UpdateSVPhong(int id_phong, int so_nguoi_o)
+        {
+            try
+            {
+                object[] Para = new object[] { id_phong, so_nguoi_o};
+
+                return DataProvider.Instance.ExecuteNonQuery(UPDATE_SV_PHONG, Para) > 0;
             }
             catch (Exception)
             {

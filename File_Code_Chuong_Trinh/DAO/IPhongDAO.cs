@@ -27,5 +27,6 @@ namespace KTX_Management.DAO
         int TinhTienDien(int id_phong, int thang);
         int TinhTienNuoc(int id_phong, int thang);
         bool UpdatePhi(int id_phong, int thang, int sum);
+        bool UpdateSVPhong(int id_phong, int so_nguoi_o);
     }
 }

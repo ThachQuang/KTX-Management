@@ -33,9 +33,18 @@ namespace KTX_Management.DAO
         const string UPDATE_HOPDONG = @"SP_Update_HopDong @id_sinhvien , @hop_dong_start , @hop_dong_end";
         const string GET_ID = @"SELECT* FROM SINHVIEN WHERE id_phong=@id_phong";
         const string COUNT_SINHVIEN = @"SELECT COUNT(id_sinhvien) FROM SINHVIEN WHERE id_phong = @id_phong";
+        const string TAKE_ID_PHONG = @"SELECT id_phong FROM SINHVIEN WHERE id_sinhvien = @id_sinhvien";
         const string SELECT_ALL = "SELECT * FROM SINHVIEN";
         // Hàm tương tác với database
         const int MAX = 20000;
+        public int IDPhong(int id_sinhvien)
+        {
+            object[] Para = new object[] { id_sinhvien };
+            var TotalSinhVien = DataProvider.Instance.ExecuteScalar(TAKE_ID_PHONG, Para);
+            if (TotalSinhVien is DBNull)
+                return 0;
+            return Convert.ToInt32(TotalSinhVien);
+        }
         public int CountSinhVien(int id_phong)
         {
             object[] Para = new object[] { id_phong };

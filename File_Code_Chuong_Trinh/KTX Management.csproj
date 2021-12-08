@@ -90,6 +90,7 @@
     <Content Include="QuerySQL\SP_Update_Phong.sql" />
     <Content Include="QuerySQL\SP_Update_PhuHuynh .sql" />
     <Content Include="QuerySQL\SP_Update_SinhVien.sql" />
+    <Content Include="QuerySQL\SP_Update_SV_Phong.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
