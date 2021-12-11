@@ -22,14 +22,15 @@ namespace KTX_Management.DAO
         }
         private SinhVienDAO() { }
         // Các chuỗi chứa câu lệnh thực thi procedure sql
+        const string GET_PH_SINHVIEN = @"SELECT DISTINCT id_phuhuynh, ten, ngay_sinh , gioi_tinh , que_quan , nghe_nghiep , sdt FROM PHUHUYNH WHERE PHUHUYNH.id_sinhvien = @id_sinhvien";
         const string GET_SV_PHONG = @"SELECT DISTINCT id_sinhvien, ten, sdt FROM SINHVIEN WHERE SINHVIEN.id_phong = @id_phong";
         const string GET_INFO_SV = @"SELECT DISTINCT id_phong, ten, ngay_sinh, gioi_tinh, que_quan, nghe_nghiep, sdt, cmnd, bhyt, noi_lam_viec, ho_khau, sv_nam, hop_dong_start, hop_dong_end FROM SINHVIEN WHERE SINHVIEN.id_sinhvien = @id_sinhvien";
         const string ADD_SINHVIEN = @"SP_Add_SinhVien @id_phong , @ten , @ngay_sinh , @gioi_tinh , @que_quan , @nghe_nghiep , @sdt , @cmnd , @bhyt , @noi_lam_viec , @ho_khau , @sv_nam , @hop_dong_start , @hop_dong_end";
         const string ADD_PHUHUYNH = @"SP_Add_PhuHuynh @id_phong , @ten , @ngay_sinh , @gioi_tinh , @que_quan , @nghe_nghiep , @sdt";
         const string DELETE_SINHVIEN = @"SP_Delete_SinhVien @id_sinhvien";
-        const string DELETE_PHUHUYNH = @"SP_Delete_PhuHuynh @id_sinhvien";
+        const string DELETE_PHUHUYNH = @"SP_Delete_PhuHuynh @id_phuhuynh";
         const string UPDATE_SINHVIEN = @"SP_Update_SinhVien @id_sinhvien , @id_phong , @ten , @ngay_sinh , @gioi_tinh , @que_quan , @nghe_nghiep , @sdt , @cmnd , @bhyt , @noi_lam_viec , @ho_khau , @sv_nam";
-        const string UPDATE_PHUHUYNH = @"SP_Update_PhuHuynh @id_sinhvien , @id_phong , @ten , @ngay_sinh , @gioi_tinh , @que_quan , @nghe_nghiep , @sdt";
+        const string UPDATE_PHUHUYNH = @"SP_Update_PhuHuynh @id_sinhvien , @id_phuhuynh , @ten , @ngay_sinh , @gioi_tinh , @que_quan , @nghe_nghiep , @sdt";
         const string UPDATE_HOPDONG = @"SP_Update_HopDong @id_sinhvien , @hop_dong_start , @hop_dong_end";
         const string GET_ID = @"SELECT* FROM SINHVIEN WHERE id_phong=@id_phong";
         const string COUNT_SINHVIEN = @"SELECT COUNT(id_sinhvien) FROM SINHVIEN WHERE id_phong = @id_phong";
@@ -79,11 +80,11 @@ namespace KTX_Management.DAO
                 return false;
             }
         }
-        public bool AddPhuHuynh(CAUTRUC.NGUOI phuhuynh,int id)
+        public bool AddPhuHuynh(CAUTRUC.NGUOI phuhuynh,int id_sinhvien)
         {
             try
             {
-                object[] Para = new object[] { id,
+                object[] Para = new object[] { id_sinhvien,
                                                phuhuynh.HoTen,
                                                phuhuynh.NgaySinh,
                                                phuhuynh.GioiTinh,
@@ -112,11 +113,11 @@ namespace KTX_Management.DAO
                 return false;
             }
         }
-        public bool DeletePhuHuynh(int id_sinhvien)
+        public bool DeletePhuHuynh(int id_phuhuynh)
         {
             try
             {
-                object[] Para = new object[] { id_sinhvien };
+                object[] Para = new object[] { id_phuhuynh };
 
                 return DataProvider.Instance.ExecuteNonQuery(DELETE_PHUHUYNH, Para) > 0;
             }
@@ -191,11 +192,12 @@ namespace KTX_Management.DAO
                 return false;
             }
         }
-        public bool UpdatePhuHuynh(CAUTRUC.NGUOI phuhuynh, int id)
+        public bool UpdatePhuHuynh(CAUTRUC.NGUOI phuhuynh, int id_sinhvien, int id_phuhuynh)
         {
             try
             {
-                object[] Para = new object[] { id,
+                object[] Para = new object[] { id_sinhvien,
+                                               id_phuhuynh,
                                                phuhuynh.HoTen,
                                                phuhuynh.NgaySinh,
                                                phuhuynh.GioiTinh,
@@ -305,6 +307,28 @@ namespace KTX_Management.DAO
                 sinhvien.Add(temp);
             }
             return sinhvien;
+        }
+        public List<CAUTRUC.NGUOI> HienThiPhuHuynh(int id_sinhvien)
+        {
+            List<CAUTRUC.NGUOI> phuhuynh = new List<CAUTRUC.NGUOI>();
+            object[] Para = new object[] { id_sinhvien };
+            DataTable Table = DataProvider.Instance.ExecuteQuery(GET_PH_SINHVIEN, Para);
+
+            foreach (DataRow row in Table.Rows)
+            {
+                CAUTRUC.NGUOI temp = new CAUTRUC.NGUOI
+                {
+                    ID = Convert.ToInt32(row["id_phuhuynh"]),
+                    HoTen = Convert.ToString(row["ten"]),
+                    NgaySinh = Convert.ToString(row["ngay_sinh"]),
+                    GioiTinh = Convert.ToString(row["gioi_tinh"]),
+                    QueQuan = Convert.ToString(row["que_quan"]),
+                    NgheNghiep = Convert.ToString(row["nghe_nghiep"]),
+                    SDT = Convert.ToString(row["sdt"])
+                };
+                phuhuynh.Add(temp);
+            }
+            return phuhuynh;
         }
     }
 }

@@ -34,6 +34,7 @@ namespace KTX_Management
         };
         public struct NGUOI
         {
+            public int ID;
             public string HoTen;
             public string NgaySinh;
             public string GioiTinh;

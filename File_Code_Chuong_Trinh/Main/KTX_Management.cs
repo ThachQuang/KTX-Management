@@ -251,6 +251,8 @@ namespace KTX_Management.Main
                             Console.WriteLine("                     ==      [4] Thêm ghi chú dịch vụ 1 phòng      ==");
                             Console.WriteLine("                     ==      [5] Sửa ghi chú dịch vụ 1 phòng       ==");
                             Console.WriteLine("                     ==      [6] Xoá ghi chú dịch vụ 1 phòng       ==");
+                            Console.WriteLine("                     ==      [7] Hiển thị phí dịch vụ 1 phòng      ==");
+                            Console.WriteLine("                     ==      [8] Hiển thị phí dịch vụ 1 sinh viên  ==");
                             Console.WriteLine("                     ==      [0] Quay lại                          ==");
                             Console.WriteLine("                     ================================================");
                             Console.Write("                         Mời bạn chọn chức năng chương trình: ");
@@ -287,6 +289,16 @@ namespace KTX_Management.Main
                                 case "6":
                                     Console.WriteLine("Bạn chọn chức năng xoá chú dịch vụ 1 phòng");
                                     DeleteDichVuChung();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "7":
+                                    Console.WriteLine("Bạn chọn chức năng hiển thị phí dịch vụ 1 phòng theo tháng");
+                                    HienThiDVPhong();
+                                    key = Console.ReadKey().KeyChar;
+                                    break;
+                                case "8":
+                                    Console.WriteLine("Bạn chọn chức năng hiển thị phí dịch vụ 1 sinh viên theo tháng");
+                                    HienThiDVSinhVien();
                                     key = Console.ReadKey().KeyChar;
                                     break;
                                 case "0":
@@ -550,9 +562,16 @@ namespace KTX_Management.Main
         // Hàm Update hợp đồng SV trong database
         static void AddPhuHuynh()
         {
-            int id;
-            Console.Write("Nhập ID sinh viên muốn thêm thông tin phụ huynh: ");
-            id = int.Parse(Console.ReadLine());
+            int id_sinhvien;
+            while (true)
+            {
+                Console.Write("Nhập ID sinh viên muốn thêm thông tin phụ huynh: ");
+                id_sinhvien = int.Parse(Console.ReadLine());
+
+                if (IsExistSinhVienID(id_sinhvien))
+                    break;
+                Console.WriteLine("Không tồn tại ID sinh viên này!");
+            }
             CAUTRUC.NGUOI temp = new CAUTRUC.NGUOI();
             Console.Write("Tên phụ huynh: ");
             temp.HoTen = Console.ReadLine();
@@ -574,7 +593,7 @@ namespace KTX_Management.Main
             Console.Write("SĐT: ");
             temp.SDT = Console.ReadLine();
 
-            bool status = SinhVienDAO.Instance.AddPhuHuynh(temp, id);
+            bool status = SinhVienDAO.Instance.AddPhuHuynh(temp, id_sinhvien);
             if (status)
                 Console.WriteLine("Add successful!");
             else Console.WriteLine("Add failed!");
@@ -582,10 +601,10 @@ namespace KTX_Management.Main
         // Hàm Delete sinh viên khỏi database
         static void DeletePhuHuynh()
         {
-            int id_sinhvien;
-            Console.Write("Nhập ID sinh viên bạn muốn xoá phụ huynh: ");
-            id_sinhvien = int.Parse(Console.ReadLine());
-            bool status = SinhVienDAO.Instance.DeletePhuHuynh(id_sinhvien);
+            int id_phuhuynh;
+            Console.Write("Nhập ID phụ huynh bạn muốn xoá: ");
+            id_phuhuynh = int.Parse(Console.ReadLine());
+            bool status = SinhVienDAO.Instance.DeletePhuHuynh(id_phuhuynh);
             if (status)
                 Console.WriteLine("Delete successful!");
             else Console.WriteLine("Delete failed!");
@@ -593,9 +612,18 @@ namespace KTX_Management.Main
         // Hàm Update phụ huynh sinh viên trong database
         static void UpdatePhuHuynh()
         {
-            int id;
-            Console.Write("Nhập ID sinh viên: ");
-            id = int.Parse(Console.ReadLine());
+            int id_sinhvien, id_phuhuynh;
+            Console.Write("Nhập ID phụ huynh muốn cập nhật thông tin: ");
+            id_phuhuynh = int.Parse(Console.ReadLine());
+            while (true)
+            {
+                Console.Write("Nhập ID sinh viên con của phụ huynh đó: ");
+                id_sinhvien = int.Parse(Console.ReadLine());
+
+                if (IsExistSinhVienID(id_sinhvien))
+                    break;
+                Console.WriteLine("Không tồn tại ID sinh viên này!");
+            }
             CAUTRUC.NGUOI temp = new CAUTRUC.NGUOI();
             Console.Write("Tên phụ huynh: ");
             temp.HoTen = Console.ReadLine();
@@ -615,7 +643,7 @@ namespace KTX_Management.Main
             temp.NgheNghiep = Console.ReadLine();
             Console.Write("SĐT: ");
             temp.SDT = Console.ReadLine();
-            bool status = SinhVienDAO.Instance.UpdatePhuHuynh(temp, id);
+            bool status = SinhVienDAO.Instance.UpdatePhuHuynh(temp, id_sinhvien, id_phuhuynh);
             if (status)
                 Console.WriteLine("Update successful!");
             else Console.WriteLine("Update failed!");
@@ -667,27 +695,54 @@ namespace KTX_Management.Main
                 Console.WriteLine("Không tồn tại ID sinh viên này!");
             }
             List<SINHVIEN> sinhvien = SinhVienDAO.Instance.HienThiSinhVien(id_sinhvien);
-
+            List<CAUTRUC.NGUOI> phuhuynh = SinhVienDAO.Instance.HienThiPhuHuynh(id_sinhvien);
             if (sinhvien.Count == 0)
                 Console.WriteLine("Không tìm thấy bất cứ sinh viên nào!");
             else
             {
-                Console.WriteLine("Giới tính True là nam, False là nữ");
+                Console.WriteLine("\nThông tin của sinh viên");
                 foreach (SINHVIEN temp in sinhvien)
                 {
-                    Console.WriteLine("ID phòng: " + Convert.ToString(temp.IDPhong));
-                    Console.WriteLine("Họ tên: " + Convert.ToString(temp.HoTen));
-                    Console.WriteLine("Ngày sinh : " + Convert.ToString(temp.NgaySinh));
-                    Console.WriteLine("Giới tính: " + Convert.ToString(temp.GioiTinh));
-                    Console.WriteLine("Quê quán: " + Convert.ToString(temp.QueQuan));
-                    Console.WriteLine("Nghề nghiệp: " + Convert.ToString(temp.NgheNghiep));
-                    Console.WriteLine("SĐT: " + Convert.ToString(temp.SDT));
-                    Console.WriteLine("BHYT: " + Convert.ToString(temp.BHYT));
-                    Console.WriteLine("Nơi làm việc: " + Convert.ToString(temp.NoiLamViec));
-                    Console.WriteLine("Hộ khẩu: " + Convert.ToString(temp.DiaChiHK));
-                    Console.WriteLine("Sinh viên năm thứ: " + Convert.ToString(temp.SVNam));
-                    Console.WriteLine("Ngày kí hợp đồng: " + Convert.ToString(temp.HopDongStart));
-                    Console.WriteLine("Ngày hết hạn hợp đồng: " + Convert.ToString(temp.HopDongEnd));
+                    Console.WriteLine("     ID phòng: " + Convert.ToString(temp.IDPhong));
+                    Console.WriteLine("     Họ tên: " + Convert.ToString(temp.HoTen));
+                    Console.WriteLine("     Ngày sinh : " + Convert.ToString(temp.NgaySinh));
+                    Console.Write("     Giới tính: ");
+                    if (Convert.ToString(temp.GioiTinh) == "True")
+                        Console.Write("Nam");
+                    else
+                        Console.Write("Nữ");
+                    Console.WriteLine("     Quê quán: " + Convert.ToString(temp.QueQuan));
+                    Console.WriteLine("     Nghề nghiệp: " + Convert.ToString(temp.NgheNghiep));
+                    Console.WriteLine("     SĐT: " + Convert.ToString(temp.SDT));
+                    Console.WriteLine("     BHYT: " + Convert.ToString(temp.BHYT));
+                    Console.WriteLine("     Nơi làm việc: " + Convert.ToString(temp.NoiLamViec));
+                    Console.WriteLine("     Hộ khẩu: " + Convert.ToString(temp.DiaChiHK));
+                    Console.WriteLine("     Sinh viên năm thứ: " + Convert.ToString(temp.SVNam));
+                    Console.WriteLine("     Ngày kí hợp đồng: " + Convert.ToString(temp.HopDongStart));
+                    Console.WriteLine("     Ngày hết hạn hợp đồng: " + Convert.ToString(temp.HopDongEnd));
+                }
+            }
+            if (phuhuynh.Count == 0)
+                Console.WriteLine("Không tìm thấy bất cứ phụ huynh của sinh viên này!");
+            else
+            {
+                Console.WriteLine("\nThông tin phụ huynh của sinh viên");
+                int i = 1;
+                foreach (CAUTRUC.NGUOI temp in phuhuynh)
+                {
+                    Console.WriteLine("Phụ huynh thứ {0}", i);
+                    Console.WriteLine("     ID phụ huynh: " + Convert.ToString(temp.ID));
+                    Console.WriteLine("     Họ tên: " + Convert.ToString(temp.HoTen));
+                    Console.WriteLine("     Ngày sinh : " + Convert.ToString(temp.NgaySinh));
+                    Console.Write("     Giới tính: ");
+                    if (Convert.ToString(temp.GioiTinh) == "True")
+                        Console.Write("Nam");
+                    else
+                        Console.Write("Nữ");
+                    Console.WriteLine("     Quê quán: " + Convert.ToString(temp.QueQuan));
+                    Console.WriteLine("     Nghề nghiệp: " + Convert.ToString(temp.NgheNghiep));
+                    Console.WriteLine("     SĐT: " + Convert.ToString(temp.SDT));
+                    i++;
                 }
             }
         }
@@ -703,7 +758,6 @@ namespace KTX_Management.Main
             {
                 Console.Clear();
                 Console.WriteLine("Danh sách sinh viên hiện tại: ");
-                Console.WriteLine("Giới tính True là nam, False là nữ");
                 foreach (SINHVIEN temp in sinhvien)
                 {
                     if (temp == null)
@@ -713,7 +767,11 @@ namespace KTX_Management.Main
                     Console.WriteLine("     ID phòng: " + Convert.ToString(temp.IDPhong));
                     Console.WriteLine("     Họ tên: " + Convert.ToString(temp.HoTen));
                     Console.WriteLine("     Ngày sinh : " + Convert.ToString(temp.NgaySinh));
-                    Console.WriteLine("     Giới tính: " + Convert.ToString(temp.GioiTinh));
+                    Console.Write("     Giới tính: ");
+                    if (Convert.ToString(temp.GioiTinh) == "True")
+                        Console.Write("Nam");
+                    else
+                        Console.Write("Nữ");
                     Console.WriteLine("     Quê quán: " + Convert.ToString(temp.QueQuan));
                     Console.WriteLine("     Nghề nghiệp: " + Convert.ToString(temp.NgheNghiep));
                     Console.WriteLine("     SĐT: " + Convert.ToString(temp.SDT));
@@ -723,14 +781,15 @@ namespace KTX_Management.Main
                     Console.WriteLine("     Sinh viên năm thứ: " + Convert.ToString(temp.SVNam));
                     Console.WriteLine("     Ngày kí hợp đồng: " + Convert.ToString(temp.HopDongStart));
                     Console.WriteLine("     Ngày hết hạn hợp đồng: " + Convert.ToString(temp.HopDongEnd));
+                    Console.WriteLine();
                 }
             }
             string option = "";
             while (option != "0")
             {
                 Console.WriteLine("Chọn thứ tự muốn sắp xếp ");
-                Console.WriteLine("     1. Xuất theo thứ tự phòng");
-                Console.WriteLine("     2. Xuất theo thứ tự ngày hết hợp đồng");
+                Console.WriteLine("     1. Xuất theo thứ tự phòng tăng dần");
+                Console.WriteLine("     2. Xuất theo thứ tự ngày hết hợp đồng sớm nhất");
                 Console.WriteLine("     3. Xuất theo thứ tự niên khoá của sinh viên");
                 Console.WriteLine("     0. Huỷ lệnh");
                 Console.Write("Chọn lệnh: ");
@@ -738,10 +797,13 @@ namespace KTX_Management.Main
                 switch (option)
                 {
                     case "0":
+                        Console.Clear();
                         Console.WriteLine("Danh sách không thay đổi!");
                         break;
                     case "1":
                         //bubble sort 
+                        Console.Clear();
+                        Console.WriteLine("Bạn chọn sắp xếp theo thứ tự phòng tăng dần!");
                         bool check = false;
                         for (int i = 0; i < sosinhvien - 1; i++)
                         {
@@ -761,6 +823,8 @@ namespace KTX_Management.Main
                         break;
                     case "2":
                         //Selection sort
+                        Console.Clear();
+                        Console.WriteLine("Bạn chọn sắp xếp theo ngày hết hạn hợp đồng sớm nhất!");
                         int min;
                         for (int i = 0; i < sosinhvien - 1; i++)
                         {
@@ -779,6 +843,8 @@ namespace KTX_Management.Main
                         break;
                     case "3":
                         //Insertion Sort
+                        Console.Clear();
+                        Console.WriteLine("Bạn chọn sắp xếp tăng dần theo niên khoá của sinh viên!");
                         SINHVIEN  x;
                         int pos;
                         for (int i = 1; i < sosinhvien; i++)
@@ -795,11 +861,13 @@ namespace KTX_Management.Main
                         option = "0";
                         break;
                     default:
-                        Console.WriteLine("Lệnh không tồn tại");
+                        Console.WriteLine("Không có chức năng này!");
+                        Console.WriteLine("Nhấn phím bất kỳ để tiếp tục");
+                        char key = Console.ReadKey().KeyChar;
                         break;
                 }
                 sosinhvien = 0;
-                Console.Clear();
+                
                 foreach (SINHVIEN temp in sinhvien)
                 {
                     if (temp == null)
@@ -809,7 +877,11 @@ namespace KTX_Management.Main
                     Console.WriteLine("     ID phòng: " + Convert.ToString(temp.IDPhong));
                     Console.WriteLine("     Họ tên: " + Convert.ToString(temp.HoTen));
                     Console.WriteLine("     Ngày sinh : " + Convert.ToString(temp.NgaySinh));
-                    Console.WriteLine("     Giới tính: " + Convert.ToString(temp.GioiTinh));
+                    Console.Write("     Giới tính: ");
+                    if (Convert.ToString(temp.GioiTinh) == "True")
+                        Console.Write("Nam");
+                    else
+                        Console.Write("Nữ");
                     Console.WriteLine("     Quê quán: " + Convert.ToString(temp.QueQuan));
                     Console.WriteLine("     Nghề nghiệp: " + Convert.ToString(temp.NgheNghiep));
                     Console.WriteLine("     SĐT: " + Convert.ToString(temp.SDT));
@@ -819,6 +891,7 @@ namespace KTX_Management.Main
                     Console.WriteLine("     Sinh viên năm thứ: " + Convert.ToString(temp.SVNam));
                     Console.WriteLine("     Ngày kí hợp đồng: " + Convert.ToString(temp.HopDongStart));
                     Console.WriteLine("     Ngày hết hạn hợp đồng: " + Convert.ToString(temp.HopDongEnd));
+                    Console.WriteLine();
                 }
             }
             
@@ -1134,7 +1207,7 @@ namespace KTX_Management.Main
             else
             {
                 Console.WriteLine("Tổng số phòng có trong database là: " + phong.Count);
-                Console.WriteLine("| ID phòng |  Tên  | Khu | Tầng | Sức chứa | Số người | Diện tích | Giá thuê |");
+                Console.WriteLine("| ID phòng |  Tên  | Khu | Tầng | Sức chứa | Số người | Diện tích |    Giá thuê    |");
                 foreach (PHONG temp in phong)
                 {
                     Console.Write(Convert.ToString(temp.IDPhong).PadLeft(6));
@@ -1144,7 +1217,7 @@ namespace KTX_Management.Main
                     Console.Write(Convert.ToString(temp.SucChua).PadLeft(8));
                     Console.Write(Convert.ToString(temp.SoNguoi).PadLeft(12));
                     Console.Write(Convert.ToString(temp.DienTich).PadLeft(12));
-                    Console.WriteLine(Convert.ToString(temp.GiaThue).PadLeft(14));
+                    Console.WriteLine(Convert.ToString(temp.GiaThue).PadLeft(14) + " VND");
                 }
             }
         }
@@ -1167,7 +1240,6 @@ namespace KTX_Management.Main
             else
             {
                 Console.WriteLine("Tổng số nội thất có trong phòng là: " + noithat.Count);
-                Console.WriteLine("Tình trạng False là bình thường, True là có hư hỏng");
                 foreach (CAUTRUC.NT temp in noithat)
                 {
                     Console.Write("Tên nội thất: ");
@@ -1175,7 +1247,10 @@ namespace KTX_Management.Main
                     Console.Write("Số lượng: ");
                     Console.Write(Convert.ToString(temp.SoLuong) + "  ");
                     Console.Write("Tình trạng: ");
-                    Console.WriteLine(Convert.ToString(temp.TinhTrang));
+                    if (Convert.ToString(temp.TinhTrang) == "True")
+                        Console.WriteLine("Có hư hỏng");
+                    else
+                        Console.WriteLine("Bình thường");
                 }
             }
         }
@@ -1196,7 +1271,7 @@ namespace KTX_Management.Main
                     Console.Write(Convert.ToString(temp.TenPhong).PadLeft(11));
                     Console.Write(Convert.ToString(temp.Khu).PadLeft(6));
                     Console.Write(Convert.ToString(temp.Tang).PadLeft(6));
-                    Console.WriteLine(Convert.ToString(temp.TongThu).PadLeft(14));
+                    Console.WriteLine(Convert.ToString(temp.TongThu).PadLeft(14) + " VND");
                 }
             }
         }
@@ -1273,17 +1348,26 @@ namespace KTX_Management.Main
                 Console.WriteLine("Không tồn tại ID sinh viên này!");
             }
             int thang;
+            char key;
             Console.Write("Nhập tháng: ");
             thang = int.Parse(Console.ReadLine());
             int dich_vu_1;
-            Console.Write("Nhập số lần dùng dịch vụ 1: ");
+            Console.Write("Nhập số lần dùng giặt xả: ");
             dich_vu_1 = int.Parse(Console.ReadLine());
             int dich_vu_2;
-            Console.Write("Nhập số lần dùng dịch vụ 2: ");
-            dich_vu_2 = int.Parse(Console.ReadLine());
+            Console.Write("Có sử dụng dịch vụ gửi xe tháng không (Y/N): ");
+            key = char.Parse(Console.ReadLine());
+            if (key == 'Y' || key == 'y')
+                dich_vu_2 = 1;
+            else
+                dich_vu_2 = 0;
             int dich_vu_3;
-            Console.Write("Nhập số lần dùng dịch vụ 3: ");
-            dich_vu_3 = int.Parse(Console.ReadLine());
+            Console.Write("Có sử dụng dịch vụ wifi cá nhân tháng không (Y/N): ");
+            key = char.Parse(Console.ReadLine());
+            if (key == 'Y' || key == 'y')
+                dich_vu_3 = 1;
+            else
+                dich_vu_3 = 0;
             int thanhtien;
             thanhtien = dich_vu_1 * DICHVU.DVCaNhan.GiaDV1 + dich_vu_2 * DICHVU.DVCaNhan.GiaDV2 + dich_vu_3 * DICHVU.DVCaNhan.GiaDV3;
 
@@ -1306,17 +1390,26 @@ namespace KTX_Management.Main
                 Console.WriteLine("Không tồn tại ID sinh viên này!");
             }
             int thang;
+            char key;
             Console.Write("Nhập tháng: ");
             thang = int.Parse(Console.ReadLine());
             int dich_vu_1;
-            Console.Write("Nhập số lần dùng dịch vụ 1: ");
+            Console.Write("Nhập số lần dùng giặt xả: ");
             dich_vu_1 = int.Parse(Console.ReadLine());
             int dich_vu_2;
-            Console.Write("Nhập số lần dùng dịch vụ 2: ");
-            dich_vu_2 = int.Parse(Console.ReadLine());
+            Console.Write("Có sử dụng dịch vụ gửi xe tháng không (Y/N): ");
+            key = char.Parse(Console.ReadLine());
+            if (key == 'Y' || key == 'y')
+                dich_vu_2 = 1;
+            else
+                dich_vu_2 = 0;
             int dich_vu_3;
-            Console.Write("Nhập số lần dùng dịch vụ 3: ");
-            dich_vu_3 = int.Parse(Console.ReadLine());
+            Console.Write("Có sử dụng dịch vụ wifi cá nhân tháng không (Y/N): ");
+            key = char.Parse(Console.ReadLine());
+            if (key == 'Y' || key == 'y')
+                dich_vu_3 = 1;
+            else
+                dich_vu_3 = 0;
             int thanhtien;
             thanhtien = dich_vu_1 * DICHVU.DVCaNhan.GiaDV1 + dich_vu_2 * DICHVU.DVCaNhan.GiaDV2 + dich_vu_3 * DICHVU.DVCaNhan.GiaDV3;
             bool status = DichVuDAO.Instance.UpdateDichVuRieng(id_sinhvien, thang, dich_vu_1, dich_vu_2, dich_vu_3, thanhtien);
@@ -1361,10 +1454,15 @@ namespace KTX_Management.Main
             Console.Write("Nhập tháng: ");
             thang = int.Parse(Console.ReadLine());
             int dich_vu_1;
-            Console.Write("Nhập số lần sử dụng dịch vụ 1: ");
-            dich_vu_1 = int.Parse(Console.ReadLine());
+            char key;
+            Console.Write("Có sử dụng dịch vụ wifi phòng không (Y/N): ");
+            key = char.Parse(Console.ReadLine());
+            if (key == 'Y' || key == 'y')
+                dich_vu_1 = 1;
+            else
+                dich_vu_1 = 0;
             int dich_vu_2;
-            Console.Write("Nhập số lần sử dụng dịch vụ 2: ");
+            Console.Write("Nhập số lần sử dụng sửa chữa nội thất: ");
             dich_vu_2 = int.Parse(Console.ReadLine());
             int thanhtien;
             thanhtien = dich_vu_1 * DICHVU.DVChung.GiaDV1 + dich_vu_2 * DICHVU.DVChung.GiaDV2;
@@ -1391,10 +1489,15 @@ namespace KTX_Management.Main
             Console.Write("Nhập tháng: ");
             thang = int.Parse(Console.ReadLine());
             int dich_vu_1;
-            Console.Write("Nhập số lần sử dụng dịch vụ 1: ");
-            dich_vu_1 = int.Parse(Console.ReadLine());
+            char key;
+            Console.Write("Có sử dụng dịch vụ wifi phòng không (Y/N): ");
+            key = char.Parse(Console.ReadLine());
+            if (key == 'Y' || key == 'y')
+                dich_vu_1 = 1;
+            else
+                dich_vu_1 = 0;
             int dich_vu_2;
-            Console.Write("Nhập số lần sử dụng dịch vụ 2: ");
+            Console.Write("Nhập số lần sử dụng sửa chữa nội thất: ");
             dich_vu_2 = int.Parse(Console.ReadLine());
             int thanhtien;
             thanhtien = dich_vu_1 * DICHVU.DVChung.GiaDV1 + dich_vu_2 * DICHVU.DVChung.GiaDV2;
@@ -1435,6 +1538,42 @@ namespace KTX_Management.Main
         {
             int tien_dv = DichVuDAO.Instance.TinhTienDichVuRieng(id_sinhvien, thang);
             return tien_dv;
+        }
+        // Hàm hiển thị thành tiền dịch vụ của phòng theo tháng
+        static void HienThiDVPhong()
+        {
+            int id_phong, thang;
+            while (true)
+            {
+                Console.Write("Nhập ID phòng muốn xem phí dịch vụ: ");
+                id_phong = int.Parse(Console.ReadLine());
+
+                if (IsExistPhongID(id_phong))
+                    break;
+                Console.WriteLine("Không tồn tại ID phòng này!");
+            }
+            Console.Write("Nhập tháng muốn xem phí: ");
+            thang = int.Parse(Console.ReadLine());
+            int thanhtien = TinhTienDVC(id_phong, thang);
+            Console.WriteLine("Thành tiền dịch vụ: {0}", thanhtien, "VND");
+        }
+        // Hàm hiển thị thành tiền dịch vụ của phòng theo tháng
+        static void HienThiDVSinhVien()
+        {
+            int id_sinhvien, thang;
+            while (true)
+            {
+                Console.Write("Nhập ID sinh viên muốn xem phí dịch vụ: ");
+                id_sinhvien = int.Parse(Console.ReadLine());
+
+                if (IsExistSinhVienID(id_sinhvien))
+                    break;
+                Console.WriteLine("Không tồn tại ID sinh viên này!");
+            }
+            Console.Write("Nhập tháng muốn xem phí: ");
+            thang = int.Parse(Console.ReadLine());
+            int thanhtien = TinhTienDVR(id_sinhvien, thang);
+            Console.WriteLine("Thành tiền dịch vụ: {0}", thanhtien, "VND");
         }
     }
 }
