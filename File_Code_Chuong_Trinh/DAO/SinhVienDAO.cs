@@ -257,7 +257,6 @@ namespace KTX_Management.DAO
             }
             return sinhvien;
         }
-
         public SINHVIEN[] XuatThuTu()
         {
             SINHVIEN[] sinhvien = new SINHVIEN[MAX];

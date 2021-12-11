@@ -3,9 +3,13 @@ using KTX_Management.DAO;
 using KTX_Management.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Office.Interop;
+using Microsoft.Office.Interop.Excel;
+using System.IO;
 
 namespace KTX_Management.Main
 {
@@ -19,6 +23,8 @@ namespace KTX_Management.Main
             char key;
             string option;
             bool end_signal = true;
+            
+            // While loop chương trình
             while (true)
             {
                 Console.Clear();
@@ -26,6 +32,7 @@ namespace KTX_Management.Main
                 Console.WriteLine("                     ==         [1] Quản lý phòng ở KTX            ==");
                 Console.WriteLine("                     ==         [2] Quản lý sinh viên KTX          ==");
                 Console.WriteLine("                     ==         [3] Quản lý dịch vụ KTX            ==");
+                Console.WriteLine("                     ==         [4] Xuất dữ liệu ra file Excel     ==");
                 Console.WriteLine("                     ==         [0] Thoát chương trình             ==");
                 Console.WriteLine("                     ================================================");
                 Console.Write("                         Mời bạn chọn chức năng chương trình: ");
@@ -315,6 +322,10 @@ namespace KTX_Management.Main
                         }
                         end_signal = true;
                         break;
+                    case "4":
+                        XUATFILE M = new XUATFILE();
+                        M.HamXuatFile();
+                        break;
                     case "0":
                         Console.WriteLine("Đã thoát chương trình!");
                         return;
@@ -370,7 +381,7 @@ namespace KTX_Management.Main
             //TinhTienDVR(id_sinhvien, thang);
 
         }
-
+        
         // Hàm check date có đúng hay không
         public static bool IsDate(string tempDate)
         {
@@ -1575,5 +1586,121 @@ namespace KTX_Management.Main
             int thanhtien = TinhTienDVR(id_sinhvien, thang);
             Console.WriteLine("Thành tiền dịch vụ: {0}", thanhtien, "VND");
         }
+
+        // Lớp cho Xuất file
+        class XUATFILE
+        {
+            public void HamXuatFile()
+            {
+                string duongdanfile, query = "";
+                int key = -1;
+                while (key < 0 || key >8)
+                {
+                    Console.Clear();
+                    Console.WriteLine("                     =======   Xuất dữ liệu sang file Excel   =======");
+                    Console.WriteLine("                     ==     [1] Bảng dữ liệu tất cả phòng          ==");
+                    Console.WriteLine("                     ==     [2] Bảng dữ liệu tiền điện các phòng   ==");
+                    Console.WriteLine("                     ==     [3] Bảng dữ liệu tiền nước các phòng   ==");
+                    Console.WriteLine("                     ==     [4] Bảng dữ liệu dịch vụ các phòng     ==");
+                    Console.WriteLine("                     ==     [5] Bảng dữ liệu nội thất các phòng    ==");
+                    Console.WriteLine("                     ==     [6] Bảng dữ liệu tất cả sinh viên      ==");
+                    Console.WriteLine("                     ==     [7] Bảng dữ liệu phụ huynh sinh viên   ==");
+                    Console.WriteLine("                     ==     [8] Bảng dữ liệu dịch vụ sinh viên     ==");
+                    Console.WriteLine("                     ==     [0] Quay lại                           ==");
+                    Console.WriteLine("                     ================================================");
+                    Console.Write("                                  Mời bạn chọn chức năng: ");
+                    key = int.Parse(Console.ReadLine());
+                    switch (key)
+                    {
+                        case 1:
+                            query = "select * from PHONG";
+                            break;
+                        case 2:
+                            query = "select * from DIEN";
+                            break;
+                        case 3:
+                            query = "select * from NUOC";
+                            break;
+                        case 4:
+                            query = "select * from DICHVUCHUNG";
+                            break;
+                        case 5:
+                            query = "select * from NOITHAT";
+                            break;
+                        case 6:
+                            query = "select * from SINHVIEN";
+                            break;
+                        case 7:
+                            query = "select * from PHUHUYNH";
+                            break;
+                        case 8:
+                            query = "select * from DICHVURIENG";
+                            break;
+                        case 0:
+                            return;
+                        default:
+                            Console.WriteLine("Không có chức năng này!");
+                            Console.WriteLine("Nhấn phím bất kì để tiếp tục");
+                            char temp = Console.ReadKey().KeyChar;
+                            break;
+
+                    }
+                }
+                Console.WriteLine(@"Ví dụ cho đường dẫn: D:\Data\BangSinhVien");
+                Console.Write("Mời bạn nhập đường dẫn file muốn lưu: ");
+                duongdanfile = Console.ReadLine();
+                duongdanfile += ".xlsx";
+                
+                SQLtoExcel(query, @duongdanfile);
+                System.Diagnostics.Process.Start(@duongdanfile);
+            }
+
+            public void SQLtoExcel(string query, string Output)
+            {
+                string Filename = @"C:\est.csv";
+                SqlConnection conn = DataProvider.GetSqlConnection();
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(query, conn);
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                using (System.IO.StreamWriter fs = new System.IO.StreamWriter(Filename, false, Encoding.UTF8))
+                {
+                    // Loop through the fields and add headers
+                    for (int i = 0; i < dr.FieldCount; i++)
+                    {
+                        string name = dr.GetName(i);
+                        if (name.Contains(","))
+                            name = " + name + ";
+
+                        fs.Write(name + ",");
+                    }
+                    fs.WriteLine();
+
+                    // Loop through the rows and output the data
+                    while (dr.Read())
+                    {
+                        for (int i = 0; i < dr.FieldCount; i++)
+                        {
+                            string value = dr[i].ToString();
+                            if (value.Contains(","))
+                                value = " + value + ";
+
+                            fs.Write(value + ",");
+                        }
+                        fs.WriteLine();
+                    }
+
+                    fs.Close();
+                }
+
+                Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
+                Workbook wb = app.Workbooks.Open(Filename, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                wb.SaveAs(Output, XlFileFormat.xlOpenXMLWorkbook, Type.Missing, Type.Missing, Type.Missing, Type.Missing, XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                wb.Close();
+                app.Quit();
+                File.Delete(Filename);
+            }
+        }
     }
+        
 }
