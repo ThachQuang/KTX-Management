@@ -337,51 +337,8 @@ namespace KTX_Management.Main
                         break;
                 }
             }
-            // Các hàm cho Phòng
-            //AddPhong();
-            //UpdatePhong();
-            //DeletePhong();
-            //AddNoiThat();
-            //DeleteNoiThat();
-            //CheckNoiThat();
-            //FixNoiThat();
-            //CountSinhVien(id_phong);
-            //AddThongSoDien();
-            //DeleteThongSoDien();
-            //AddThongSoNuoc();
-            //DeleteThongSoNuoc();
-            //HienThiPhong();
-            //HienThiNoiThat();
-            //HienThiPhi();
-            //TinhTienDien(id_phong, thang);
-            //TinhTienNuoc(id_phong, thang);
-            //TinhTienPhi(id_phong);
-            //UpdatePhi();
-
-            // Các hàm cho Sinh Viên
-            //AddSinhVien();
-            //DeleteSinhVien();
-            //UpdateSinhVien();
-            //UpdateHopDong();
-            //DeleteByIdPhong();
-            //DeletePhuHuynh();
-            //AddPhuHuynh();
-            //UpdatePhuHuynh();
-            //HienThiSinhVien();
-            //HienThiSVPhong();
-
-            // Các hàm cho Dịch Vụ
-            //AddDichVuRieng();
-            //UpdateDichVuRieng();
-            //DeleteDichVuRieng();
-            //AddDichVuChung();
-            //UpdateDichVuChung();
-            //DeleteDichVuChung();
-            //TinhTienDVC(id_phong, thang);
-            //TinhTienDVR(id_sinhvien, thang);
-
         }
-        
+        // Các hàm chuẩn hoá
         // Hàm check date có đúng hay không
         public static bool IsDate(string tempDate)
         {
@@ -841,7 +798,8 @@ namespace KTX_Management.Main
                         {
                             min = i;
                             for (int j = i + 1; j < sosinhvien; j++)
-                                if (DateTime.Compare(Convert.ToDateTime(sinhvien[j].HopDongEnd), Convert.ToDateTime(sinhvien[min].HopDongEnd))<0)
+                                if (DateTime.Compare(Convert.ToDateTime(sinhvien[j].HopDongEnd), 
+                                    Convert.ToDateTime(sinhvien[min].HopDongEnd))<0)
                                     min = j;
                             if (min != i)
                             {
@@ -963,7 +921,9 @@ namespace KTX_Management.Main
             Console.Write("Giá thuê: ");
             phong.GiaThue = double.Parse(Console.ReadLine());
             phong.TongThu = 0;
+
             bool status = PhongDAO.Instance.AddPhong(phong);
+
             if (status)
                 Console.WriteLine("Add successful!");
             else Console.WriteLine("Add failed!");
@@ -1212,11 +1172,120 @@ namespace KTX_Management.Main
         static void HienThiPhong()
         {
             List<PHONG> phong = PhongDAO.Instance.HienThiPhong();
-
             if (phong.Count == 0)
                 Console.WriteLine("Không tìm thấy bất cứ phòng nào!");
             else
             {
+                Console.WriteLine("Danh sách phòng trước khi sắp xếp!");
+                Console.WriteLine("Tổng số phòng có trong database là: " + phong.Count);
+                Console.WriteLine("| ID phòng |  Tên  | Khu | Tầng | Sức chứa | Số người | Diện tích |    Giá thuê    |");
+                foreach (PHONG temp in phong)
+                {
+                    Console.Write(Convert.ToString(temp.IDPhong).PadLeft(6));
+                    Console.Write(Convert.ToString(temp.TenPhong).PadLeft(11));
+                    Console.Write(Convert.ToString(temp.Khu).PadLeft(6));
+                    Console.Write(Convert.ToString(temp.Tang).PadLeft(6));
+                    Console.Write(Convert.ToString(temp.SucChua).PadLeft(8));
+                    Console.Write(Convert.ToString(temp.SoNguoi).PadLeft(12));
+                    Console.Write(Convert.ToString(temp.DienTich).PadLeft(12));
+                    Console.WriteLine(Convert.ToString(temp.GiaThue).PadLeft(14) + " VND");
+                }
+            }
+            Console.WriteLine("1. Sắp xếp theo id phòng tăng dần");
+            Console.WriteLine("2. Sắp xếp theo id phòng giảm dần");
+            Console.WriteLine("3. Sắp xếp theo tên phòng từ A-Z");
+            Console.WriteLine("4. Sắp xếp theo tên phòng từ Z-A");
+            int key;
+            while(true)
+            {
+                Console.Write("Mời bạn chọn cách sắp xếp:");
+                key = int.Parse(Console.ReadLine());
+                if (key >= 1 && key <= 4)
+                    break;
+                else
+                    Console.WriteLine("Không có chức năng này");
+            }
+
+            switch (key)
+            {
+                case 1:
+                    //Interchange sort
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Bạn chọn sắp xếp theo ID phòng tăng dần!");
+                        for (int i = 0; i < phong.Count - 1; i++)
+                        {
+                            for (int j = i + 1; j < phong.Count; j++)
+                                if (phong[i].IDPhong > phong[j].IDPhong)
+                                {
+                                    PHONG temp = phong[i];
+                                    phong[i] = phong[j];
+                                    phong[j] = temp;
+                                }
+                        }
+                        break;
+                    }
+                case 2:
+                    //Interchange sort
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Bạn chọn sắp xếp theo ID phòng giảm dần!");
+                        for (int i = 0; i < phong.Count - 1; i++)
+                        {
+                            for (int j = i + 1; j < phong.Count; j++)
+                                if (phong[i].IDPhong < phong[j].IDPhong)
+                                {
+                                    PHONG temp = phong[i];
+                                    phong[i] = phong[j];
+                                    phong[j] = temp;
+                                }
+                        }
+                        break;
+                    }
+                case 3:
+                    //Bubble sort
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Bạn chọn sắp xếp theo tên phòng A-Z!");
+                        for (int i = 0; i < phong.Count - 1; i++)
+                        {
+                            for (int j = phong.Count - 1; j > i; j--)
+                            {
+                                if (phong[j].TenPhong[0] < phong[j - 1].TenPhong[0])
+                                {
+                                    PHONG temp = phong[j];
+                                    phong[j] = phong[j - 1];
+                                    phong[j - 1] = temp;
+                                }
+                            }
+                        }
+                        break;
+                    }
+                case 4:
+                    //Bubble sort
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Bạn chọn sắp xếp theo tên phòng Z-A!");
+                        for (int i = 0; i < phong.Count - 1; i++)
+                        {
+                            for (int j = phong.Count - 1; j > i; j--)
+                            {
+                                if (phong[j].TenPhong[0] > phong[j - 1].TenPhong[0])
+                                {
+                                    PHONG temp = phong[j];
+                                    phong[j] = phong[j - 1];
+                                    phong[j - 1] = temp;
+                                }
+                            }
+                        }
+                        break;
+                    }
+            }
+            if (phong.Count == 0)
+                Console.WriteLine("Không tìm thấy bất cứ phòng nào!");
+            else
+            {
+                Console.WriteLine("Danh sách phòng sau khi sắp xếp!");
                 Console.WriteLine("Tổng số phòng có trong database là: " + phong.Count);
                 Console.WriteLine("| ID phòng |  Tên  | Khu | Tầng | Sức chứa | Số người | Diện tích |    Giá thuê    |");
                 foreach (PHONG temp in phong)
@@ -1250,7 +1319,79 @@ namespace KTX_Management.Main
                 Console.WriteLine("Không tìm thấy bất cứ nội thất nào!");
             else
             {
+                Console.WriteLine("Danh sách nội thất trước khi sắp xếp!");
                 Console.WriteLine("Tổng số nội thất có trong phòng là: " + noithat.Count);
+                Console.WriteLine();
+                foreach (CAUTRUC.NT temp in noithat)
+                {
+                    Console.Write("Tên nội thất: ");
+                    Console.Write(Convert.ToString(temp.Ten) + "  ");
+                    Console.Write("Số lượng: ");
+                    Console.Write(Convert.ToString(temp.SoLuong) + "  ");
+                    Console.Write("Tình trạng: ");
+                    if (Convert.ToString(temp.TinhTrang) == "True")
+                        Console.WriteLine("Có hư hỏng");
+                    else
+                        Console.WriteLine("Bình thường");
+                }
+            }
+            
+            Console.WriteLine("1. Sắp xếp theo tên nội thất A-Z");
+            Console.WriteLine("2. Sắp xếp theo tên nội thất Z-A");
+            int key;
+            while (true)
+            {
+                Console.Write("Mời bạn chọn cách sắp xếp:");
+                key = int.Parse(Console.ReadLine());
+                if (key >= 1 && key <= 4)
+                    break;
+                else
+                    Console.WriteLine("Không có chức năng này");
+            }
+
+            switch (key)
+            {
+                case 1:
+                    //Interchange sort
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Bạn chọn sắp xếp theo tên nội thất A-Z!");
+                        for (int i = 0; i < noithat.Count - 1; i++)
+                        {
+                            for (int j = i + 1; j < noithat.Count; j++)
+                                if (noithat[i].Ten[0] > noithat[j].Ten[0])
+                                {
+                                    CAUTRUC.NT temp = noithat[i];
+                                    noithat[i] = noithat[j];
+                                    noithat[j] = temp;
+                                }
+                        }
+                        break;
+                    }
+                case 2:
+                    //Interchange sort
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Bạn chọn sắp xếp theo tên nội thất Z-A!");
+                        for (int i = 0; i < noithat.Count - 1; i++)
+                        {
+                            for (int j = i + 1; j < noithat.Count; j++)
+                                if (noithat[i].Ten[0] < noithat[j].Ten[0])
+                                {
+                                    CAUTRUC.NT temp = noithat[i];
+                                    noithat[i] = noithat[j];
+                                    noithat[j] = temp;
+                                }
+                        }
+                        break;
+                    }
+            }
+            if (noithat.Count == 0)
+                Console.WriteLine("Không tìm thấy bất cứ nội thất nào!");
+            else
+            {
+                Console.WriteLine("Tổng số nội thất có trong phòng là: " + noithat.Count);
+                Console.WriteLine();
                 foreach (CAUTRUC.NT temp in noithat)
                 {
                     Console.Write("Tên nội thất: ");
